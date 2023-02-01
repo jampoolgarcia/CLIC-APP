@@ -19,6 +19,11 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
   },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'sing-in'
+  }
   // {
   //   path: '**',
   //   redirectTo: 'sing-in',
