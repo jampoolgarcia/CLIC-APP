@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '@modules/auth/auth.service';
 
 @Component({
   selector: 'app-sing-in',
@@ -7,9 +9,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingInComponent implements OnInit {
 
-  constructor() { }
+  public loginForm!: FormGroup;
+
+  constructor(private _service: AuthService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.buildForm();
+  }
+
+  private buildForm() {
+    this.loginForm = this.fb.group({
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/),
+        ],
+      ],
+      password: [
+        '',
+        [Validators.required],
+      ],
+    });
+  }
+
+  public login(){
+    const { email, password } = this.loginForm.value;
+    
+    console.log(this._service.login({email, password}));
   }
 
 }

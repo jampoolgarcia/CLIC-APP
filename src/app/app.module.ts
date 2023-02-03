@@ -17,6 +17,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { environment } from '../environments/environment';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
+    BrowserAnimationsModule,
   ],
   exports: [
     RouterModule,
