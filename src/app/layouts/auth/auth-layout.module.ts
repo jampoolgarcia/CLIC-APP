@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
+
+import { SharedModule } from '@shared/shared.module';
+
 import { IndexComponent } from './index/index.component';
 
 
@@ -10,8 +12,11 @@ import { IndexComponent } from './index/index.component';
     IndexComponent
   ],
   imports: [
-    CommonModule,
-    AuthRoutingModule
+    // Routing
+    AuthRoutingModule,
+
+    // shared
+    SharedModule,
   ]
 })
 export class AuthLayoutModule { }

@@ -2,17 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./layouts/home/home.module').then(m => m.HomeLayoutModule)
-  // },
+  {
+    path: '',
+    loadChildren: () => import('./layouts/layout/layout.module').then(m => m.LayoutModule),
+    //canActivate: [AuthGuard]
+  },
   {
     path: 'auth',
-    loadChildren: () => import('@modules/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./layouts/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule)
   },
   {
     path: '**',
-    redirectTo: 'auth'
+    redirectTo: ''
   }
 ];
 

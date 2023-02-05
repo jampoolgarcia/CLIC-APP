@@ -1,23 +1,28 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Router
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 
-// bootstrap
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { environment } from '../environments/environment';
 
 // firestore 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 
+// fontawesome
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 // components
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { environment } from '../environments/environment';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
 
 @NgModule({
   declarations: [
@@ -27,17 +32,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    NgbModule,
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     BrowserAnimationsModule,
+    FontAwesomeModule,
   ],
   exports: [
     RouterModule,
-    NgbModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

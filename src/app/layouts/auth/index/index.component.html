@@ -1,3 +1,19 @@
-<section>
-  <router-outlet></router-outlet>
+<section class="bg-gradient-primary h-100 w-100">
+  <div class="container" fxLayout="row" fxLayoutAlign="center center">
+      <mat-card class="login-content my-5">
+          <mat-card-content fxLayout="row" fxLayoutAlign="center">
+              <div
+                  class="h-100"
+                  fxFlex="50%" 
+                  fxHide.xs="true" 
+                  fxHide.sm="true">
+                      <h1 class="primary text-center">Nombre Emp</h1>
+                  <img src="assets/img/bg_auth.svg" alt="login img">
+              </div>
+              <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%">
+                  <router-outlet></router-outlet>
+              </div>
+          </mat-card-content>
+      </mat-card>
+  </div>
 </section>
