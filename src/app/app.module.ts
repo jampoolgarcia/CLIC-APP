@@ -20,6 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // components
 import { AppComponent } from './app.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -38,6 +39,7 @@ import { AppComponent } from './app.component';
     provideAuth(() => getAuth()),
     BrowserAnimationsModule,
     FontAwesomeModule,
+    NgbModule,
   ],
   exports: [
     RouterModule,
