@@ -1,6 +1,6 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, OnInit, PipeTransform } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -107,13 +107,16 @@ function search(text: string): Cite[] {
   styleUrls: ['./redes.component.scss']
 })
 export class RedesComponent implements OnInit {
-	cites$!: Observable<Cite[]>;
-  filter = new FormControl('', { nonNullable: true });
-	collectionSize = CITES.length;
-	page = 1;
-	pageSize = 4;
+	
+	public form!: FormGroup;
+	public cites$!: Observable<Cite[]>;
+  public filter = new FormControl('', { nonNullable: true });
+	public page = 1;
+	public pageSize = 5;
 
-  constructor() {
+
+  constructor(private fb: FormBuilder) {
+		this.buildForm();
 		this.cites$ = this.filter.valueChanges.pipe(
 			startWith(''),
 			map((text) => search(text)),
@@ -122,6 +125,60 @@ export class RedesComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+	private buildForm() {
+    this.form = this.fb.group({
+      firstName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(30),
+          Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/),
+        ],
+      ],
+      lastName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(30),
+          Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/),
+        ],
+      ],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/),
+        ],
+      ],
+      phone: [
+        '',
+        [Validators.required, Validators.minLength(3)],
+      ],
+      birthDate: ['', Validators.required],
+			hours: ['', Validators.required],
+			confirmation: ['', Validators.required],
+			observation: ['', Validators.required],
+    });
+  }
+
+	isInvalid(control: string) {
+		return (this.form.get(control)?.errors && this.form.get(control)?.dirty);
+	}
+
+	isValid(control: string){
+		return !this.form.get(control)?.errors;
+	}
+
+	getControl(control: string){
+		return this.form.get(control);
+	}
+
+	onSave(){
+		console.log(this.form.value);
+	}
 
 	// refreshCites() {
 	// 	this.cites$ = CITES.map((cite, i) => ({ id: i + 1, ...cite })).slice(

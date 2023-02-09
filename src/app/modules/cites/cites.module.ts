@@ -5,25 +5,25 @@ import { CommonModule } from '@angular/common';
 import { CitesRoutingModule } from './cites-routing.module';
 
 // bootstarp
-import { TimepikerComponent } from '@shared/components/timepiker/timepiker.component';
-import { DatepikerComponent } from '@shared/components/datepiker/datepiker.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Pages
 import { RedesComponent } from './pages/redes/redes.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 
 @NgModule({
   declarations: [
-    RedesComponent
+    RedesComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
     // routing
     CitesRoutingModule,
     // bootstarp
-    TimepikerComponent,
-    DatepikerComponent,
+    NgbPaginationModule,
     // modules
     ReactiveFormsModule
   ]

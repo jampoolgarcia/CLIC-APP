@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgbAlertModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { AbstractControl, FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 
 @Component({
@@ -11,7 +11,7 @@ import { JsonPipe } from '@angular/common';
 })
 export class DatepikerComponent  {
 
-  model!: NgbDateStruct;
+  @Input() data!: AbstractControl;
 
   constructor() { }
 
