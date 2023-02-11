@@ -164,17 +164,7 @@ export class RedesComponent implements OnInit {
     });
   }
 
-	isInvalid(control: string) {
-		return (this.form.get(control)?.errors && this.form.get(control)?.dirty);
-	}
-
-	isValid(control: string){
-		return !this.form.get(control)?.errors;
-	}
-
-	getControl(control: string){
-		return this.form.get(control);
-	}
+	
 
 	onSave(){
 		console.log(this.form.value);
@@ -186,5 +176,17 @@ export class RedesComponent implements OnInit {
 	// 		(this.page - 1) * this.pageSize + this.pageSize,
 	// 	);
 	// }
+
+	isInvalid(control: string) {
+		return (this.form.get(control)?.errors && this.form.get(control)?.dirty);
+	}
+
+	isValid(control: string){
+		return !this.form.get(control)?.errors;
+	}
+
+	getControl(control: string){
+		return this.form.get(control);
+	}
 
 }
