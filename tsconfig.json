@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@core/*": ["src/app/core/*"],
       "@guards/*": ["src/app/guards/*"],
       "@layouts/*": ["src/app/layouts/*"],
       "@modules/*": ["src/app/modules/*"],

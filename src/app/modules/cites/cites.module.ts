@@ -11,12 +11,17 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { RedesComponent } from './pages/redes/redes.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { FormCitesComponent } from './components/form-cites/form-cites.component';
+import { ListCitesComponent } from './components/list-cites/list-cites.component';
 
 
 @NgModule({
   declarations: [
     RedesComponent,
-    FilterPipe
+    FilterPipe,
+    // components
+    FormCitesComponent,
+    ListCitesComponent
   ],
   imports: [
     CommonModule,
