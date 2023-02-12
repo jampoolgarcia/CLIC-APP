@@ -1,4 +1,6 @@
+// core
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 // firebase
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
@@ -8,7 +10,8 @@ import {
   DocumentData,
   collection,
 } from '@firebase/firestore';
-import { Observable } from 'rxjs';
+
+// model
 import { LoginI } from './model/login';
 import { UserI } from './model/user';
 
@@ -35,7 +38,6 @@ export class AuthService {
   register(user: UserI) {
     const { email, password }: LoginI = user;
     user.password = '';
-    console.log(this.create(user));
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 

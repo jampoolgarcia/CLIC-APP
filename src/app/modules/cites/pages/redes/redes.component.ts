@@ -1,105 +1,19 @@
-import { DecimalPipe } from '@angular/common';
+// core
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+// rxjs
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-// model cites
-interface Cite {
-	firstName: string;
-	lastName: string;
-	hour: string;
-	phone: string;
-  dateOfBirth: Date;
-  email: string;
-  confirmation: string;
-  observation: string;
-}
+// model
+import { CiteI } from '../../model/cite';
 
-// example
-const CITES: Cite[] = [
-	{
-		firstName: "test 1",
-	  lastName: "test test",
-	  hour: "12:30",
-	  phone: "971989688",
-    dateOfBirth: new Date(31/12/1993),
-    email: 'test@gmail.com',
-    confirmation: 'ASISTIO',
-    observation: 'Lorem isup'
-	},
-	{
-		firstName: "test 2",
-	  lastName: "test test",
-	  hour: "12:30",
-	  phone: "971989688",
-    dateOfBirth: new Date(31/12/1993),
-    email: 'test@gmail.com',
-    confirmation: 'ASISTIO',
-    observation: 'Lorem isup'
-	},
-	{
-		firstName: "test 3",
-	  lastName: "test test",
-	  hour: "12:30",
-	  phone: "971989688",
-    dateOfBirth: new Date(31/12/1993),
-    email: 'test@gmail.com',
-    confirmation: 'ASISTIO',
-    observation: 'Lorem isup'
-	},
-	{
-		firstName: "test 4",
-	  lastName: "test test",
-	  hour: "12:30",
-	  phone: "971989688",
-    dateOfBirth: new Date(31/12/1993),
-    email: 'test@gmail.com',
-    confirmation: 'ASISTIO',
-    observation: 'Lorem isup'
-	},
-  {
-		firstName: "test 5",
-	  lastName: "test test",
-	  hour: "12:30",
-	  phone: "971989688",
-    dateOfBirth: new Date(31/12/1993),
-    email: 'test@gmail.com',
-    confirmation: 'ASISTIO',
-    observation: 'Lorem isup'
-	},
-  {
-		firstName: "test 5",
-	  lastName: "test test",
-	  hour: "12:30",
-	  phone: "971989688",
-    dateOfBirth: new Date(31/12/1993),
-    email: 'test@gmail.com',
-    confirmation: 'ASISTIO',
-    observation: 'Lorem isup'
-	},
-  {
-		firstName: "test 5",
-	  lastName: "test test",
-	  hour: "12:30",
-	  phone: "971989688",
-    dateOfBirth: new Date(31/12/1993),
-    email: 'test@gmail.com',
-    confirmation: 'ASISTIO',
-    observation: 'Lorem isup'
-	},
-];
+// services
+import { CitesService } from '@modules/cites/services/cites.service';
 
-function search(text: string): Cite[] {
-	return CITES.filter((cite) => {
-		const term = text.toLowerCase();
-		return (
-			cite.firstName.toLowerCase().includes(term) ||
-			cite.lastName.toLowerCase().includes(term) ||
-			cite.confirmation.toLowerCase().includes(term)
-		);
-	});
-}
+// alerta
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-redes',
@@ -109,21 +23,18 @@ function search(text: string): Cite[] {
 export class RedesComponent implements OnInit {
 	
 	public form!: FormGroup;
-	public cites$!: Observable<Cite[]>;
+	public cites$!: Observable<CiteI[]>;
   public filter = new FormControl('', { nonNullable: true });
 	public page = 1;
 	public pageSize = 5;
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private _service: CitesService ) {
 		this.buildForm();
-		this.cites$ = this.filter.valueChanges.pipe(
-			startWith(''),
-			map((text) => search(text)),
-		);
 	}
 
   ngOnInit(): void {
+		this.cites$ = this._service.getAll();
   }
 
 	private buildForm() {
@@ -157,8 +68,8 @@ export class RedesComponent implements OnInit {
         '',
         [Validators.required, Validators.minLength(3)],
       ],
-      birthDate: ['', Validators.required],
-			hours: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+			hour: ['', Validators.required],
 			confirmation: ['', Validators.required],
 			observation: ['', Validators.required],
     });
@@ -166,26 +77,61 @@ export class RedesComponent implements OnInit {
 
 	
 
-	onSave(){
-		console.log(this.form.value);
+	public async onSave(){
+
+		const cite = this.getCiteForm();
+
+		const res = await this._service.add(cite);
+
+		if(res){
+			this.form.reset();
+      Swal.fire({
+        timer: 1500,
+        title: '¡Buen trabajo!',
+        icon: 'success'
+      })
+		}
 	}
 
-	// refreshCites() {
-	// 	this.cites$ = CITES.map((cite, i) => ({ id: i + 1, ...cite })).slice(
-	// 		(this.page - 1) * this.pageSize,
-	// 		(this.page - 1) * this.pageSize + this.pageSize,
-	// 	);
-	// }
+	private getCiteForm(){
+		const {
+			firstName,
+			lastName,
+			email,
+			phone,
+			dateOfBirth,
+			hour,
+			confirmation,
+			observation
+		} = this.form.value;
 
-	isInvalid(control: string) {
+		let cite: CiteI = {
+			redes : "test redes",
+			firstName,
+			lastName,
+			email,
+			phone,
+			dateOfBirth,
+			hour,
+			confirmation,
+			observation,
+			room: "test room"
+		}
+
+		return cite;
+
+	}
+
+
+	public isInvalid(control: string) {
 		return (this.form.get(control)?.errors && this.form.get(control)?.dirty);
 	}
 
-	isValid(control: string){
+	public isValid(control: string){
 		return !this.form.get(control)?.errors;
 	}
 
-	getControl(control: string){
+	public getControl(control: string){
 		return this.form.get(control);
 	}
 
