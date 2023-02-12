@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import { FormCitesComponent } from './components/form-cites/form-cites.component';
 import { ListCitesComponent } from './components/list-cites/list-cites.component';
+import { CoordinatorComponent } from './pages/coordinator/coordinator.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ListCitesComponent } from './components/list-cites/list-cites.component
     FilterPipe,
     // components
     FormCitesComponent,
-    ListCitesComponent
+    ListCitesComponent,
+    CoordinatorComponent
   ],
   imports: [
     CommonModule,
