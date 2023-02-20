@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoordinatorComponent implements OnInit {
 
+  public logo = "LOGO"; 
+
   constructor() { }
 
   ngOnInit(): void {

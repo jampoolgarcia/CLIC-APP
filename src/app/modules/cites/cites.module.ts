@@ -33,6 +33,9 @@ import { CoordinatorComponent } from './pages/coordinator/coordinator.component'
     NgbPaginationModule,
     // modules
     ReactiveFormsModule
+  ],
+  exports: [
+    ListCitesComponent
   ]
 })
 export class CitesModule { }

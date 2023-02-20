@@ -11,6 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'coordianator',
+    loadChildren: () => import('@modules/cites/pages/coordinator/coordinator.module').then(m => m.CoordinatorModule),
     component: CoordinatorComponent,
   },
   {
