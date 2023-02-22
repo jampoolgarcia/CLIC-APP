@@ -5,16 +5,16 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
-  
-  constructor(private router: Router){}
-  
-  canActivate(){
+export class CoordinatorGuard implements CanActivate {
 
+  constructor(private router: Router){}
+
+  canActivate() {
+    
     let user = JSON.parse(localStorage.getItem('currentUser')!) || null;
 
     if(user){
-      return true;
+      if(user.rol === 'coordinador') return true;
     }
 
     this.router.navigate(['/auth']);
