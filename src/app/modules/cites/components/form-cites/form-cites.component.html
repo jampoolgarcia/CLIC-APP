@@ -12,6 +12,7 @@
               type="text"
               class="form-control"
               formControlName="firstName"
+              placeholder="Nombre"
               id="firstName"
               [ngClass]="{'is-invalid': isInvalid('firstName'), 'is-valid': isValid('firstName') }"
               required
@@ -24,6 +25,7 @@
               type="text"
               class="form-control"
               formControlName="lastName"
+              placeholder="Apellido"
               [ngClass]="{'is-invalid': isInvalid('lastName'), 'is-valid': isValid('lastName') }"
               id="lastName"
               required
@@ -37,6 +39,7 @@
               type="email"
               class="form-control"
               id="email"
+              placeholder="Correo"
               formControlName="email"
               [ngClass]="{'is-invalid': isInvalid('email'), 'is-valid': isValid('email') }"
               aria-describedby="email"
@@ -49,6 +52,8 @@
             <input
               type="text"
               class="form-control"
+              name="Telefono"
+              placeholder="Telefono"
               id="phone"
               aria-describedby="phone"
               formControlName="phone"
@@ -64,6 +69,7 @@
             <input
               type="date"
               class="form-control"
+              placeholder="Fecha"
               id="dateOfBirth"
               formControlName="dateOfBirth"
               [ngClass]="{'is-invalid': isInvalid('dateOfBirth'), 'is-valid': isValid('dateOfBirth') }"
@@ -81,6 +87,7 @@
               type="time"
               class="form-control"
               id="hour"
+              placeholder="Hora"
               formControlName="hour"
               [ngClass]="{'is-invalid': isInvalid('hour'), 'is-valid': isValid('hour') }"
               aria-describedby="hour"
@@ -92,7 +99,8 @@
   
           <div class="col-md-6">
             <label for="confirmation" class="form-label">Confirmacion</label>
-            <select
+            <div class="input-group mb-3">
+              <select
               class="form-select"
               id="confirmation"
               formControlName="confirmation"
@@ -100,17 +108,21 @@
               aria-describedby="confirmation"
               required
             >
-              <option selected disabled value="">Choose...</option>
+              <option selected disabled value="">Seleccionar...</option>
               <option>1</option>
               <option>2</option>
               <option>3</option>
             </select>
-          </div>
+              <app-confirmation></app-confirmation>
+            </div>
+            
+          </div> 
   
           <div class="col-md-6">
             <label for="observation" class="form-label">Observacion</label>
             <textarea 
             class="form-control" 
+            placeholder="Observacion"
             formControlName="observation"
             [ngClass]="{'is-invalid': isInvalid('observation'), 'is-valid': isValid('observation') }" 
             id="observation" 
@@ -129,4 +141,22 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- <ng-template #content let-modal class="index-z">
+	<div class="modal-header">
+		<h4 class="modal-title">Hi there!</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+	</div>
+	<div class="modal-body">
+		<p>Hello, World!</p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark">Save</button>
+	</div>
+</ng-template> -->
+
+
+
 

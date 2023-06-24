@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 // app
-import { Form } from '@core/form';
 import { CiteI } from '@modules/cites/model/cite';
+import { Form } from '@core/form';
+
 
 // service
 import { CitesService } from '@modules/cites/services/cites.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // rxjs
 import { Observable } from 'rxjs';
@@ -21,9 +23,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-cites.component.scss']
 })
 export class FormCitesComponent extends Form implements OnInit {
-  
 
-  constructor(private fb: FormBuilder, private _service: CitesService) { 
+  constructor(private fb: FormBuilder, 
+    private _service: CitesService, 
+    private _modalService: NgbModal) { 
     super();
     this.buildingForm();
   }
@@ -31,6 +34,10 @@ export class FormCitesComponent extends Form implements OnInit {
   ngOnInit(): void {
    
   }
+
+  open(content:any) {
+		this._modalService.open(content);
+	}
 
   buildingForm(): void {
     this.form = this.fb.group({
@@ -61,7 +68,8 @@ export class FormCitesComponent extends Form implements OnInit {
       ],
       phone: [
         '',
-        [Validators.required, Validators.minLength(3)],
+        [Validators.required, Validators.minLength(3),
+        Validators.pattern(/^[0-9]{7,11}$/),],
       ],
       dateOfBirth: ['', Validators.required],
 			hour: ['', Validators.required],
@@ -115,3 +123,5 @@ export class FormCitesComponent extends Form implements OnInit {
 	}
 
 }
+
+

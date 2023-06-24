@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { CitesRoutingModule } from './cites-routing.module';
 
 // bootstarp
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Pages
 import { RedesComponent } from './pages/redes/redes.component';
@@ -14,6 +14,7 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import { FormCitesComponent } from './components/form-cites/form-cites.component';
 import { ListCitesComponent } from './components/list-cites/list-cites.component';
 import { CoordinatorComponent } from './pages/coordinator/coordinator.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 
 @NgModule({
@@ -32,10 +33,15 @@ import { CoordinatorComponent } from './pages/coordinator/coordinator.component'
     // bootstarp
     NgbPaginationModule,
     // modules
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    //Stanalone
+    ConfirmationComponent
   ],
   exports: [
     ListCitesComponent
+  ],
+  providers: [
+    NgbActiveModal,
   ]
 })
 export class CitesModule { }

@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
 
     const user: UserI = {
       fullName: `${firstName} ${lastName}`,
-      email: email,
+      email,
       password,
       rol,
       status: false,
