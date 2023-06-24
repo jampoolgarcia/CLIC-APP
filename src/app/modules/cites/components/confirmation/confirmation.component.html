@@ -9,8 +9,9 @@
 	</div>
 	<div class="modal-body">
 		<div class="input-group mb-3">
-			<input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-			<button class="btn btn-outline-secondary" type="button" id="button-addon2">
+			<input type="text" [formControl]="name" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+			
+			<button [disabled]="name.invalid" class="btn btn-outline-secondary" (click)="onSubmit()" type="button" id="button-addon2">
 				<i class="fa-sharp fa-solid fa-plus"></i>
 				<!-- <i class="fa-sharp fa-solid fa-pen"></i> -->
 			</button>
@@ -24,9 +25,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let c of confirmations | slice: (page-1) * pageSize : page * pageSize; index as i">
+				<tr *ngFor="let c of (confirmations$ | async) | slice: (page-1) * pageSize : page * pageSize; index as i">
 					<th scope="row">{{ i+1 }}</th> 
-					<td>{{ c }}</td>
+					<td>{{ c.name }}</td>
 					<td>
 							<button type="button" class="btn btn-outline-info">
 								<i class="fa-sharp fa-solid fa-pen"></i>
@@ -44,7 +45,7 @@
 		class="d-flex justify-content-end"
 		[(page)]="page"
 		[pageSize]="pageSize"
-		[collectionSize]="confirmations.length || 0"></ngb-pagination>
+		[collectionSize]="(confirmations$ | async)?.length || 0"></ngb-pagination>
 		<!--end paginators -->
 		
 	</div>

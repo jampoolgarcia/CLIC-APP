@@ -21,12 +21,12 @@ export class ConfirmationService {
     this.confirmationCollection = collection(this.firestore, 'confirmation');
   }
 
-    // crea una nueva cita en fire base
-    public add(cite: ConfirmationI) {
-      return addDoc(this.confirmationCollection, cite);
+    // crea una nueva Confirmation en fire base
+    public add(c: ConfirmationI) {
+      return addDoc(this.confirmationCollection, c);
     }
   
-    // obtiene el listado de citas
+    // obtiene el listado de Confirmations
     public getAll(){
       return collectionData(this.confirmationCollection, { idField: 'id'}) as Observable<ConfirmationI[]>;
     }
