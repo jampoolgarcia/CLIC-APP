@@ -12,7 +12,7 @@ import { ConfirmationI } from '../model/confirmation';
 @Injectable({
   providedIn: 'root'
 })
-export class ComfirmationService {
+export class ConfirmationService {
 
   // collection
   private confirmationCollection: CollectionReference<DocumentData>;
