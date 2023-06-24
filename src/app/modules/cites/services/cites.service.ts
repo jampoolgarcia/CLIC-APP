@@ -1,9 +1,9 @@
-// core
+// core angular
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 // firebase
 import { CollectionReference, DocumentData, Firestore, collection, addDoc, collectionData } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 
 // model
 import { CiteI } from '../model/cite';
