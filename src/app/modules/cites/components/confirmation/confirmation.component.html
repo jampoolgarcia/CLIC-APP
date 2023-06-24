@@ -32,7 +32,7 @@
 							<button type="button" class="btn btn-outline-info">
 								<i class="fa-sharp fa-solid fa-pen"></i>
 							</button>
-							<button type="button" class="btn btn-outline-danger">
+							<button type="button" (click)="delete(c.id!)" class="btn btn-outline-danger">
 								<i class="fa-solid fa-xmark"></i>
 							</button>
 					</td>
@@ -40,6 +40,10 @@
 			</tbody>
 		</table>
 
+		
+		
+	</div>
+	<div class="modal-footer">
 		<!--begin paginators-->
 		<ngb-pagination
 		class="d-flex justify-content-end"
@@ -47,10 +51,6 @@
 		[pageSize]="pageSize"
 		[collectionSize]="(confirmations$ | async)?.length || 0"></ngb-pagination>
 		<!--end paginators -->
-		
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Cerrar</button>
 	</div>
 </ng-template>
 

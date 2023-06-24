@@ -45,4 +45,6 @@ export class ConfirmationService {
       const documentReference = doc(this.firestore, `confirmation/${id}`);
       return deleteDoc(documentReference);
     }
+
+    
 }

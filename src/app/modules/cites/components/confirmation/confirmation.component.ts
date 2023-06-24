@@ -69,4 +69,9 @@ export class ConfirmationComponent extends List implements OnInit {
 		}
   }
 
+  async delete(id: string){
+    const res = await this._service.delete(id);
+   console.log(res);
+  }
+
 }
