@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class RoomGuard implements CanActivate {
   
   constructor(private router: Router){}
   
@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     let user = JSON.parse(localStorage.getItem('currentUser')!) || null;
 
     if(user){
-      return true;
+      if(user.rol === 'salon') return true;
     }
 
     this.router.navigate(['/auth']);
