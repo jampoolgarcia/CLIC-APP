@@ -1,0 +1,28 @@
+name: GitHun Page Deploy
+
+on:
+  push:
+    branches: 
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install and build
+        working-directory: ./
+        run: npm install && npm run gh-build && cp dist/clic-app/index.html dist/clic-app/404.html
+
+      - name: Deploy
+        uses: jampoolgarcia/github-page-action@4.1.1
+        with: 
+          branch: gh-pages # the branch the action should deploy to.
+          folder: dist/clic-app # The folder the action should deploy.
