@@ -22,7 +22,7 @@ jobs:
         run: npm install && npm run gh-build && cp dist/clic-app/index.html dist/clic-app/404.html
 
       - name: Deploy
-        uses: jampoolgarcia/github-page-action@4.1.1
+        uses: JamesIves/github-page-action@4.1.1
         with: 
           branch: gh-pages # the branch the action should deploy to.
           folder: dist/clic-app # The folder the action should deploy.
