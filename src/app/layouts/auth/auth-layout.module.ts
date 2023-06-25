@@ -14,11 +14,7 @@ import { IndexComponent } from './index/index.component';
   imports: [
     // Routing
     AuthRoutingModule,
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> confirmation-crud
   ]
 })
 export class AuthLayoutModule { }
