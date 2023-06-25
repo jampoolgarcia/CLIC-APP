@@ -14,9 +14,7 @@ import { IndexComponent } from './index/index.component';
   imports: [
     // Routing
     AuthRoutingModule,
-
-    // shared
-    SharedModule,
+    
   ]
 })
 export class AuthLayoutModule { }
