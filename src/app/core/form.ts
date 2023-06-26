@@ -19,7 +19,7 @@ export abstract class Form {
 
   abstract onSubmit(): void;
 
-	abstract buildingForm(): void;
+  abstract buildingForm(): void;
 
 
 }

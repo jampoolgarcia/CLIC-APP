@@ -20,6 +20,9 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+// shared
+import { ToatsComponent } from '@shared/components/toats/toats.component';
+
 
 
 
@@ -37,6 +40,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     provideAuth(() => getAuth()),
     BrowserAnimationsModule,
     NgbModule,
+    ToatsComponent
   ],
   exports: [
     RouterModule,

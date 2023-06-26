@@ -9,7 +9,12 @@
 	</div>
 	<div class="modal-body">
 		<div class="input-group mb-3">
-			<input type="text" [formControl]="name" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+			<input type="text" 
+			[formControl]="name" 
+			class="form-control" 
+			[ngClass]="{'is-invalid': isInvalid(), 'is-valid': isValid() }"
+			aria-label="Recipient's username" 
+			aria-describedby="button-addon2">
 			
 			<button [disabled]="name.invalid" class="btn btn-outline-secondary" (click)="onSubmit()" type="button" id="button-addon2">
 				<i class="fa-sharp fa-solid fa-plus"></i>

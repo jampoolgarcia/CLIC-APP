@@ -1,13 +1,14 @@
 // core
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 
 // model
 import { CiteI } from '@modules/cites/model/cite';
 import { List } from '@core/list';
+import { ConfirmationI } from '@modules/cites/model/confirmation';
 
 // services
 import { CitesService } from '@modules/cites/services/cites.service';
+import { ConfirmationService } from '@modules/cites/services/confirmation.service';
 
 // rxjs
 import { Observable } from 'rxjs';

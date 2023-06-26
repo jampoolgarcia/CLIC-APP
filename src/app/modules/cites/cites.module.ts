@@ -35,7 +35,8 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
     // modules
     ReactiveFormsModule,
     //Stanalone
-    ConfirmationComponent
+    ConfirmationComponent,
+    
   ],
   exports: [
     ListCitesComponent

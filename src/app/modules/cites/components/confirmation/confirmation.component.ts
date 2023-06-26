@@ -7,11 +7,11 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { List } from '@core/list';
 import { ConfirmationI } from '@modules/cites/model/confirmation';
 import { ConfirmationService } from '@modules/cites/services/confirmation.service';
+import { ToatsService } from '@shared/components/toats/toats.service';
 
 // external library and modules
 import { NgbActiveModal, NgbModal, NgbModalConfig, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-confirmation',
@@ -28,6 +28,7 @@ export class ConfirmationComponent extends List implements OnInit {
   public seleted: ConfirmationI | null = null;
 
   constructor(public activeModal: NgbActiveModal,
+              private _toastService: ToatsService,
               private _modalService: NgbModal,
               private _service: ConfirmationService) {
 		super();
@@ -66,9 +67,10 @@ export class ConfirmationComponent extends List implements OnInit {
   public async delete(id: string){
     try {
       const res = await this._service.delete(id);
+      this._toastService.show("Se ha eliminado exitosamente.", 'success');
     } catch (err) {
+      this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
       console.log(err)
-      throw new Error ("Error al intetar eliminar la entidad confirmacion.");
     }
   
    
@@ -85,9 +87,10 @@ export class ConfirmationComponent extends List implements OnInit {
       const res = await this._service.update(this.seleted!);
       this.seleted = null;
       this.name.reset();
+      this._toastService.show("Se ha actualizado exitosamente.", 'success');
     } catch (err) {
       console.log(err)
-      throw new Error ("Error al intetar actualizar la entidad confirmacion.");
+      this._toastService.show("Obss, Ha acorrido un error al momento de actualizado.", 'danger');
     }
   }
 
@@ -101,18 +104,24 @@ export class ConfirmationComponent extends List implements OnInit {
 
       if(res){
         this.name.reset();
-        Swal.fire({
-          timer: 1500,
-          title: '¡Buen trabajo!',
-          icon: 'success'
-        })
+        this._toastService.show("Se ha guardado exitosamente.", 'success');
       }
     } catch (err) {
       console.log(err)
-      throw new Error ("Error al intetar guardar la entidad confirmacion.");
+      this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
     }
 
 		
   }
 
+  public isInvalid() {
+		return (this.name.errors && this.name.dirty);
+	}
+
+  public isValid(){
+		return !this.name.errors;
+	}
+
+
+    
 }

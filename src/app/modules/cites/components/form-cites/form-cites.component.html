@@ -109,9 +109,7 @@
               required
             >
               <option selected disabled value="">Seleccionar...</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
+              <option *ngFor="let c of (confirmations$ | async)" [value]="c.name">{{ c.name }}</option>
             </select>
               <app-confirmation></app-confirmation>
             </div>
@@ -135,7 +133,6 @@
   
       <div class="card-footer">
         <div class="col-12 text-end">
-          <button class="btn btn-success mx-2" routerLink="/auth">auth</button>
           <button class="btn btn-primary" (click)="onSubmit()" [disabled]="this.form.invalid" type="submit">Guardar</button>
         </div>
       </div>
@@ -144,19 +141,6 @@
 </div>
 
 
-
-<!-- <ng-template #content let-modal class="index-z">
-	<div class="modal-header">
-		<h4 class="modal-title">Hi there!</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-	</div>
-	<div class="modal-body">
-		<p>Hello, World!</p>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark">Save</button>
-	</div>
-</ng-template> -->
 
 
 

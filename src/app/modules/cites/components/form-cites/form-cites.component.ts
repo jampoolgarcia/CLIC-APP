@@ -16,6 +16,9 @@ import { Observable } from 'rxjs';
 
 // external lib
 import Swal from 'sweetalert2';
+import { ToatsService } from '@shared/components/toats/toats.service';
+import { ConfirmationService } from '@modules/cites/services/confirmation.service';
+import { ConfirmationI } from '@modules/cites/model/confirmation';
 
 @Component({
   selector: 'app-form-cites',
@@ -24,17 +27,20 @@ import Swal from 'sweetalert2';
 })
 export class FormCitesComponent extends Form implements OnInit {
 
+  public confirmations$!: Observable<ConfirmationI[]>;
 
-  
   constructor(private fb: FormBuilder, 
     private _service: CitesService, 
-    private _modalService: NgbModal) { 
+    private _serviceConfirmation: ConfirmationService,
+    private _modalService: NgbModal,
+    private _toastService: ToatsService) { 
     super();
     this.buildingForm();
   }
 
+
   ngOnInit(): void {
-   
+    this.confirmations$ = this._serviceConfirmation.getAll();
   }
 
   open(content:any) {
@@ -81,18 +87,20 @@ export class FormCitesComponent extends Form implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
+
 		const cite = this.getCiteForm();
 
-		const res = await this._service.add(cite);
+    try {
+      const res = await this._service.add(cite);
+      if(res){
+        this.form.reset();
+        this._toastService.show("Se ha guardado exitosamente.", 'success');
+      }
+    } catch (err) {
+      this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
+    }
 
-		if(res){
-			this.form.reset();
-      Swal.fire({
-        timer: 1500,
-        title: '¡Buen trabajo!',
-        icon: 'success'
-      })
-		}
+		
   }
 
   private getCiteForm(){

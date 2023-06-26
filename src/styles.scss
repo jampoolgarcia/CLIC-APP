@@ -3,7 +3,13 @@
   cursor: pointer;
 }
 
-body {
-  margin: 0px !important;
+.bg-gray {
+  background-color: rgba(238,232,213,.125) !important;
 }
+
+ngb-pagination > ul > li {
+  background-color: rgba(238,232,213,.125) !important;
+}
+
+
 
