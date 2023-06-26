@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Install and build
-        working-directory: ./
+        working-directory: ./clic-app
         run: npm install && npm run gh-build && cp dist/clic-app/index.html dist/clic-app/404.html
 
       - name: Deploy
