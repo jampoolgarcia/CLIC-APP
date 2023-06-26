@@ -25,4 +25,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.2
         with: 
           branch: gh-pages # the branch the action should deploy to.
-          folder: clic-app/dist/clic-app # The folder the action should deploy.
+          folder: dist/clic-app # The folder the action should deploy.
