@@ -29,8 +29,8 @@
 					<th scope="row">{{ i+1 }}</th> 
 					<td>{{ c.name }}</td>
 					<td>
-							<button type="button" class="btn btn-outline-info">
-								<i class="fa-sharp fa-solid fa-pen"></i>
+							<button type="button" class="btn btn-outline-info mx-2">
+								<i (click)="edit(c)" class="fa-sharp fa-solid fa-pen"></i>
 							</button>
 							<button type="button" (click)="delete(c.id!)" class="btn btn-outline-danger">
 								<i class="fa-solid fa-xmark"></i>
@@ -53,4 +53,6 @@
 		<!--end paginators -->
 	</div>
 </ng-template>
+
+
 

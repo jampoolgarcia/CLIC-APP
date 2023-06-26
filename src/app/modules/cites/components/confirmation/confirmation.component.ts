@@ -25,6 +25,7 @@ export class ConfirmationComponent extends List implements OnInit {
 
   public confirmations$!: Observable<ConfirmationI[]>;
   public name!: FormControl;
+  public seleted: ConfirmationI | null = null;
 
   constructor(public activeModal: NgbActiveModal,
               private _modalService: NgbModal,
@@ -37,11 +38,11 @@ export class ConfirmationComponent extends List implements OnInit {
     this.confirmations$ = this._service.getAll();
   }
 
-  open(content:any) {
+  public open(content:any) {
 		this._modalService.open(content);
 	}
 
-  buildingForm(): void {
+  private buildingForm(): void {
     this.name = new FormControl('',
       [
         Validators.required,
@@ -52,26 +53,66 @@ export class ConfirmationComponent extends List implements OnInit {
     )
   }
 
-  async onSubmit(): Promise<void> {
-		const c: ConfirmationI = {
+  public onSubmit(){
+
+    if(this.seleted === null){
+      this.save();
+    } else {
+      this.update();
+    }
+		
+  }
+
+  public async delete(id: string){
+    try {
+      const res = await this._service.delete(id);
+    } catch (err) {
+      console.log(err)
+      throw new Error ("Error al intetar eliminar la entidad confirmacion.");
+    }
+  
+   
+  }
+
+  public edit(record: ConfirmationI){
+    this.seleted = record;
+    this.name.setValue(record.name);
+  }
+
+  private async update(){
+    this.seleted!.name = this.name.value;
+    try {
+      const res = await this._service.update(this.seleted!);
+      this.seleted = null;
+      this.name.reset();
+    } catch (err) {
+      console.log(err)
+      throw new Error ("Error al intetar actualizar la entidad confirmacion.");
+    }
+  }
+
+  private async save() {
+    const c: ConfirmationI = {
       name: this.name.value
     }
 
-		const res = await this._service.add(c);
+    try {
+      const res = await this._service.add(c);
 
-		if(res){
-			this.name.reset();
-      Swal.fire({
-        timer: 1500,
-        title: '¡Buen trabajo!',
-        icon: 'success'
-      })
-		}
-  }
+      if(res){
+        this.name.reset();
+        Swal.fire({
+          timer: 1500,
+          title: '¡Buen trabajo!',
+          icon: 'success'
+        })
+      }
+    } catch (err) {
+      console.log(err)
+      throw new Error ("Error al intetar guardar la entidad confirmacion.");
+    }
 
-  async delete(id: string){
-    const res = await this._service.delete(id);
-   console.log(res);
+		
   }
 
 }
