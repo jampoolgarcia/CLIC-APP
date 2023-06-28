@@ -21,7 +21,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // shared
-import { ToatsComponent } from '@shared/components/toats/toats.component';
+import { ToastComponent } from '@shared/components/toast/toast.component';
 
 
 
@@ -40,7 +40,7 @@ import { ToatsComponent } from '@shared/components/toats/toats.component';
     provideAuth(() => getAuth()),
     BrowserAnimationsModule,
     NgbModule,
-    ToatsComponent
+    ToastComponent
   ],
   exports: [
     RouterModule,

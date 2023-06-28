@@ -8,6 +8,7 @@ export interface CiteI {
   dateOfBirth: Date;
   email: string;
   confirmation: string;
+  service: string;
   observation: string;
   room: string;
 }

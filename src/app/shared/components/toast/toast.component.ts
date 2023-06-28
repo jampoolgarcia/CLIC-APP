@@ -1,18 +1,17 @@
 import { NgIf, CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToatsService } from './toats.service';
+import { ToastService } from './toast.service';
 
 @Component({
   selector: 'app-toats',
   standalone: true,
   imports: [NgbToastModule, NgIf, CommonModule],
-  templateUrl: './toats.component.html',
-  styleUrls: ['toats.component.scss'],
+  templateUrl: './toast.component.html',
   host: { class: 'toast-container position-fixed top-0 end-0 p-3', style: 'z-index: 1200' },
 })
-export class ToatsComponent {
+export class ToastComponent {
 
-  constructor(public toastService: ToatsService) {}
+  constructor(public toastService: ToastService) {}
 
 }

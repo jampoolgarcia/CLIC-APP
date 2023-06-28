@@ -7,6 +7,8 @@ import { CiteI } from '@modules/cites/model/cite';
 import { Form } from '@core/form';
 
 
+
+
 // service
 import { CitesService } from '@modules/cites/services/cites.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,11 +16,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 // rxjs
 import { Observable } from 'rxjs';
 
-// external lib
-import Swal from 'sweetalert2';
-import { ToatsService } from '@shared/components/toats/toats.service';
+// shared service
+import { ToastService } from '@shared/components/toast/toast.service';
+import { ServicesService } from '@shared/components/service/services.service';
 import { ConfirmationService } from '@modules/cites/services/confirmation.service';
+
+// shared model
 import { ConfirmationI } from '@modules/cites/model/confirmation';
+import { ServiceI } from '@shared/components/service/service';
+
 
 @Component({
   selector: 'app-form-cites',
@@ -28,12 +34,14 @@ import { ConfirmationI } from '@modules/cites/model/confirmation';
 export class FormCitesComponent extends Form implements OnInit {
 
   public confirmations$!: Observable<ConfirmationI[]>;
+  public services$!: Observable<ServiceI[]>;
 
   constructor(private fb: FormBuilder, 
     private _service: CitesService, 
     private _serviceConfirmation: ConfirmationService,
+    private _serviceService: ServicesService,
     private _modalService: NgbModal,
-    private _toastService: ToatsService) { 
+    private _toastService: ToastService) { 
     super();
     this.buildingForm();
   }
@@ -41,6 +49,7 @@ export class FormCitesComponent extends Form implements OnInit {
 
   ngOnInit(): void {
     this.confirmations$ = this._serviceConfirmation.getAll();
+    this.services$ = this._serviceService.getAll();
   }
 
   open(content:any) {
@@ -82,13 +91,14 @@ export class FormCitesComponent extends Form implements OnInit {
       dateOfBirth: ['', Validators.required],
 			hour: ['', Validators.required],
 			confirmation: ['', Validators.required],
+      service: ['', Validators.required],
 			observation: ['', Validators.required],
     });
   }
 
   async onSubmit(): Promise<void> {
 
-		const cite = this.getCiteForm();
+		const cite = this.getFormValues();
 
     try {
       const res = await this._service.add(cite);
@@ -103,7 +113,7 @@ export class FormCitesComponent extends Form implements OnInit {
 		
   }
 
-  private getCiteForm(){
+  private getFormValues(): CiteI {
 		const {
 			firstName,
 			lastName,
@@ -112,6 +122,7 @@ export class FormCitesComponent extends Form implements OnInit {
 			dateOfBirth,
 			hour,
 			confirmation,
+      service,
 			observation
 		} = this.form.value;
 
@@ -124,6 +135,7 @@ export class FormCitesComponent extends Form implements OnInit {
 			dateOfBirth,
 			hour,
 			confirmation,
+      service,
 			observation,
 			room: "test room"
 		}

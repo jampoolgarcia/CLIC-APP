@@ -7,7 +7,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { List } from '@core/list';
 import { ConfirmationI } from '@modules/cites/model/confirmation';
 import { ConfirmationService } from '@modules/cites/services/confirmation.service';
-import { ToatsService } from '@shared/components/toats/toats.service';
+import { ToastService } from '@shared/components/toast/toast.service';
 
 // external library and modules
 import { NgbActiveModal, NgbModal, NgbModalConfig, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,7 +28,7 @@ export class ConfirmationComponent extends List implements OnInit {
   public seleted: ConfirmationI | null = null;
 
   constructor(public activeModal: NgbActiveModal,
-              private _toastService: ToatsService,
+              private _toastService: ToastService,
               private _modalService: NgbModal,
               private _service: ConfirmationService) {
 		super();

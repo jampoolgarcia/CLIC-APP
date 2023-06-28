@@ -1,0 +1,73 @@
+<button class="btn btn-outline-secondary btn-group-style" (click)="open(content)" type="button" id="confimation">
+	<i class="fa-sharp fa-solid fa-plus"></i>
+</button>
+
+<ng-template let-modal #content>
+	<div class="modal-header">
+		<h3 class="modal-title text-primary font-weight-bold">Servecios</h3>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+	</div>
+	<div class="modal-body">
+        <form [formGroup]="form" >
+            <div class="input-group mb-3">
+                <input type="text" 
+                formControlName="name" 
+                class="form-control" 
+                placeholder="Nombre"
+                [ngClass]="{'is-invalid': isInvalid('name'), 'is-valid': isValid('name') }"
+                aria-label="Recipient's name">
+
+                <input type="number" 
+                formControlName="commission" 
+                placeholder="Comision"
+                class="form-control" 
+                [ngClass]="{'is-invalid': isInvalid('commission'), 'is-valid': isValid('commission') }"
+                aria-label="Recipient's commission">
+                
+                <button class="btn btn-outline-secondary" [disabled]="form.invalid" (click)="onSubmit()" type="button" id="button-addon2">
+                    <i class="fa-sharp fa-solid fa-plus"></i>
+                    <!-- <i class="fa-sharp fa-solid fa-pen"></i> -->
+                </button>
+            </div>
+        </form>
+
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Nombre</th>
+                    <th scope="col">%</th>
+					<th scope="col"><i class="fa-solid fa-gears"></i></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let s of (services$ | async) | slice: (page-1) * pageSize : page * pageSize; index as i">
+					<th scope="row">{{ i+1 }}</th> 
+					<td>{{ s.name }}</td>
+                    <td>{{ s.commission }}</td>
+					<td>
+							<button type="button" class="btn btn-outline-info mx-2">
+								<i (click)="edit(s)" class="fa-sharp fa-solid fa-pen"></i>
+							</button>
+							<button type="button" (click)="delete(s.id!)" class="btn btn-outline-danger">
+								<i class="fa-solid fa-xmark"></i>
+							</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		
+		
+	</div>
+	<div class="modal-footer">
+		<!--begin paginators-->
+		<ngb-pagination
+		class="d-flex justify-content-end"
+		[(page)]="page"
+		[pageSize]="pageSize"
+		[collectionSize]="(services$ | async)?.length || 0"></ngb-pagination>
+		<!--end paginators -->
+	</div>
+</ng-template>

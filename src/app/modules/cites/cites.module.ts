@@ -14,7 +14,10 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import { FormCitesComponent } from './components/form-cites/form-cites.component';
 import { ListCitesComponent } from './components/list-cites/list-cites.component';
 import { CoordinatorComponent } from './pages/coordinator/coordinator.component';
+
+// shared
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { ServiceComponent } from '@shared/components/service/service.component';
 
 
 @NgModule({
@@ -34,9 +37,9 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
     NgbPaginationModule,
     // modules
     ReactiveFormsModule,
-    //Stanalone
+    // shared
     ConfirmationComponent,
-    
+    ServiceComponent
   ],
   exports: [
     ListCitesComponent
