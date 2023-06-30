@@ -24,6 +24,8 @@ import { ConfirmationService } from '@modules/cites/services/confirmation.servic
 // shared model
 import { ConfirmationI } from '@modules/cites/model/confirmation';
 import { ServiceI } from '@shared/components/service/service';
+import { ClientService } from '@modules/client/services/client.service';
+import { ClientI } from '@modules/client/model/client';
 
 
 @Component({
@@ -33,12 +35,13 @@ import { ServiceI } from '@shared/components/service/service';
 })
 export class FormCitesComponent extends Form implements OnInit {
 
-  public confirmations$!: Observable<ConfirmationI[]>;
+  public client$!: Observable<ClientI[]>;
   public services$!: Observable<ServiceI[]>;
 
   constructor(private fb: FormBuilder, 
     private _service: CitesService, 
-    private _serviceConfirmation: ConfirmationService,
+    //private _serviceConfirmation: ConfirmationService,
+    private _sericeClient: ClientService,
     private _serviceService: ServicesService,
     private _modalService: NgbModal,
     private _toastService: ToastService) { 
@@ -48,7 +51,7 @@ export class FormCitesComponent extends Form implements OnInit {
 
 
   ngOnInit(): void {
-    this.confirmations$ = this._serviceConfirmation.getAll();
+    this.client$ = this._sericeClient.getAll();
     this.services$ = this._serviceService.getAll();
   }
 
@@ -58,39 +61,14 @@ export class FormCitesComponent extends Form implements OnInit {
 
   buildingForm(): void {
     this.form = this.fb.group({
-      firstName: [
+      client: [
         '',
         [
           Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(30),
-          Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/),
         ],
       ],
-      lastName: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(30),
-          Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/),
-        ],
-      ],
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/),
-        ],
-      ],
-      phone: [
-        '',
-        [Validators.required, Validators.minLength(3),
-        Validators.pattern(/^[0-9]{7,11}$/),],
-      ],
-      dateOfBirth: ['', Validators.required],
+      date: [new Date(), Validators.required],
 			hour: ['', Validators.required],
-			confirmation: ['', Validators.required],
       service: ['', Validators.required],
 			observation: ['', Validators.required],
     });
@@ -115,26 +93,19 @@ export class FormCitesComponent extends Form implements OnInit {
 
   private getFormValues(): CiteI {
 		const {
-			firstName,
-			lastName,
-			email,
-			phone,
-			dateOfBirth,
+			client,
+			date,
 			hour,
-			confirmation,
       service,
 			observation
 		} = this.form.value;
 
 		let cite: CiteI = {
 			redes : "test redes",
-			firstName,
-			lastName,
-			email,
-			phone,
-			dateOfBirth,
+			client,
+			date,
 			hour,
-			confirmation,
+			confirmation: '',
       service,
 			observation,
 			room: "test room"

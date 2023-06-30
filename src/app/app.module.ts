@@ -28,7 +28,7 @@ import { ToastComponent } from '@shared/components/toast/toast.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

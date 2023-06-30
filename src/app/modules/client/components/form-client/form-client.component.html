@@ -1,0 +1,70 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Cliente</h4>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="form" class="row g-3">
+            
+            <div class="form-group">
+              <label for="firstName" class="form-label">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="firstName"
+                placeholder="Nombre"
+                id="firstName"
+                [ngClass]="{'is-invalid': isInvalid('firstName'), 'is-valid': isValid('firstName') }"
+                required
+              />
+            </div>
+    
+            <div class="form-group">
+              <label for="validationServer02" class="form-label">Apellido</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="lastName"
+                placeholder="Apellido"
+                [ngClass]="{'is-invalid': isInvalid('lastName'), 'is-valid': isValid('lastName') }"
+                id="lastName"
+                required
+              />
+            </div>
+    
+            <div class="form-group">
+              <label for="email" class="form-label">Correo</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Correo"
+                formControlName="email"
+                [ngClass]="{'is-invalid': isInvalid('email'), 'is-valid': isValid('email') }"
+                aria-describedby="email"
+                required
+              />
+            </div>
+    
+            <div class="form-group">
+              <label for="phone" class="form-label">Telefono</label>
+              <input
+                type="text"
+                class="form-control"
+                name="Telefono"
+                placeholder="Telefono"
+                id="phone"
+                aria-describedby="phone"
+                formControlName="phone"
+                [ngClass]="{'is-invalid': isInvalid('phone'), 'is-valid': isValid('phone') }"
+                required
+              />
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="col-12 text-end">
+            <button class="btn btn-secondary mx-2"  routerLink="/cites" type="submit">Volver</button>
+            <button class="btn btn-primary" (click)="onSubmit()" [disabled]="this.form.invalid" type="submit">Guardar</button>
+        </div>
+    </div>
+</div>

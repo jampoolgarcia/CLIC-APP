@@ -13,9 +13,14 @@ const routes: Routes = [
     path: 'cites',
     loadChildren: () => import('@modules/cites/cites.module').then(m => m.CitesModule),
   },
+   // ruta del modulo de las clientes.
+   {
+    path: 'client',
+    loadChildren: () => import('@modules/client/client.module').then(m => m.ClientModule),
+  },
   {
     path: '**',
-    redirectTo: 'cites'
+    redirectTo: 'client'
   }
 ];
 

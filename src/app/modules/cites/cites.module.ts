@@ -22,9 +22,10 @@ import { ServiceComponent } from '@shared/components/service/service.component';
 
 @NgModule({
   declarations: [
-    RedesComponent,
+    // pipes 
     FilterPipe,
     // components
+    RedesComponent,
     FormCitesComponent,
     ListCitesComponent,
     CoordinatorComponent

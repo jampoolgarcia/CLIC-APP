@@ -6,66 +6,32 @@
       </div>
       <div class="card-body">
         <form [formGroup]="form" class="row g-3">
+         
           <div class="col-md-6">
-            <label for="firstName" class="form-label">Nombre</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="firstName"
-              placeholder="Nombre"
-              id="firstName"
-              [ngClass]="{'is-invalid': isInvalid('firstName'), 'is-valid': isValid('firstName') }"
+            <label for="client" class="form-label">Clienta</label>
+            <div class="input-group mb-3">
+              <select
+              class="form-select"
+              id="client"
+              formControlName="client"
+              [ngClass]="{'is-invalid': isInvalid('client'), 'is-valid': isValid('client') }"
+              aria-describedby="client"
               required
-            />
-          </div>
+            >
+              <option selected disabled value="">Seleccionar...</option>
+              <option *ngFor="let c of (client$ | async)" [value]="c.firstName">{{ c.firstName }} {{  c.lastName }}</option>
+            </select>
+              <button class="btn btn-outline-secondary btn-group-style" routerLink="/client" type="button" id="client">
+                <i class="fa-sharp fa-solid fa-plus"></i>
+              </button>
+            </div>
+            
+          </div> 
+          
+
   
           <div class="col-md-6">
-            <label for="validationServer02" class="form-label">Apellido</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="lastName"
-              placeholder="Apellido"
-              [ngClass]="{'is-invalid': isInvalid('lastName'), 'is-valid': isValid('lastName') }"
-              id="lastName"
-              required
-            />
-          </div>
-          <!-- linea 2 -->
-  
-          <div class="col-md-6">
-            <label for="email" class="form-label">Correo</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              placeholder="Correo"
-              formControlName="email"
-              [ngClass]="{'is-invalid': isInvalid('email'), 'is-valid': isValid('email') }"
-              aria-describedby="email"
-              required
-            />
-          </div>
-  
-          <div class="col-md-6">
-            <label for="phone" class="form-label">Telefono</label>
-            <input
-              type="text"
-              class="form-control"
-              name="Telefono"
-              placeholder="Telefono"
-              id="phone"
-              aria-describedby="phone"
-              formControlName="phone"
-              [ngClass]="{'is-invalid': isInvalid('phone'), 'is-valid': isValid('phone') }"
-              required
-            />
-          </div>
-  
-          <!-- linea 3 -->
-  
-          <div class="col-md-6">
-            <label for="dateOfBirth" class="form-label">Fecha de Nacimiento</label>
+            <label for="dateOfBirth" class="form-label">Fecha</label>
             <input
               type="date"
               class="form-control"
@@ -80,8 +46,7 @@
           </div>
   
           <div class="col-md-6">
-            <label for="hour" class="form-label"
-              >Hora</label
+            <label for="hour" class="form-label">Hora</label
             >
             <input
               type="time"
@@ -95,9 +60,7 @@
             />
           </div>
   
-           <!-- linea 4 -->
-  
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
             <label for="confirmation" class="form-label">Confirmacion</label>
             <div class="input-group mb-3">
               <select
@@ -114,7 +77,7 @@
               <app-confirmation></app-confirmation>
             </div>
             
-          </div> 
+          </div>  -->
 
           <div class="col-md-6">
             <label for="confirmation" class="form-label">Servicios</label>
@@ -135,7 +98,7 @@
             
           </div> 
   
-          <div class="col-md-6">
+          <div class="col-md-12">
             <label for="observation" class="form-label">Observacion</label>
             <textarea 
             class="form-control" 
@@ -159,6 +122,61 @@
   </div>
 </div>
 
+
+<!-- <div class="col-md-6">
+  <label for="firstName" class="form-label">Nombre</label>
+  <input
+    type="text"
+    class="form-control"
+    formControlName="firstName"
+    placeholder="Nombre"
+    id="firstName"
+    [ngClass]="{'is-invalid': isInvalid('firstName'), 'is-valid': isValid('firstName') }"
+    required
+  />
+</div>
+
+<div class="col-md-6">
+  <label for="validationServer02" class="form-label">Apellido</label>
+  <input
+    type="text"
+    class="form-control"
+    formControlName="lastName"
+    placeholder="Apellido"
+    [ngClass]="{'is-invalid': isInvalid('lastName'), 'is-valid': isValid('lastName') }"
+    id="lastName"
+    required
+  />
+</div>
+
+<div class="col-md-6">
+  <label for="email" class="form-label">Correo</label>
+  <input
+    type="email"
+    class="form-control"
+    id="email"
+    placeholder="Correo"
+    formControlName="email"
+    [ngClass]="{'is-invalid': isInvalid('email'), 'is-valid': isValid('email') }"
+    aria-describedby="email"
+    required
+  />
+</div>
+
+<div class="col-md-6">
+  <label for="phone" class="form-label">Telefono</label>
+  <input
+    type="text"
+    class="form-control"
+    name="Telefono"
+    placeholder="Telefono"
+    id="phone"
+    aria-describedby="phone"
+    formControlName="phone"
+    [ngClass]="{'is-invalid': isInvalid('phone'), 'is-valid': isValid('phone') }"
+    required
+  />
+</div> -->
 
 
 

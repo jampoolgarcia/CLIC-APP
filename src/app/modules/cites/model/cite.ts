@@ -1,12 +1,9 @@
 export interface CiteI {
   id?: string;
   redes: string;
-  firstName: string;
-	lastName: string;
+  client: string;
 	hour: string;
-	phone: string;
-  dateOfBirth: Date;
-  email: string;
+  date: Date;
   confirmation: string;
   service: string;
   observation: string;
