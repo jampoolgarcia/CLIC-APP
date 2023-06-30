@@ -45,7 +45,7 @@
 				<tr *ngFor="let s of (services$ | async) | slice: (page-1) * pageSize : page * pageSize; index as i">
 					<th scope="row">{{ i+1 }}</th> 
 					<td>{{ s.name }}</td>
-                    <td>{{ s.commission }}</td>
+                    <td>{{ s.commission }}%</td>
 					<td>
 							<button type="button" class="btn btn-outline-info mx-2">
 								<i (click)="edit(s)" class="fa-sharp fa-solid fa-pen"></i>

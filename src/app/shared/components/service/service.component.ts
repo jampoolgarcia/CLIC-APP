@@ -52,7 +52,7 @@ export class ServiceComponent extends Form implements OnInit {
   
     public buildingForm(): void {
       this.form = this.fb.group({
-        name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/) ]],
+        name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern(/^[A-Za-z+/0-9\s\xF1\xD1]+$/) ]],
         commission: ['', [Validators.required,  Validators.pattern(/^[0-9]+$/)]]
       })
     }
