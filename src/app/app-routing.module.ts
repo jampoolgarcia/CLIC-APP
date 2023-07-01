@@ -19,8 +19,13 @@ const routes: Routes = [
     loadChildren: () => import('@modules/client/client.module').then(m => m.ClientModule),
   },
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'auth'
+  },
+  {
     path: '**',
-    redirectTo: 'client'
+    redirectTo: 'auth'
   }
 ];
 

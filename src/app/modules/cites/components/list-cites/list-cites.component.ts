@@ -13,6 +13,9 @@ import { ConfirmationService } from '@modules/cites/services/confirmation.servic
 // rxjs
 import { Observable } from 'rxjs';
 
+// pipes
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
+
 @Component({
   selector: 'app-list-cites',
   templateUrl: './list-cites.component.html',

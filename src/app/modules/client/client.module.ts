@@ -6,11 +6,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 // ng-bootstrap
 import { NgbActiveModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
-// pipes
-import { FilterPipe } from 'src/app/pipes/filter.pipe';
-
 // routing
 import { ClientRoutingModule } from './cites-routing.module';
+
+// shared module
+import { SharedModule } from '@shared/shared.module';
 
 // components
 import { ClientComponent } from './pages/client/client.component';
@@ -19,13 +19,15 @@ import { ListClientComponent } from './components/list-client/list-client.compon
 
 
 
+
+
+
+
 @NgModule({
   declarations: [
     ClientComponent,
     FormClientComponent,
-    ListClientComponent,
-    // pipes
-    FilterPipe
+    ListClientComponent
   ],
   imports: [
     CommonModule,
@@ -33,8 +35,10 @@ import { ListClientComponent } from './components/list-client/list-client.compon
     ClientRoutingModule,
     // bootstarp
     NgbPaginationModule,
-     // modules
-     ReactiveFormsModule,
+    // modules
+    ReactiveFormsModule,
+    // shared
+    SharedModule
   ],
   providers: [
     NgbActiveModal,

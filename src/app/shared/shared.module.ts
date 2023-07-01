@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ServicesComponent } from './components/services/services.component';
 
-
-// components
+// pipes
+import { FilterPipe } from '../pipes/filter.pipe';
 
 
 
@@ -14,17 +13,14 @@ import { ServicesComponent } from './components/services/services.component';
 
 @NgModule({
   declarations: [
-
-  
-    ServicesComponent
+    FilterPipe
   ],
   imports: [
-      // core
-      ReactiveFormsModule,
-      FormsModule,
-      CommonModule,
-      HttpClientModule,
-
+    // core
+    CommonModule
+  ],
+  exports: [
+    FilterPipe
   ]
 })
 export class SharedModule { }

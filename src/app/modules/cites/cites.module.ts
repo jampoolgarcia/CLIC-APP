@@ -10,25 +10,25 @@ import { NgbActiveModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap'
 // Pages
 import { RedesComponent } from './pages/redes/redes.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { CoordinatorComponent } from './pages/coordinator/coordinator.component';
+
+// components
 import { FormCitesComponent } from './components/form-cites/form-cites.component';
 import { ListCitesComponent } from './components/list-cites/list-cites.component';
-import { CoordinatorComponent } from './pages/coordinator/coordinator.component';
 
 // shared
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { ServiceComponent } from '@shared/components/service/service.component';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    // pipes 
-    FilterPipe,
     // components
     RedesComponent,
     FormCitesComponent,
     ListCitesComponent,
-    CoordinatorComponent
+    CoordinatorComponent,
   ],
   imports: [
     CommonModule,
@@ -39,6 +39,7 @@ import { ServiceComponent } from '@shared/components/service/service.component';
     // modules
     ReactiveFormsModule,
     // shared
+    SharedModule,
     ConfirmationComponent,
     ServiceComponent
   ],

@@ -34,13 +34,9 @@
             <tbody>
               <tr *ngFor="let cite of (cites$ | async) | filter:search.value :['firstName','lastName']  | slice: (page-1) * pageSize : page * pageSize; index as i">
                 <th scope="row">{{ ((page -1) * 5) + (i + 1) }}</th>
-                <td>
-                  {{ cite.firstName }} {{ cite.lastName }}
-                </td>
+                <td> {{ cite.client }}</td>
                 <td>{{ cite.hour }}</td>
-                <td>{{ cite.phone }}</td>
-                <td>{{ cite.dateOfBirth | date:'shortDate' }}</td>
-                <td>{{ cite.email }}</td>
+                <td>{{ cite.date | date:'shortDate' }}</td>
                 <td>{{ cite.observation }}</td>
                 <td>{{ cite.confirmation }}</td>
                 <td>{{ cite.service }}</td>
