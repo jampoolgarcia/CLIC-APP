@@ -4,8 +4,7 @@ import { AuthService } from '@modules/auth/auth.service';
 
 @Component({
   selector: 'app-sing-in',
-  templateUrl: './sing-in.component.html',
-  styleUrls: ['./sing-in.component.scss']
+  templateUrl: './sing-in.component.html'
 })
 export class SingInComponent implements OnInit {
 

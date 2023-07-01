@@ -1,56 +1,53 @@
 <div class="container">
   <!-- Outer Row -->
   <div class="row justify-content-center">
-    <div class="col-xl-10 col-lg-12 col-md-9">
+    <div class="col-xl-6 col-lg-6 col-md-6">
       <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
           <!-- Nested Row within Card Body -->
           <div class="row">
-            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+            <div class="col">
               <div class="p-5">
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Bienvenido!</h1>
                 </div>
-                <form [formGroup]="loginForm" class="user">
-                  <div class="form-group">
+                <form [formGroup]="loginForm" class="row g-3">
+
+                  
+                  <div class="col-md-12">
+                    <label for="email" class="form-label">Correro</label>
                     <input
-                      type="email"
-                      class="form-control form-control-user"
-                      formControlName="email"
-                      [ngClass]="{'is-invalid': (loginForm.controls['email'].errors && loginForm.controls['email'].dirty), 'is-valid': !loginForm.controls['email'].errors}"
-                      id="email"
-                      aria-describedby="email"
-                      placeholder="Ingrese su correo..."
-                    />
-                  </div>
-                  <div class="form-group">
-                    <input
-                      type="password"
-                      formControlName="password"
-                      class="form-control form-control-user"
-                      id="password"
-                      [ngClass]="{'is-invalid': (loginForm.controls['password'].errors && loginForm.controls['password'].dirty), 'is-valid': !loginForm.controls['password'].errors}"
-                      placeholder="Ingrese su clave..."
-                    />
-                  </div>
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox small">
-                      <input
-                        disabled
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customCheck"
-                      />
-                      <label class="custom-control-label" for="customCheck"
-                        >Recordar</label
-                      >
-                    </div>
+                    type="email"
+                    class="form-control"
+                    formControlName="email"
+                    [ngClass]="{'is-invalid': (loginForm.controls['email'].errors && loginForm.controls['email'].dirty), 'is-valid': !loginForm.controls['email'].errors}"
+                    id="email"
+                    aria-describedby="email"
+                    placeholder="Ingrese su correo..."/>
                   </div>
 
-                  <button (click)="login()" [disabled]="loginForm.invalid" class="btn btn-primary btn-user btn-block">
-                    Iniciar
-                  </button>
+                  <div class="col-md-12">
+                    <label for="password" class="form-label">Clave</label>
+                    <input
+                    type="password"
+                    formControlName="password"
+                    class="form-control form-control-user"
+                    id="password"
+                    [ngClass]="{'is-invalid': (loginForm.controls['password'].errors && loginForm.controls['password'].dirty), 'is-valid': !loginForm.controls['password'].errors}"
+                    placeholder="Ingrese su clave..."/>
+                </div>
+
+                <div class="d-flex">
+                  <div class="form-check form-switch ml-auto">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" disabled>
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Recordar</label>
+                  </div>
+                </div>
+                
+                <button (click)="login()" [disabled]="loginForm.invalid" class="btn btn-primary btn-user btn-block">
+                  Iniciar
+                </button>
                   
                   <!--<hr />
                    <a routerLink="/" class="btn btn-google btn-user btn-block">
@@ -63,13 +60,11 @@
                 <hr />
                 <div class="text-center">
                   <a class="small" [routerLink]="['/auth/forgot']"
-                    >¿Has olvidado tu calve?</a
-                  >
+                    >¿Has olvidado tu calve?</a >
                 </div>
                 <div class="text-center">
                   <a class="small" [routerLink]="['/auth/register']"
-                    >¡Crea una cuenta!</a
-                  >
+                    >¡Crea una cuenta!</a>
                 </div>
               </div>
             </div>
