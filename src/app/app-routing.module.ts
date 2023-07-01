@@ -18,8 +18,8 @@ const routes: Routes = [
   },
   // ruta del modulo de las citas.
   {
-    path: 'cites',
-    loadChildren: () => import('@modules/cites/cites.module').then(m => m.CitesModule),
+    path: 'redes',
+    loadChildren: () => import('@modules/redes/redes.module').then(m => m.RedesModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
    // ruta del modulo de las clientes.
