@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 // firebase
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { Auth,  User, user, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
 import {
   CollectionReference,
@@ -14,6 +14,7 @@ import {
 // model
 import { LoginI } from './model/login';
 import { UserI } from './model/user';
+import { ToastService } from '@shared/components/toast/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,23 +23,28 @@ export class AuthService {
 
   private userCollection: CollectionReference<DocumentData>;
 
-  constructor(private auth: Auth, private readonly firestore: Firestore) { 
+  constructor(private auth: Auth, private readonly firestore: Firestore, private _toast: ToastService) { 
     this.userCollection = collection(this.firestore, 'user');
   }
 
  
-  login({email, password}: LoginI) {
-    return signInWithEmailAndPassword(this.auth, email, password);
+  async login({email, password}: LoginI) {
+
+    return await signInWithEmailAndPassword(this.auth, email, password)
+   
   }
 
   logout() {
     return signOut(this.auth);
   }
 
-  register(user: UserI) {
+  async register(user: UserI) {
     const { email, password }: LoginI = user;
     user.password = '';
-    return createUserWithEmailAndPassword(this.auth, email, password);
+    const userCredential: any = createUserWithEmailAndPassword(this.auth, email, password);
+    const userDocRef = doc(this.firestore, `usuarios/${userCredential.userCredential.uid}`);
+    // set(userDocRef, { role: role });
+    updateDoc(userDocRef, { ...user });
   }
 
   getAll() {
@@ -67,6 +73,10 @@ export class AuthService {
   delete(id: string) {
     const userDocumentReference = doc(this.firestore, `user/${id}`);
     return deleteDoc(userDocumentReference);
+  }
+
+  get currentUser(){
+    return this.auth.currentUser;
   }
 
 }

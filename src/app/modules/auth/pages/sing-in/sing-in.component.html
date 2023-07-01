@@ -12,7 +12,7 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Bienvenido!</h1>
                 </div>
-                <form [formGroup]="loginForm" class="row g-3">
+                <form [formGroup]="form" class="row g-3">
 
                   
                   <div class="col-md-12">
@@ -21,7 +21,7 @@
                     type="email"
                     class="form-control"
                     formControlName="email"
-                    [ngClass]="{'is-invalid': (loginForm.controls['email'].errors && loginForm.controls['email'].dirty), 'is-valid': !loginForm.controls['email'].errors}"
+                    [ngClass]="{'is-invalid': isInvalid('email'), 'is-valid': isValid('email') }"
                     id="email"
                     aria-describedby="email"
                     placeholder="Ingrese su correo..."/>
@@ -34,7 +34,7 @@
                     formControlName="password"
                     class="form-control form-control-user"
                     id="password"
-                    [ngClass]="{'is-invalid': (loginForm.controls['password'].errors && loginForm.controls['password'].dirty), 'is-valid': !loginForm.controls['password'].errors}"
+                    [ngClass]="{'is-invalid': isInvalid('password'), 'is-valid': isValid('password') }"
                     placeholder="Ingrese su clave..."/>
                 </div>
 
@@ -45,7 +45,7 @@
                   </div>
                 </div>
                 
-                <button (click)="login()" [disabled]="loginForm.invalid" class="btn btn-primary btn-user btn-block">
+                <button (click)="onSubmit()" [disabled]="form.invalid" class="btn btn-primary btn-user btn-block">
                   Iniciar
                 </button>
                   
@@ -65,7 +65,7 @@
                 <div class="text-center">
                   <a class="small" [routerLink]="['/auth/register']"
                     >¡Crea una cuenta!</a>
-                </div>
+                </div> 
               </div>
             </div>
           </div>

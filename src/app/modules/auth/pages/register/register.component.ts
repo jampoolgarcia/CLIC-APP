@@ -1,29 +1,53 @@
+// angular core
 import { Component, OnInit } from '@angular/core';
-import { user } from '@angular/fire/auth';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+// app
+import { Form } from '@core/form';
 import { AuthService } from '@modules/auth/auth.service';
+
+// model 
 import { UserI } from '@modules/auth/model/user';
 
-// external
-import Swal from 'sweetalert2';
+// services
+import { ToastService } from '@shared/components/toast/toast.service';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  templateUrl: './register.component.html'
 })
-export class RegisterComponent implements OnInit {
-  public userForm!: FormGroup;
+export class RegisterComponent extends Form implements OnInit {
+  
   private minPassLength = 6;
 
-  constructor(private _service: AuthService, private fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    this.buildUserForm();
+  constructor(private _service: AuthService, private fb: FormBuilder, private _toast: ToastService) {
+    super();
   }
 
-  private buildUserForm() {
-    this.userForm = this.fb.group({
+  ngOnInit(): void {
+    this.buildingForm();
+  }
+
+  override onSubmit(): void {
+    
+    const user = this.getUserForm();
+
+    try {
+      const res = this._service.register(user);
+      console.log(res);
+      if(res != null){
+        this.form.reset();
+        this._toast.show('Usuario registrado exitosamente.', 'success');
+      }
+    } catch (err: any) {
+      this._toast.show('Obs. Ha ocurrido un error al registrar el usuario.', 'danger');
+      console.log(err.code);
+    }
+
+  }
+
+  override buildingForm(): void {
+    this.form = this.fb.group({
       firstName: [
         '',
         [
@@ -49,46 +73,39 @@ export class RegisterComponent implements OnInit {
           Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/),
         ],
       ],
-      password: [
-        '',
-        [Validators.required, Validators.minLength(this.minPassLength)],
-      ],
-      rol: ['', Validators.required],
+      passwordGroup: 
+        this.fb.group({
+          password: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(30)]],
+          confirmPassword: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(30)]]
+        }, 
+        { validator: this.passwordMatchValidator }
+      )
     });
   }
 
-  register(){
-
-    const { firstName, lastName, email, password, rol } = this.userForm.value;
-
-    const user: UserI = {
+  private getUserForm(): UserI {
+    const { firstName, lastName, email, password, rol } = this.form.value;
+    return {
       fullName: `${firstName} ${lastName}`,
       email,
       password,
       rol,
       status: false,
-      room: []
+      room: ''
     }
-
-    const res = this._service.register(user);
-
-    if(res != null){
-      this.userForm.reset();
-      Swal.fire({
-        timer: 1500,
-        title: '¡Buen trabajo!',
-        icon: 'success'
-      })
-    }
-
   }
 
-  public getError(controlName: string): string {
-    let error = '';
-    const control: AbstractControl<any, any> | null = this.userForm.get(controlName);
-    if (control?.touched && control.errors != null) {
-      error = JSON.stringify(control.errors);
+  private passwordMatchValidator(fg: FormGroup) {
+    if(fg.dirty){
+      const { password, confirmPassword } =  fg.value;
+      if (password !== confirmPassword) {
+        fg.get('confirmPassword')?.setErrors({ 'mismatch': true });
+      } else {
+        fg.get('confirmPassword')?.setErrors({ 'mismatch': false });
+      }
     }
-    return error;
+    
   }
+
+
 }

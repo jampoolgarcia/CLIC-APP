@@ -1,17 +1,26 @@
+// angular core
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+// firebase
+import { AuthGuard, redirectUnauthorizedTo, redirectLoggedInTo, canActivate } from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
+const redirectLoggedInToHome = () => redirectLoggedInTo(['redes']);
 
 const routes: Routes = [
   // rutas del modulo de autheticacion.
   {
     path: 'auth',
     loadChildren: () => import('@modules/auth/auth.module').then(m => m.AuthModule),
+    ...canActivate(redirectLoggedInToHome),
     //canActivate: [AuthGuard]
   },
   // ruta del modulo de las citas.
   {
     path: 'cites',
     loadChildren: () => import('@modules/cites/cites.module').then(m => m.CitesModule),
+    ...canActivate(redirectUnauthorizedToLogin),
   },
    // ruta del modulo de las clientes.
    {

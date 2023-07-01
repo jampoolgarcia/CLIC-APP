@@ -3,7 +3,7 @@ export interface UserI {
   fullName: string
   email: string;
   password: string;
-  room: string[];
+  room: string;
   rol: string;
   status: boolean;
 }
