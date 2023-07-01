@@ -5,8 +5,8 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 
 // core app
 import { Form } from '@core/form';
-import { ConfirmationI } from '@modules/cites/model/confirmation';
-import { ConfirmationService } from '@modules/cites/services/confirmation.service';
+import { ConfirmationI } from '@modules/redes/model/confirmation';
+import { ConfirmationService } from '@modules/redes/services/confirmation.service';
 import { ToastService } from '@shared/components/toast/toast.service';
 
 // external library and modules

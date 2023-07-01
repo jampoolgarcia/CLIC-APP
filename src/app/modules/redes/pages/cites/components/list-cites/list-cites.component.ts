@@ -2,19 +2,15 @@
 import { Component, OnInit } from '@angular/core';
 
 // model
-import { CiteI } from '@modules/cites/model/cite';
+import { CiteI } from '@modules/redes/model/cite';
 import { List } from '@core/list';
-import { ConfirmationI } from '@modules/cites/model/confirmation';
 
 // services
-import { CitesService } from '@modules/cites/services/cites.service';
-import { ConfirmationService } from '@modules/cites/services/confirmation.service';
+import { CitesService } from '@modules/redes/services/cites.service';
 
 // rxjs
 import { Observable } from 'rxjs';
 
-// pipes
-import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @Component({
   selector: 'app-list-cites',

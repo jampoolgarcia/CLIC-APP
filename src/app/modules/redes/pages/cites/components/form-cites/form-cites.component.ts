@@ -3,14 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 // app
-import { CiteI } from '@modules/cites/model/cite';
+import { CiteI } from '@modules/redes/model/cite';
 import { Form } from '@core/form';
 
 
 
 
 // service
-import { CitesService } from '@modules/cites/services/cites.service';
+import { CitesService } from '@modules/redes/services/cites.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // rxjs
@@ -19,10 +19,8 @@ import { Observable } from 'rxjs';
 // shared service
 import { ToastService } from '@shared/components/toast/toast.service';
 import { ServicesService } from '@shared/components/service/services.service';
-import { ConfirmationService } from '@modules/cites/services/confirmation.service';
 
 // shared model
-import { ConfirmationI } from '@modules/cites/model/confirmation';
 import { ServiceI } from '@shared/components/service/service';
 import { ClientService } from '@modules/client/services/client.service';
 import { ClientI } from '@modules/client/model/client';

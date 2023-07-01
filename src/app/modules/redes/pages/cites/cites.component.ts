@@ -1,15 +1,17 @@
-// core
+// core angular
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+// firebase
 import { Auth, signOut } from '@angular/fire/auth';
 
 @Component({
-  selector: 'app-redes',
-  templateUrl: './redes.component.html',
-  styleUrls: ['./redes.component.scss']
+  selector: 'app-cites',
+  templateUrl: './cites.component.html',
+  styles: [
+  ]
 })
-export class RedesComponent implements OnInit {
-
+export class CitesComponent implements OnInit {
 
   constructor(private auth: Auth, private _router: Router) {
 	}
