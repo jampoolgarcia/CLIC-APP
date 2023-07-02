@@ -29,7 +29,7 @@ export class SingInComponent extends Form implements OnInit {
     try {
       const res = await this._service.login({email, password});
       this._toast.show('Bienvenido!!!.', 'info');
-      this._router.navigate(['/cites']);
+      this._router.navigate(['/redes/cites']);
       this.form.reset();
     } catch (err: any) {
       let msg = '';

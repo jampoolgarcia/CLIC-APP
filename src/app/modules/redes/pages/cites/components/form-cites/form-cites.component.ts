@@ -99,14 +99,12 @@ export class FormCitesComponent extends Form implements OnInit {
 		} = this.form.value;
 
 		let cite: CiteI = {
-			redes : "test redes",
 			client,
 			date,
 			hour,
 			confirmation: '',
       service,
-			observation,
-			room: "test room"
+			observation
 		}
 
 		return cite;

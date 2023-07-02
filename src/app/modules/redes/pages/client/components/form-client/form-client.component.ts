@@ -109,6 +109,8 @@ export class FormClientComponent extends Form implements OnInit {
       if(res){
         this.form.reset();
         this._toastService.show("Se ha guardado exitosamente.", 'success');
+      }else {
+        this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
       }
     } catch (err) {
       console.log(err)

@@ -23,7 +23,7 @@ export class CitesService {
 
   // crea una nueva cita en fire base
   public add(cite: CiteI) {
-    cite.service = `services/${cite.service}`
+    cite.service = doc(this.firestore, `usuarios/${cite.service}`);
     return addDoc(this.citeCollection, cite);
   }
 

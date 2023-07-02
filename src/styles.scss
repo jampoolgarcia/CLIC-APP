@@ -1,4 +1,8 @@
 
+body {
+  background-color: #000;
+}
+
 .cursor-p{
   cursor: pointer;
 }
@@ -9,6 +13,10 @@
 
 ngb-pagination > ul > li {
   background-color: rgba(238,232,213,.125) !important;
+}
+
+.bg-primary {
+  background-color: #be8142 !important;
 }
 
 
