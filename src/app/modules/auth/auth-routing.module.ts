@@ -7,6 +7,10 @@ import { ForgotComponent } from './pages/forgot/forgot.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { SingInComponent } from './pages/sing-in/sing-in.component';
 
+import { redirectUnauthorizedTo, redirectLoggedInTo, canActivate } from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
+
 const routes: Routes = [
   { 
     path: 'sing-in',
@@ -19,6 +23,7 @@ const routes: Routes = [
   { 
     path: 'register',
     component: RegisterComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: '',
