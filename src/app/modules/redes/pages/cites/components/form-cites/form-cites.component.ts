@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
 
 // shared service
 import { ToastService } from '@shared/components/toast/toast.service';
-import { ServicesService } from '@shared/components/service/services.service';
+import { ClientServicesService } from '@modules/redes/services/client-services.service';
 
 // shared model
 import { ServiceI } from '@shared/components/service/service';
@@ -40,7 +40,7 @@ export class FormCitesComponent extends Form implements OnInit {
     private _service: CitesService, 
     //private _serviceConfirmation: ConfirmationService,
     private _sericeClient: ClientService,
-    private _serviceService: ServicesService,
+    private _serviceService: ClientServicesService,
     private _modalService: NgbModal,
     private _toastService: ToastService) { 
     super();
