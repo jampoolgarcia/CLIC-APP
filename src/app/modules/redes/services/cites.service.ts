@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 // firebase
-import { CollectionReference, DocumentData, Firestore, collection, addDoc, collectionData } from '@angular/fire/firestore';
+import { CollectionReference, DocumentData, Firestore, collection, addDoc, collectionData, doc } from '@angular/fire/firestore';
 
 // model
 import { CiteI } from '../model/cite';
@@ -23,6 +23,7 @@ export class CitesService {
 
   // crea una nueva cita en fire base
   public add(cite: CiteI) {
+    cite.service = `services/${cite.service}`
     return addDoc(this.citeCollection, cite);
   }
 

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { CitesComponent } from './pages/cites/cites.component';
+import { ClientComponent } from './pages/client/client.component';
 
 const routes: Routes = [
   {
@@ -10,8 +11,13 @@ const routes: Routes = [
     component: CitesComponent,
   },
   {
+    path: 'client',
+    component: ClientComponent,
+  },
+  {
     path: '',
-    component: CitesComponent,
+    pathMatch: 'full',
+    redirectTo: 'cites'
   },
 ];
 

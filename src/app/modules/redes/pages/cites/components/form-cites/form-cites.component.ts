@@ -22,8 +22,8 @@ import { ServicesService } from '@shared/components/service/services.service';
 
 // shared model
 import { ServiceI } from '@shared/components/service/service';
-import { ClientService } from '@modules/client/services/client.service';
-import { ClientI } from '@modules/client/model/client';
+import { ClientService } from '@modules/redes/services/client.service';
+import { ClientI } from '@modules/redes/model/client';
 
 
 @Component({

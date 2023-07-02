@@ -22,6 +22,10 @@ import { ClientComponent } from './pages/client/client.component';
 import { FormCitesComponent } from './pages/cites/components/form-cites/form-cites.component';
 import { ListCitesComponent } from './pages/cites/components/list-cites/list-cites.component';
 
+import { ListClientComponent } from './pages/client/components/list-client/list-client.component';
+import { FormClientComponent } from './pages/client/components/form-client/form-client.component';
+
+
 
 @NgModule({
   declarations: [
@@ -31,7 +35,9 @@ import { ListCitesComponent } from './pages/cites/components/list-cites/list-cit
 
     // components
     FormCitesComponent,
-    ListCitesComponent
+    ListCitesComponent,
+    FormClientComponent,
+    ListClientComponent
 
     
   ],

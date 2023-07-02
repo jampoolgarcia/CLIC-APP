@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 
 // app
 import { List } from '@core/list';
-import { ClientI } from '@modules/client/model/client';
-import { ClientService } from '@modules/client/services/client.service';
+import { ClientI } from '@modules/redes/model/client';
+import { ClientService } from '@modules/redes/services/client.service';
 import { Observable } from 'rxjs';
 
 @Component({

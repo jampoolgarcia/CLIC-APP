@@ -21,7 +21,7 @@
               <option selected disabled value="">Seleccionar...</option>
               <option *ngFor="let c of (client$ | async)" [value]="c.firstName">{{ c.firstName }} {{  c.lastName }}</option>
             </select>
-              <button class="btn btn-outline-secondary btn-group-style" routerLink="/client" type="button" id="client">
+              <button class="btn btn-outline-secondary btn-group-style" routerLink="/redes/client" type="button" id="client">
                 <i class="fa-sharp fa-solid fa-plus"></i>
               </button>
             </div>
@@ -90,11 +90,10 @@
               required
             >
               <option selected disabled value="">Seleccionar...</option>
-              <option *ngFor="let s of (services$ | async)" [value]="s.name">{{ s.name }}</option>
+              <option *ngFor="let s of (services$ | async)" [value]="s.id">{{ s.name }}</option>
             </select>
               <!-- <app-services></app-services> -->
             </div>
-            
           </div> 
   
           <div class="col-md-12">

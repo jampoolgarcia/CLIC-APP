@@ -4,8 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 // core app
 import { Form } from '@core/form';
-import { ClientI } from '@modules/client/model/client';
-import { ClientService } from '@modules/client/services/client.service';
+import { ClientI } from '@modules/redes/model/client';
+import { ClientService } from '@modules/redes/services/client.service';
 import { ToastService } from '@shared/components/toast/toast.service';
 
 @Component({

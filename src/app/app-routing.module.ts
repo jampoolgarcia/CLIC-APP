@@ -22,11 +22,6 @@ const routes: Routes = [
     loadChildren: () => import('@modules/redes/redes.module').then(m => m.RedesModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
-   // ruta del modulo de las clientes.
-   {
-    path: 'client',
-    loadChildren: () => import('@modules/client/client.module').then(m => m.ClientModule),
-  },
   {
     path: '',
     pathMatch: 'full',
