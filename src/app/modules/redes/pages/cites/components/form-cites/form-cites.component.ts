@@ -6,8 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CiteI } from '@modules/redes/model/cite';
 import { Form } from '@core/form';
 
-
-
+import { Auth } from '@angular/fire/auth';
 
 // service
 import { CitesService } from '@modules/redes/services/cites.service';
@@ -19,11 +18,15 @@ import { Observable } from 'rxjs';
 // shared service
 import { ToastService } from '@shared/components/toast/toast.service';
 import { ClientServicesService } from '@modules/redes/services/client-services.service';
+import { ClientService } from '@modules/redes/services/client.service';
+import { UsuariosService } from '@shared/services/usuarios.service';
 
 // shared model
 import { ServiceI } from '@shared/components/service/service';
-import { ClientService } from '@modules/redes/services/client.service';
 import { ClientI } from '@modules/redes/model/client';
+import { Helpers } from '@core/helpers';
+
+
 
 
 @Component({
@@ -44,13 +47,14 @@ export class FormCitesComponent extends Form implements OnInit {
     private _modalService: NgbModal,
     private _toastService: ToastService) { 
     super();
-    this.buildingForm();
   }
 
 
   ngOnInit(): void {
     this.client$ = this._sericeClient.getAll();
     this.services$ = this._serviceService.getAll();
+    this.buildingForm();
+
   }
 
   open(content:any) {
@@ -58,6 +62,9 @@ export class FormCitesComponent extends Form implements OnInit {
 	}
 
   buildingForm(): void {
+
+    const nowDate = Helpers.getdate(new Date());
+
     this.form = this.fb.group({
       client: [
         '',
@@ -65,22 +72,26 @@ export class FormCitesComponent extends Form implements OnInit {
           Validators.required,
         ],
       ],
-      date: [new Date(), Validators.required],
+      date: [nowDate, Validators.required],
 			hour: ['', Validators.required],
       service: ['', Validators.required],
 			observation: ['', Validators.required],
     });
+
   }
+
 
   async onSubmit(): Promise<void> {
 
 		const cite = this.getFormValues();
-
+    
     try {
       const res = await this._service.add(cite);
       if(res){
         this.form.reset();
         this._toastService.show("Se ha guardado exitosamente.", 'success');
+      }else{
+        this._toastService.show("Obss, Ha acorrido un error en el proceso de guardar.", 'danger');
       }
     } catch (err) {
       this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
@@ -110,6 +121,13 @@ export class FormCitesComponent extends Form implements OnInit {
 		return cite;
 
 	}
+
+  getdate(date: Date){
+
+    const res = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
+
+    return date;
+  }
 
 }
 

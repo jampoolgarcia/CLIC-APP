@@ -13,15 +13,15 @@ import { Auth, signOut } from '@angular/fire/auth';
 })
 export class CitesComponent implements OnInit {
 
-  constructor(private auth: Auth, private _router: Router) {
+  constructor(private _auth: Auth, private _router: Router) {
 	}
 
   ngOnInit(): void {
-    console.log("currentUser:", this.auth.currentUser?.uid);
+    
   }
 
-  logout() {
-    signOut(this.auth)
+  async logout() {
+    await signOut(this._auth)
       .then(() => this._router.navigate(['/']))
       .catch((e) => console.log(e.message));
   }

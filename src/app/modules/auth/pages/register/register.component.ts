@@ -2,6 +2,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+// firestore
+import { getFirestore, doc as document } from 'firebase/firestore';
+
 // app
 import { Form } from '@core/form';
 import { AuthService } from '@modules/auth/auth.service';
@@ -28,17 +31,17 @@ export class RegisterComponent extends Form implements OnInit {
     this.buildingForm();
   }
 
-  override onSubmit(): void {
+  override async onSubmit(): Promise<void> {
     
     const user = this.getUserForm();
 
     try {
-      const res = this._service.register(user);
-      console.log(res);
-      if(res != null){
-        this.form.reset();
-        this._toast.show('Usuario registrado exitosamente.', 'success');
-      }
+      const res = await this._service.register(user);
+      console.log('res', res);
+       if(res != null){
+         this.form.reset();
+         this._toast.show('Usuario registrado exitosamente.', 'success');
+       }
     } catch (err: any) {
       this._toast.show('Obs. Ha ocurrido un error al registrar el usuario.', 'danger');
       console.log(err.code);
@@ -76,7 +79,7 @@ export class RegisterComponent extends Form implements OnInit {
       passwordGroup: 
         this.fb.group({
           password: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(30)]],
-          confirmPassword: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(30)]]
+          confirmPassword: ['', [Validators.required]]
         }, 
         { validator: this.passwordMatchValidator }
       )
@@ -84,14 +87,18 @@ export class RegisterComponent extends Form implements OnInit {
   }
 
   private getUserForm(): UserI {
-    const { firstName, lastName, email, password, rol } = this.form.value;
+    const { firstName, lastName, email, passwordGroup: { password } } = this.form.value;
+
+    const r1 = 'kxbbxGev298SlSzz0r2w';
+    const r2 = 'Yo8J5h6FaZHsbliR6jcN';
+
     return {
       fullName: `${firstName} ${lastName}`,
       email,
       password,
-      rol,
+      rol: document(getFirestore(), `rol/${r1}`),
       status: false,
-      room: ''
+      room: document(getFirestore(), `room/${r2}`)
     }
   }
 
@@ -101,7 +108,7 @@ export class RegisterComponent extends Form implements OnInit {
       if (password !== confirmPassword) {
         fg.get('confirmPassword')?.setErrors({ 'mismatch': true });
       } else {
-        fg.get('confirmPassword')?.setErrors({ 'mismatch': false });
+        fg.get('confirmPassword')?.setErrors(null);
       }
     }
     

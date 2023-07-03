@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 // firebase
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
-import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut } from '@angular/fire/auth';
+import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, updateDoc, setDoc } from '@angular/fire/firestore';
 import {
   CollectionReference,
   DocumentData,
@@ -39,12 +39,31 @@ export class AuthService {
   }
 
   async register(user: UserI) {
-    const { email, password }: LoginI = user;
-    user.password = '';
-    const userCredential: any = createUserWithEmailAndPassword(this.auth, email, password);
-    const userDocRef = doc(this.firestore, `usuarios/${userCredential.userCredential.uid}`);
-    // set(userDocRef, { role: role });
-    updateDoc(userDocRef, { ...user });
+
+    try {
+       // crea al usuario en firebase
+      const { email, password }: LoginI = user;
+      const userCredential: any = await createUserWithEmailAndPassword(this.auth, email, password);
+      const u = userCredential.user;
+
+      // Actualiza el perfil del usuario con el nombre
+      await updateProfile(u, { displayName: user.fullName });
+
+      // Crea un documento en Firestore para el usuario con los campos adicionales
+      const usuarioRef = doc(this.firestore, 'usuarios', u.uid);
+      await setDoc(usuarioRef, { rol: user.rol, room: user.room, status: user.status });
+
+      return u;
+    } catch (err) {
+      console.log('err service: ', err);
+    }
+
+   
+   
+
+    // const userDocRef = doc(this.firestore, `usuarios/${userCredential.userCredential.uid}`);
+    // // set(userDocRef, { role: role });
+    // updateDoc(userDocRef, { ...user });
   }
 
   getAll() {

@@ -5,47 +5,59 @@
         <h3 class="m-0 font-weight-bold text-primary">Lista de citas</h3>
       </div>
       <div class="card-body">
-        <!-- begin buscar -->
-        <form>
-          <div class="mb-3 row">
-            <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Buscar</label>
-            <div class="col-xs-3 col-sm-auto">
-              <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" #search />
+
+        <ng-container *ngIf="(cites$ | async); else NoData">
+          <!-- begin buscar -->
+          <form>
+            <div class="mb-3 row">
+              <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Buscar</label>
+              <div class="col-xs-3 col-sm-auto">
+                <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" #search />
+              </div>
             </div>
+          </form>
+          <!-- end buscar -->
+    
+           <!-- begin table  -->
+          <div class="table-responsive-xl">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre y Apellido</th>
+                  <th scope="col">Hora</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">Fecha N.</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">Observacion</th>
+                  <th scope="col">Confirmacion</th>
+                  <th scope="col">Servicio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cite of (cites$ | async) | filter:search.value :['firstName','lastName']  | slice: (page-1) * pageSize : page * pageSize; index as i">
+                  <th scope="row">{{ ((page -1) * 5) + (i + 1) }}</th>
+                  <td> {{ cite.client | json }}</td>
+                  <td>{{ cite.hour }}</td>
+                  <td>{{ cite.date | date:'shortDate' }}</td>
+                  <td>{{ cite.observation }}</td>
+                  <td>{{ cite.confirmation }}</td>
+                  <td>{{ cite.service }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </form>
-        <!-- end buscar -->
-        <!-- begin table  -->
-        <div class="table-responsive-xl">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre y Apellido</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">Fecha N.</th>
-                <th scope="col">Correo</th>
-                <th scope="col">Observacion</th>
-                <th scope="col">Confirmacion</th>
-                <th scope="col">Servicio</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let cite of (cites$ | async) | filter:search.value :['firstName','lastName']  | slice: (page-1) * pageSize : page * pageSize; index as i">
-                <th scope="row">{{ ((page -1) * 5) + (i + 1) }}</th>
-                <td> {{ cite.client }}</td>
-                <td>{{ cite.hour }}</td>
-                <td>{{ cite.date | date:'shortDate' }}</td>
-                <td>{{ cite.observation }}</td>
-                <td>{{ cite.confirmation }}</td>
-                <td>{{ cite.service }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- end table  -->
-        </div>
+          <!-- end table  -->
+        </ng-container>
+
+        <ng-template #NoData>
+          <h1>No se encuentran registradas citas el dia de hoy...</h1>
+        </ng-template>
+        
+
+       
+      
+      </div>
   
       <div class="card-footer">
         <!--begin paginators-->

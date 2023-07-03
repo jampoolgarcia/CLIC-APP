@@ -15,7 +15,10 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-list-cites',
   templateUrl: './list-cites.component.html',
-  styleUrls: ['./list-cites.component.scss']
+  styles: [`
+    .card-body {
+         min-height: 346px;
+    }`]
 })
 export class ListCitesComponent extends List implements OnInit {
 

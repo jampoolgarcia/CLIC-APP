@@ -23,7 +23,7 @@ const routes: Routes = [
   { 
     path: 'register',
     component: RegisterComponent,
-    ...canActivate(redirectUnauthorizedToLogin),
+    // ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: '',
