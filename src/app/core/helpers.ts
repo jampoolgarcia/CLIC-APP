@@ -1,3 +1,5 @@
+import { DocumentReference, doc, getDoc, getFirestore } from "@angular/fire/firestore";
+
 export class Helpers {
 
     static getdate(date: Date){
@@ -6,5 +8,14 @@ export class Helpers {
         const day = ('0' + date.getDate()).slice(-2);
         const res = `${year}-${month}-${day}`;
         return res;
+    }
+
+    static async obtenerDocumento(referencia: DocumentReference): Promise<any> {
+        const documentoSnapshot = await getDoc(referencia);
+        return documentoSnapshot.data();
+      }
+    
+    static obtenerReferenciaUsuario(userId: string): DocumentReference {
+        return doc(getFirestore(), 'usuarios', userId);
     }
 }
