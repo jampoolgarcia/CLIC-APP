@@ -28,25 +28,14 @@ export class SingInComponent extends Form implements OnInit {
 
     try {
       const res = await this._service.login({email, password});
+      console.log('res: ', res);
       this._toast.show('Bienvenido!!!.', 'info');
       this._router.navigate(['/redes/cites']);
       this.form.reset();
     } catch (err: any) {
-      let msg = '';
-       
-      switch(err.code) {
-        case 'auth/user-not-found': 
-          msg = "Usuario y clave invalido.";
-          break;
-        case 'auth/wrong-password':
-          msg = "Usuario y clave invalido.";
-          break;
-        default: 
-          msg = 'Error desconocido.';
-      }
-
-      console.log(err.code);
-      this._toast.show(msg, 'danger');
+     
+      console.log(err);
+      this._toast.show('error', 'danger');
 
     }
   

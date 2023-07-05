@@ -2,9 +2,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-// firebase
-import { CollectionReference, DocumentData, Firestore, collection, addDoc, collectionData, updateDoc, deleteDoc, doc } from '@angular/fire/firestore';
-
 // model
 import { ConfirmationI } from '../model/confirmation';
 
@@ -14,36 +11,29 @@ import { ConfirmationI } from '../model/confirmation';
 })
 export class ConfirmationService {
 
-  // collection
-  private confirmationCollection: CollectionReference<DocumentData>;
 
-  constructor(private readonly firestore: Firestore) {
-    this.confirmationCollection = collection(this.firestore, 'confirmation');
+  constructor() {
+   
   }
 
-    // Crea una nueva Confirmation en firebase
+    // Crea una nueva Confirmation
     public add(c: ConfirmationI) {
-      return addDoc(this.confirmationCollection, c);
+      return null;
     }
   
     // Obtiene el listado de Confirmations
     public getAll(){
-      return collectionData(this.confirmationCollection, { idField: 'id'}) as Observable<ConfirmationI[]>;
+      return new Observable<ConfirmationI[]>;
     }
 
-    // Actualiza la Confirmation en firebase.
+    // Actualiza la Confirmation
     update(c: ConfirmationI) {
-      const documentReference = doc(
-        this.firestore,
-        `confirmation/${c?.id}`
-      );
-      return updateDoc(documentReference, { ...c });
+      return null;
     }
   
-    // Elimina la confimacion de Firebase.
+    // Elimina la confimacion
     delete(id: string) {
-      const documentReference = doc(this.firestore, `confirmation/${id}`);
-      return deleteDoc(documentReference);
+      return null;
     }
 
     

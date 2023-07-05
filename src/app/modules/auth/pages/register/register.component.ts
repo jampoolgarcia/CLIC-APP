@@ -1,9 +1,6 @@
 // angular core
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-// firestore
-import { getFirestore, doc as document } from 'firebase/firestore';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // app
 import { Form } from '@core/form';
@@ -36,12 +33,12 @@ export class RegisterComponent extends Form implements OnInit {
     const user = this.getUserForm();
 
     try {
-      const res = await this._service.register(user);
-      console.log('res', res);
-       if(res != null){
-         this.form.reset();
-         this._toast.show('Usuario registrado exitosamente.', 'success');
-       }
+      // const res = await this._service.register(user);
+      // console.log('res', res);
+      //  if(res != null){
+      //    this.form.reset();
+      //    this._toast.show('Usuario registrado exitosamente.', 'success');
+      //  }
     } catch (err: any) {
       this._toast.show('Obs. Ha ocurrido un error al registrar el usuario.', 'danger');
       console.log(err.code);
@@ -86,20 +83,13 @@ export class RegisterComponent extends Form implements OnInit {
     });
   }
 
-  private getUserForm(): UserI {
+  private getUserForm() {
     const { firstName, lastName, email, passwordGroup: { password } } = this.form.value;
 
     const r1 = 'kxbbxGev298SlSzz0r2w';
     const r2 = 'Yo8J5h6FaZHsbliR6jcN';
 
-    return {
-      fullName: `${firstName} ${lastName}`,
-      email,
-      password,
-      rol: document(getFirestore(), `rol/${r1}`),
-      status: false,
-      room: document(getFirestore(), `room/${r2}`)
-    }
+    return {}
   }
 
   private passwordMatchValidator(fg: FormGroup) {

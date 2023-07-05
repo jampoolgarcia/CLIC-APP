@@ -6,8 +6,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CiteI } from '@modules/redes/model/cite';
 import { Form } from '@core/form';
 
-import { Auth } from '@angular/fire/auth';
-
 // service
 import { CitesService } from '@modules/redes/services/cites.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -126,7 +124,7 @@ export class FormCitesComponent extends Form implements OnInit {
 
     const res = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
 
-    return date;
+    return res;
   }
 
 }

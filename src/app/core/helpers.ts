@@ -1,4 +1,4 @@
-import { DocumentReference, doc, getDoc, getFirestore } from "@angular/fire/firestore";
+
 
 export class Helpers {
 
@@ -10,12 +10,4 @@ export class Helpers {
         return res;
     }
 
-    static async obtenerDocumento(referencia: DocumentReference): Promise<any> {
-        const documentoSnapshot = await getDoc(referencia);
-        return documentoSnapshot.data();
-      }
-    
-    static obtenerReferenciaUsuario(userId: string): DocumentReference {
-        return doc(getFirestore(), 'usuarios', userId);
-    }
 }

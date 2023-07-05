@@ -1,4 +1,3 @@
-import { DocumentData, DocumentReference } from "firebase/firestore";
 
 export interface ClientI {
     id?: string,
@@ -6,6 +5,6 @@ export interface ClientI {
 	lastName: string,
 	email: string,
 	phone: string,
-	user?: DocumentReference<DocumentData>,
-  	room?: DocumentReference<DocumentData>
+	user?: string,
+  	room?: string
 }

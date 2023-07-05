@@ -29,14 +29,8 @@ export class ListCitesComponent extends List implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getList();
     this.cites$ = this._service.getAll();
   }
 
-  async getList(){
-    await this._service.getAllForRedes('gOHD1nGmN5S7bSNaKb1suA7B8ow1')
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-  }
 
 }
