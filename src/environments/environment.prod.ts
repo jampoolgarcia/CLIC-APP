@@ -1,11 +1,5 @@
 export const environment = {
-  firebase: {
-    projectId: 'clic-app-7347a',
-    appId: '1:456189395259:web:3b03db8b0a1473b614371e',
-    storageBucket: 'clic-app-7347a.appspot.com',
-    apiKey: 'AIzaSyB9j0WtQF_NWD3SZuS582HklFsVAV4BEhQ',
-    authDomain: 'clic-app-7347a.firebaseapp.com',
-    messagingSenderId: '456189395259',
-  },
-  production: true
+  production: true,
+  supabaseUrl: 'https://ujloqaqdvksidllezexv.supabase.co',
+  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqbG9xYXFkdmtzaWRsbGV6ZXh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODg1MTMzMDcsImV4cCI6MjAwNDA4OTMwN30.aDdqqulHguVa__D4vnxCI-2bqxzzXVAavce0WioKe8k'
 };
