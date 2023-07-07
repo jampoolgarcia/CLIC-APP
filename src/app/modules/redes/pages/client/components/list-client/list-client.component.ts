@@ -15,14 +15,39 @@ import { Observable } from 'rxjs';
 })
 export class ListClientComponent extends List implements OnInit {
 
-  public clients$!: Observable<ClientI[]>;
+  public clients$: Observable<ClientI[]> = new Observable;
+  private loading: boolean = false;
 
   constructor(private _service: ClientService) { 
     super();
   }
 
-  ngOnInit(): void {
-    this.clients$ = this._service.getAll();
+  ngOnInit() {
+    this.getList()
+  }
+
+
+  async getList(){
+    try {
+      this.loading = true
+      let { data: client, error, status } = await this._service.getAll();
+
+      if (error && status !== 406) {
+        throw error
+      }
+
+      if (client) {
+        console.log(client);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message)
+      }
+    } finally {
+      this.loading = false
+    }
+
+
   }
 
 }

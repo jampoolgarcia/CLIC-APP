@@ -18,6 +18,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // shared
 import { ToastComponent } from '@shared/components/toast/toast.component';
 
+// external librery
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 
 
@@ -32,7 +35,8 @@ import { ToastComponent } from '@shared/components/toast/toast.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgbModule,
-    ToastComponent
+    ToastComponent,
+    NgxSpinnerModule,
   ],
   exports: [
     RouterModule,

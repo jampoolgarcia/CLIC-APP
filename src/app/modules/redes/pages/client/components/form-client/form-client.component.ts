@@ -16,6 +16,7 @@ import { ToastService } from '@shared/components/toast/toast.service';
 export class FormClientComponent extends Form implements OnInit {
   
   private seleted: ClientI | null = null;
+  loading: boolean = false;
 
   constructor(private fb: FormBuilder, private _service: ClientService, private _toastService: ToastService) { 
     super();
@@ -36,7 +37,7 @@ export class FormClientComponent extends Form implements OnInit {
   override buildingForm(): void {
     this.form = this.fb.group({
       firstName: [
-        '',
+        'generica',
         [
           Validators.required,
           Validators.minLength(2),
@@ -45,7 +46,7 @@ export class FormClientComponent extends Form implements OnInit {
         ],
       ],
       lastName: [
-        '',
+        'generica ape',
         [
           Validators.required,
           Validators.minLength(2),
@@ -54,14 +55,14 @@ export class FormClientComponent extends Form implements OnInit {
         ],
       ],
       email: [
-        '',
+        'generica@gmail.com',
         [
           Validators.required,
           Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/),
         ],
       ],
       phone: [
-        '',
+        '0424456987',
         [Validators.required, Validators.minLength(3),
         Validators.pattern(/^[0-9]{7,11}$/),],
       ],
@@ -102,19 +103,30 @@ export class FormClientComponent extends Form implements OnInit {
 
   private async save() {
     const record: ClientI = this.getFormValues(); 
-
+    this.loading = true;
     try {
-      const res = await this._service.add(record);
+      console.log('record', record)
+      const{ error, data, status } = await this._service.add(record);
 
-      if(res){
-        this.form.reset();
-        this._toastService.show("Se ha guardado exitosamente.", 'success');
-      }else {
+      if (error && status !== 406) {
+        throw error
+      }
+
+      console.log('data:', data);
+
+      // if(res){
+      //   this.form.reset();
+      //   this._toastService.show("Se ha guardado exitosamente.", 'success');
+      // }else {
+      //   this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
+      // }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error)
         this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
       }
-    } catch (err) {
-      console.log(err)
-      this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
+    } finally {
+      this.loading = false
     }
 
 		

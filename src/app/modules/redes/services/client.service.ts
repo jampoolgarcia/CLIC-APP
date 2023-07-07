@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 // app
 import { ClientI } from '../model/client';
+import { SupabaseClient, createClient } from '@supabase/supabase-js';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -12,21 +14,29 @@ import { ClientI } from '../model/client';
 })
 export class ClientService {
 
+  private supabase: SupabaseClient;
+  private TABLE = 'client';
 
    constructor() {
-
-   }
- 
-   // crea una nueva cita
-   public add(record: ClientI): Promise<any> | null {
-    return null;
-   }
- 
-   // obtiene el listado de citas
-   public getAll(){
-     return new Observable<ClientI[]>;
+    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
    }
 
+    // obtiene el listado de citas
+    public getAll(){
+      return this.supabase
+      .from(this.TABLE)
+      .select(`*`);
+    }
+ 
+   
+   
+    // crea una nueva cita
+   public add(record: ClientI) {
+    return this.supabase
+    .from(this.TABLE)
+    .insert({ ...record });
+   }
+ 
     // Actualiza la Confirmation
     update(record: ClientI) {
 
