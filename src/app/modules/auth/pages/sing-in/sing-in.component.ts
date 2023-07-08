@@ -27,15 +27,24 @@ export class SingInComponent extends Form implements OnInit {
     const { email, password } = this.form.value;
 
     try {
-      const res = await this._service.login({email, password});
-      console.log('res: ', res);
-      this._toast.show('Bienvenido!!!.', 'info');
-      this._router.navigate(['/redes/cites']);
-      this.form.reset();
-    } catch (err: any) {
-      console.log(err);
-      this._toast.show('error', 'danger');
+      const { data, error } = await this._service.login({email, password});
 
+      console.log('data', data);
+      
+      if(error) this._toast.show(`Obss, Ha acorrido un Error: ${error.message}`, 'danger');
+
+      if(data.user){
+        console.log('user', data.user);
+        this._toast.show('Bienvenido!!!.', 'info');
+      } 
+      // this._toast.show('Bienvenido!!!.', 'info');
+      // this._router.navigate(['/redes/cites']);
+      // this.form.reset();
+    } catch (error) {
+      if (error instanceof Error) {
+        this._toast.show(`Obss, Ha acorrido un Error: ${error.message}`, 'danger');
+      }
+      console.log(error);
     }
   
   }

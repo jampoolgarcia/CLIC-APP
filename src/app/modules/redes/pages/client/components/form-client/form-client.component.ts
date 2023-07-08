@@ -20,7 +20,7 @@ export class FormClientComponent extends Form implements OnInit {
   
   private seleted: ClientI | null = null;
 
-  constructor(private fb: FormBuilder, private _service: ClientService, private _toastService: ToastService, private _spinner: NgxSpinnerService) { 
+  constructor(private fb: FormBuilder, private _service: ClientService, private _toast: ToastService, private _spinner: NgxSpinnerService) { 
     super();
   }
 
@@ -99,10 +99,10 @@ export class FormClientComponent extends Form implements OnInit {
       const res = await this._service.update(this.seleted!);
       this.seleted = null;
       this.form.reset();
-      this._toastService.show("Se ha actualizado exitosamente.", 'success');
+      this._toast.show("Se ha actualizado exitosamente.", 'success');
     } catch (err) {
       console.log(err)
-      this._toastService.show("Obss, Ha acorrido un error al momento de actualizado.", 'danger');
+      this._toast.show("Obss, Ha acorrido un error al momento de actualizado.", 'danger');
     }
   }
 
@@ -114,16 +114,16 @@ export class FormClientComponent extends Form implements OnInit {
       const{ error } = await this._service.add(record);
 
       if (error) {
-        this._toastService.show(`Obss, Ha acorrido un error al momento de guardar. Error: ${error.message}`, 'danger');
+        this._toast.show(`Obss, Ha acorrido un error al momento de guardar. Error: ${error.message}`, 'danger');
         return console.log(`Error in ${error.message}`)
       }
 
-      this._toastService.show("Se ha guardado exitosamente.", 'success');
+      this._toast.show("Se ha guardado exitosamente.", 'success');
     
     } catch (error) {
       if (error instanceof Error) {
         console.log(error)
-        this._toastService.show(`Obss, Ha acorrido un error al momento de guardar. Error: ${error.message}`, 'danger');
+        this._toast.show(`Obss, Ha acorrido un error al momento de guardar. Error: ${error.message}`, 'danger');
       }
     } finally {
       this._spinner.hide();

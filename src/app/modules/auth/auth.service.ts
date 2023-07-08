@@ -1,6 +1,6 @@
 // core
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 // supabase
 import {
@@ -18,6 +18,7 @@ import { SupabaseDB } from '@core/supabase';
 // model
 import { LoginI } from './model/login';
 import { ToastService } from '@shared/components/toast/toast.service';
+import { Router } from '@angular/router';
 
 
 
@@ -28,14 +29,46 @@ import { ToastService } from '@shared/components/toast/toast.service';
 export class AuthService {
 
   private supabase: SupabaseClient;
+  private $currentUser: BehaviorSubject<boolean | User  | any > = new BehaviorSubject(null);
 
-  constructor(private _toast: ToastService) { 
+  constructor(
+    private _toast: ToastService,
+    private _router: Router
+    ) { 
     this.supabase = SupabaseDB.getInstance();
+    this.configUser();
+    this.handleUserState();
   }
-
+  
+  
  
   async login({email, password}: LoginI) {
     return this.supabase.auth.signInWithPassword({email, password});
+  }
+
+  private async configUser(){
+    try{
+      const { error, data: user }  = await this.supabase.auth.getUser();
+      if (user) {
+        this.$currentUser.next(user)
+      } else {
+        this.$currentUser.next(false)
+      }
+    }catch(error){
+      console.log(error)
+    };
+  }
+
+  private handleUserState() {
+    this.supabase.auth.onAuthStateChange((event, session)=> {
+      console.log(event)
+      if(event === 'SIGNED_IN'){
+        this.$currentUser.next(session!.user)
+      } else {
+        this.$currentUser.next(false)
+        this._router.navigateByUrl('/', { replaceUrl: true })
+      }
+    })
   }
 
   // logout() {
