@@ -19,14 +19,11 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((isAuthenticated) => {
         //console.log('isAuthenticated:', isAuthenticated);
-        if(isAuthenticated){
-         // console.log('isAuthenticated');
-          return true;
-        } 
-        else  {
-         // console.log('Guard auth')
-          return this._router.createUrlTree(['/auth/sing-in']);
-        }
+        if(!isAuthenticated || (isAuthenticated.hasOwnProperty('user') && !isAuthenticated.user) ) return this._router.createUrlTree(['/auth/sing-in']);
+        // console.log('Guard auth')
+        else  return true;
+        // console.log('isAuthenticated');
+        
       })
     );
   }

@@ -47,6 +47,7 @@ export class SingInComponent extends Form implements OnInit {
       if(user){
         //console.log('user', user);
         this._toast.show('Bienvenido!!!.', 'info');
+        //this._router.navigate(['/']);
       } 
     } catch (error) {
       if (error instanceof Error) {
