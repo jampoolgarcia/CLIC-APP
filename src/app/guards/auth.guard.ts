@@ -4,14 +4,14 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable, filter, map, take } from 'rxjs';
 
 // services
-import { AuthService } from '@modules/auth/auth.service';
+import { UserService } from '@shared/services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private _auth: AuthService, private _router: Router) {}
+  constructor(private _auth: UserService, private _router: Router) {}
 
   canActivate(): Observable<boolean | UrlTree> {
     return this._auth.currentUser.pipe(

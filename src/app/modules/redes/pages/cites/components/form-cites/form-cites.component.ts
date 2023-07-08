@@ -17,7 +17,6 @@ import { Observable } from 'rxjs';
 import { ToastService } from '@shared/components/toast/toast.service';
 import { ClientServicesService } from '@modules/redes/services/client-services.service';
 import { ClientService } from '@modules/redes/services/client.service';
-import { UsuariosService } from '@shared/services/usuarios.service';
 
 // shared model
 import { ServiceI } from '@shared/components/service/service';

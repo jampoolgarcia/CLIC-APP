@@ -2,14 +2,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
+// core app
+import { SupabaseDB } from '@core/supabase';
 
 // model
 import { CiteI } from '../model/cite';
-import { UsuariosService } from '@shared/services/usuarios.service';
 
-import { environment } from 'src/environments/environment';
+// supa basse
+import { SupabaseClient } from '@supabase/supabase-js';
 
-import { SupabaseClient, createClient } from '@supabase/supabase-js';
+// shared service
+import { UserService } from '@shared/services/user.service';
+
 
 
 @Injectable({
@@ -19,8 +23,8 @@ export class CitesService {
 
   private supabase: SupabaseClient;
 
-  constructor(private _usuarios: UsuariosService) {
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
+  constructor(private _user: UserService) {
+    this.supabase = SupabaseDB.getInstance();
   }
 
   // crea una nueva cita en firebase

@@ -4,13 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // app
 import { Form } from '@core/form';
-import { AuthService } from '@modules/auth/auth.service';
 
 // model 
 import { UserI } from '@modules/auth/model/user';
 
 // services
 import { ToastService } from '@shared/components/toast/toast.service';
+import { UserService } from '@shared/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +20,7 @@ export class RegisterComponent extends Form implements OnInit {
   
   private minPassLength = 6;
 
-  constructor(private _service: AuthService, private fb: FormBuilder, private _toast: ToastService) {
+  constructor(private _user: UserService, private fb: FormBuilder, private _toast: ToastService) {
     super();
   }
 

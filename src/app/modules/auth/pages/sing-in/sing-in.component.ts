@@ -1,9 +1,14 @@
-import { Component, NgZone, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// angular core
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Form } from '@core/form';
-import { AuthService } from '@modules/auth/auth.service';
+
+// shred service
 import { ToastService } from '@shared/components/toast/toast.service';
+import { UserService } from '@shared/services/user.service';
+
+// externals
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -13,7 +18,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class SingInComponent extends Form implements OnInit {
   
   constructor(
-    private _auth: AuthService, 
+    private _auth: UserService, 
     private _spinner: NgxSpinnerService,
     private fb: FormBuilder, 
     private _router: Router,
