@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 
 // shared service
 import { ToastService } from '@shared/components/toast/toast.service';
-import { ClientServicesService } from '@modules/redes/services/client-services.service';
+import { CiteServicesService } from '@modules/redes/services/cite-services.service';
 import { ClientService } from '@modules/redes/services/client.service';
 
 // shared model
@@ -28,8 +28,7 @@ import { Helpers } from '@core/helpers';
 
 @Component({
   selector: 'app-form-cites',
-  templateUrl: './form-cites.component.html',
-  styleUrls: ['./form-cites.component.scss']
+  templateUrl: './form-cites.component.html'
 })
 export class FormCitesComponent extends Form implements OnInit {
 
@@ -40,7 +39,7 @@ export class FormCitesComponent extends Form implements OnInit {
     private _service: CitesService, 
     //private _serviceConfirmation: ConfirmationService,
     private _client: ClientService,
-    private _serviceService: ClientServicesService,
+    private _citeServices: CiteServicesService,
     private _modalService: NgbModal,
     private _toastService: ToastService) { 
     super();
@@ -49,7 +48,7 @@ export class FormCitesComponent extends Form implements OnInit {
 
   ngOnInit(): void {
     this.client$ = this._client.List;
-    this.services$ = this._serviceService.getAll();
+    this.services$ = this._citeServices.List;
     this.buildingForm();
 
   }

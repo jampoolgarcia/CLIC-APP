@@ -39,7 +39,7 @@ export class FormClientComponent extends Form implements OnInit {
   override buildingForm(): void {
     this.form = this.fb.group({
       firstName: [
-        'generica',
+        '',
         [
           Validators.required,
           Validators.minLength(2),
@@ -48,7 +48,7 @@ export class FormClientComponent extends Form implements OnInit {
         ],
       ],
       lastName: [
-        'generica ape',
+        '',
         [
           Validators.required,
           Validators.minLength(2),
@@ -57,14 +57,14 @@ export class FormClientComponent extends Form implements OnInit {
         ],
       ],
       email: [
-        'generica@gmail.com',
+        '',
         [
           Validators.required,
           Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/),
         ],
       ],
       phone: [
-        '0424456987',
+        '',
         [Validators.required, Validators.minLength(3),
         Validators.pattern(/^[0-9]{7,11}$/),],
       ],

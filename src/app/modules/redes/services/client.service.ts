@@ -30,7 +30,7 @@ export class ClientService {
     this.getAll();
    }
 
-    // obtiene el listado de citas
+    // carga el listado
     private async getAll(){
       this._spinner.show();
       try {
