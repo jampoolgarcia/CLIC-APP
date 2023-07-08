@@ -33,7 +33,6 @@ export class SingInComponent extends Form implements OnInit {
       this._router.navigate(['/redes/cites']);
       this.form.reset();
     } catch (err: any) {
-     
       console.log(err);
       this._toast.show('error', 'danger');
 

@@ -12,13 +12,14 @@ import {
   User,
 } from '@supabase/supabase-js'
 
-// enviroments
-import { environment } from 'src/environments/environment';
+// core app
+import { SupabaseDB } from '@core/supabase';
 
 // model
 import { LoginI } from './model/login';
-import { UserI } from './model/user';
 import { ToastService } from '@shared/components/toast/toast.service';
+
+
 
 
 @Injectable({
@@ -29,14 +30,12 @@ export class AuthService {
   private supabase: SupabaseClient;
 
   constructor(private _toast: ToastService) { 
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+    this.supabase = SupabaseDB.getInstance();
   }
 
  
   async login({email, password}: LoginI) {
-
     return this.supabase.auth.signInWithPassword({email, password});
-   
   }
 
   // logout() {

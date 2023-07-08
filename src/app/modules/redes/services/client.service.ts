@@ -7,6 +7,7 @@ import { Observable, Subject } from 'rxjs';
 import { Client, ClientI } from '../model/client';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { environment } from 'src/environments/environment';
+import { SupabaseDB } from '@core/supabase';
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class ClientService {
   private TABLE = 'client';
 
    constructor() {
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+    this.supabase = SupabaseDB.getInstance();
    }
 
     // obtiene el listado de citas
