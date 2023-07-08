@@ -8,6 +8,10 @@ import { ForgotComponent } from './pages/forgot/forgot.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+// shared 
+import { SharedModule } from '@shared/shared.module';
+import { RouterModule } from '@angular/router';
+
 
 
 @NgModule({
@@ -19,7 +23,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    // shared
+    SharedModule
   ]
 })
 export class AuthModule { }

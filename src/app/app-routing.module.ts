@@ -1,6 +1,7 @@
 // angular core
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@guards/auth.guard';
 
 
 const routes: Routes = [
@@ -14,11 +15,12 @@ const routes: Routes = [
   {
     path: 'redes',
     loadChildren: () => import('@modules/redes/redes.module').then(m => m.RedesModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'auth'
+    redirectTo: 'redes'
   },
   {
     path: '**',

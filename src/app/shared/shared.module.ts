@@ -1,11 +1,11 @@
 // core 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 // pipes
 import { FilterPipe } from '../pipes/filter.pipe';
+
 
 
 
@@ -17,10 +17,12 @@ import { FilterPipe } from '../pipes/filter.pipe';
   ],
   imports: [
     // core
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
-    FilterPipe
+    FilterPipe,
+    RouterModule
   ]
 })
 export class SharedModule { }

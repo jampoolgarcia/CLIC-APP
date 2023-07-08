@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Form } from '@core/form';
 import { AuthService } from '@modules/auth/auth.service';
 import { ToastService } from '@shared/components/toast/toast.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-sing-in',
@@ -12,11 +13,17 @@ import { ToastService } from '@shared/components/toast/toast.service';
 export class SingInComponent extends Form implements OnInit {
   
   constructor(
-    private _service: AuthService, 
+    private _auth: AuthService, 
+    private _spinner: NgxSpinnerService,
     private fb: FormBuilder, 
     private _router: Router,
     private _toast: ToastService) { 
     super();
+    // this._auth.currentUser.subscribe( user =>{
+    //   console.log('user', user)
+    //   if(user) console.log('isUser'), _router.navigate(['/redes/cites']); 
+    //   else console.log('not isUser'), _router.navigate(['/auth/sing-in']);
+    // })
   }
 
   ngOnInit(): void {
@@ -24,17 +31,17 @@ export class SingInComponent extends Form implements OnInit {
   }
   
   override async onSubmit(): Promise<void> {
+
+    this._spinner.show()
     const { email, password } = this.form.value;
 
     try {
-      const { data, error } = await this._service.login({email, password});
-
-      console.log('data', data);
+      const {  data: { user }, error } = await this._auth.login({email, password});
       
       if(error) this._toast.show(`Obss, Ha acorrido un Error: ${error.message}`, 'danger');
 
-      if(data.user){
-        console.log('user', data.user);
+      if(user){
+        console.log('user', user);
         this._toast.show('Bienvenido!!!.', 'info');
       } 
       // this._toast.show('Bienvenido!!!.', 'info');
@@ -45,6 +52,8 @@ export class SingInComponent extends Form implements OnInit {
         this._toast.show(`Obss, Ha acorrido un Error: ${error.message}`, 'danger');
       }
       console.log(error);
+    } finally {
+      this._spinner.hide();
     }
   
   }
