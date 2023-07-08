@@ -8,6 +8,9 @@ import { ClientI } from '@modules/redes/model/client';
 import { ClientService } from '@modules/redes/services/client.service';
 import { ToastService } from '@shared/components/toast/toast.service';
 
+// external
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-form-client',
   templateUrl: './form-client.component.html',
@@ -16,9 +19,8 @@ import { ToastService } from '@shared/components/toast/toast.service';
 export class FormClientComponent extends Form implements OnInit {
   
   private seleted: ClientI | null = null;
-  loading: boolean = false;
 
-  constructor(private fb: FormBuilder, private _service: ClientService, private _toastService: ToastService) { 
+  constructor(private fb: FormBuilder, private _service: ClientService, private _toastService: ToastService, private _spinner: NgxSpinnerService) { 
     super();
   }
 
@@ -78,10 +80,13 @@ export class FormClientComponent extends Form implements OnInit {
 		} = this.form.value;
 
 		let cite: ClientI = {
+      created_at: new Date(),
 			firstName,
 			lastName,
 			email,
-			phone
+			phone,
+      room_id: '1',
+      user_id: '53245f08-616a-4e63-aef2-7982e7df559c'
 		}
 
 		return cite;
@@ -102,31 +107,28 @@ export class FormClientComponent extends Form implements OnInit {
   }
 
   private async save() {
+    this._spinner.show();
     const record: ClientI = this.getFormValues(); 
-    this.loading = true;
     try {
-      console.log('record', record)
-      const{ error, data, status } = await this._service.add(record);
+     
+      const{ error } = await this._service.add(record);
 
-      if (error && status !== 406) {
-        throw error
+      if (error) {
+        this._toastService.show(`Obss, Ha acorrido un error al momento de guardar. Error: ${error.message}`, 'danger');
+        return console.log(`Error in ${error.message}`)
       }
 
-      console.log('data:', data);
-
-      // if(res){
-      //   this.form.reset();
-      //   this._toastService.show("Se ha guardado exitosamente.", 'success');
-      // }else {
-      //   this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
-      // }
+      this._toastService.show("Se ha guardado exitosamente.", 'success');
+    
     } catch (error) {
       if (error instanceof Error) {
         console.log(error)
-        this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
+        this._toastService.show(`Obss, Ha acorrido un error al momento de guardar. Error: ${error.message}`, 'danger');
       }
     } finally {
-      this.loading = false
+      this._spinner.hide();
+      this.form.reset();
+      //   
     }
 
 		

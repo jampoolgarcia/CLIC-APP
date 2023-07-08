@@ -1,10 +1,10 @@
 // angular core
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 
 // app
-import { ClientI } from '../model/client';
+import { Client, ClientI } from '../model/client';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { environment } from 'src/environments/environment';
 
@@ -31,10 +31,11 @@ export class ClientService {
    
    
     // crea una nueva cita
-   public add(record: ClientI) {
-    return this.supabase
+   public async add(record: ClientI) {
+    return await this.supabase
     .from(this.TABLE)
-    .insert({ ...record });
+    .insert({ ...record })
+    .single();
    }
  
     // Actualiza la Confirmation
@@ -46,5 +47,23 @@ export class ClientService {
     // Elimina la confimacion de Firebase.
     delete(id: string) {
       return null;
+    }
+
+    getListChanges(){
+      const change = new Subject();
+
+      this.supabase
+      .channel(this.TABLE)
+      .on(
+        'postgres_changes', 
+        {
+          event: '*',
+          schema: 'public',
+        },
+        (payload) => change.next(payload)
+      ).subscribe()
+
+
+      return change.asObservable();
     }
 }

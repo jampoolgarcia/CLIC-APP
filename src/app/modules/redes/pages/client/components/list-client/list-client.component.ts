@@ -5,7 +5,10 @@ import { Component, OnInit } from '@angular/core';
 import { List } from '@core/list';
 import { ClientI } from '@modules/redes/model/client';
 import { ClientService } from '@modules/redes/services/client.service';
-import { Observable } from 'rxjs';
+
+// externals
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-list-client',
@@ -15,39 +18,45 @@ import { Observable } from 'rxjs';
 })
 export class ListClientComponent extends List implements OnInit {
 
-  public clients$: Observable<ClientI[]> = new Observable;
-  private loading: boolean = false;
+  public clients: ClientI[] = [];
 
-  constructor(private _service: ClientService) { 
+  constructor(private _service: ClientService, private _spinner: NgxSpinnerService) { 
     super();
   }
 
   ngOnInit() {
-    this.getList()
+    this.getList();
+    this.handleRealtimeUpdates();
   }
 
 
   async getList(){
+    this._spinner.show();
     try {
-      this.loading = true
-      let { data: client, error, status } = await this._service.getAll();
+      let { data, error, status } = await this._service.getAll();
 
       if (error && status !== 406) {
         throw error
       }
 
-      if (client) {
-        console.log(client);
+      if (data) {
+        this.clients = data;
       }
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message)
       }
     } finally {
-      this.loading = false
+      this._spinner.hide();
     }
 
 
+  }
+
+  handleRealtimeUpdates(){
+    this._service.getListChanges().subscribe(update =>{
+      console.log('update: ', update);
+    })
   }
 
 }
