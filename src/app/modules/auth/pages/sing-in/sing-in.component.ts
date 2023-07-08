@@ -19,11 +19,10 @@ export class SingInComponent extends Form implements OnInit {
     private _router: Router,
     private _toast: ToastService) { 
     super();
-    // this._auth.currentUser.subscribe( user =>{
-    //   console.log('user', user)
-    //   if(user) console.log('isUser'), _router.navigate(['/redes/cites']); 
-    //   else console.log('not isUser'), _router.navigate(['/auth/sing-in']);
-    // })
+    this._auth.currentUser.subscribe( user =>{
+       if(user) _router.navigate(['/redes/cites']); 
+       else _router.navigate(['/auth/sing-in']);
+    })
   }
 
   ngOnInit(): void {
@@ -41,12 +40,9 @@ export class SingInComponent extends Form implements OnInit {
       if(error) this._toast.show(`Obss, Ha acorrido un Error: ${error.message}`, 'danger');
 
       if(user){
-        console.log('user', user);
+        //console.log('user', user);
         this._toast.show('Bienvenido!!!.', 'info');
       } 
-      // this._toast.show('Bienvenido!!!.', 'info');
-      // this._router.navigate(['/redes/cites']);
-      // this.form.reset();
     } catch (error) {
       if (error instanceof Error) {
         this._toast.show(`Obss, Ha acorrido un Error: ${error.message}`, 'danger');
@@ -54,6 +50,7 @@ export class SingInComponent extends Form implements OnInit {
       console.log(error);
     } finally {
       this._spinner.hide();
+      this.form.reset();
     }
   
   }
