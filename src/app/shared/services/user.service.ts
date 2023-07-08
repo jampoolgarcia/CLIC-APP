@@ -16,7 +16,7 @@ import {
 import { SupabaseDB } from '@core/supabase';
 
 // model
-import { LoginI } from './model/login';
+import { LoginI } from '../../modules/auth/model/login';
 import { ToastService } from '@shared/components/toast/toast.service';
 import { Router } from '@angular/router';
 
@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class UserService {
 
   private supabase: SupabaseClient;
   private $currentUser: BehaviorSubject<boolean | User  | any > = new BehaviorSubject(null);
@@ -61,7 +61,7 @@ export class AuthService {
 
   private handleUserState() {
     this.supabase.auth.onAuthStateChange((event, session)=> {
-      console.log('event:', event)
+      console.log('event', event)
       if(event === 'SIGNED_IN'){
         this.$currentUser.next(session!.user);
         this._router.navigateByUrl('/', { replaceUrl: true })
