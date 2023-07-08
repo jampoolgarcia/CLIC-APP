@@ -26,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let client of clients | filter:search.value :['firstName','lastName']  | slice: (page-1) * pageSize : page * pageSize; index as i">
+          <tr *ngFor="let client of ($clients | async) | filter:search.value :['firstName','lastName']  | slice: (page-1) * pageSize : page * pageSize; index as i">
             <th scope="row">{{ ((page -1) * 5) + (i + 1) }}</th>
             <td>
               {{ client.firstName }} {{ client.lastName }}
@@ -49,7 +49,7 @@
     class="d-flex justify-content-end"
     [(page)]="page"
     [pageSize]="pageSize"
-    [collectionSize]="clients.length || 0"></ngb-pagination>
+    [collectionSize]="($clients | async)!.length || 0"></ngb-pagination>
     <!--end paginators -->
   </div>
 </div>

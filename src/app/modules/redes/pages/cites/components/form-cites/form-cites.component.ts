@@ -39,7 +39,7 @@ export class FormCitesComponent extends Form implements OnInit {
   constructor(private fb: FormBuilder, 
     private _service: CitesService, 
     //private _serviceConfirmation: ConfirmationService,
-    private _sericeClient: ClientService,
+    private _client: ClientService,
     private _serviceService: ClientServicesService,
     private _modalService: NgbModal,
     private _toastService: ToastService) { 
@@ -48,7 +48,7 @@ export class FormCitesComponent extends Form implements OnInit {
 
 
   ngOnInit(): void {
-    this._sericeClient.getAll();
+    this.client$ = this._client.List;
     this.services$ = this._serviceService.getAll();
     this.buildingForm();
 

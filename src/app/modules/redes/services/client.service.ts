@@ -1,13 +1,15 @@
 // angular core
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
+// external lib
+import { REALTIME_POSTGRES_CHANGES_LISTEN_EVENT as EVENT, RealtimePostgresChangesPayload as payload, SupabaseClient, createClient } from '@supabase/supabase-js';
 
 // app
-import { Client, ClientI } from '../model/client';
-import { SupabaseClient, createClient } from '@supabase/supabase-js';
-import { environment } from 'src/environments/environment';
+import { ClientI } from '../model/client';
+
 import { SupabaseDB } from '@core/supabase';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Injectable({
@@ -15,18 +17,39 @@ import { SupabaseDB } from '@core/supabase';
 })
 export class ClientService {
 
+  private list: ClientI[] = [];
+  private $clientList: BehaviorSubject<ClientI[]> = new BehaviorSubject(this.list);
   private supabase: SupabaseClient;
   private TABLE = 'client';
 
-   constructor() {
+   constructor(
+    private _spinner: NgxSpinnerService
+   ) {
     this.supabase = SupabaseDB.getInstance();
+    this.handleRealtimeUpdates();
+    this.getAll();
    }
 
     // obtiene el listado de citas
-    public getAll(){
-      return this.supabase
-      .from(this.TABLE)
-      .select(`*`);
+    private async getAll(){
+      this._spinner.show();
+      try {
+           let { data, error, status } = await this.supabase
+           .from(this.TABLE)
+           .select(`*`);
+
+           if (error && status !== 406) throw error;
+           
+
+           if (data) this.$clientList.next(data);
+           
+         } catch (error) {
+           if (error instanceof Error) {
+             alert(error.message)
+           }
+         } finally {
+           this._spinner.hide();
+         }
     }
  
    
@@ -50,9 +73,8 @@ export class ClientService {
       return null;
     }
 
-    getListChanges(){
-      const change = new Subject();
-
+    private handleRealtimeUpdates(){
+      
       this.supabase
       .channel(this.TABLE)
       .on(
@@ -61,10 +83,30 @@ export class ClientService {
           event: '*',
           schema: 'public',
         },
-        (payload) => change.next(payload)
+        (payload: payload<ClientI>) => {
+          this.realtimeList(payload);
+        } 
       ).subscribe()
+      
+    }
 
+    private realtimeList(payload: payload<ClientI>){
+      switch(payload.eventType){
+        case EVENT.INSERT:
+          console.log('update logic');
+          this.$clientList.getValue().push(payload.new);
+        break;
+        case EVENT.UPDATE:
+          console.log('update logic');
+        break;
+        case EVENT.DELETE:
+          console.log('DELETE logic');
+        break;
+      }
+      console.log('payload: ', payload);
+    }
 
-      return change.asObservable();
+    get List(){
+      return this.$clientList.asObservable();
     }
 }
