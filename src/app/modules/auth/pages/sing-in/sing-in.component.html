@@ -2,16 +2,20 @@
   <!-- Outer Row -->
   <div class="row justify-content-center">
     <div class="col-xl-6 col-lg-6 col-md-6">
-      <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card o-hidden bg-dark border-0 shadow-lg my-5">
+        <div class="card-hearder">
+          <div class="text-center mt-4">
+            <img src="assets/img/logo.png" alt="Logo" width="100" height="100" class="d-inline-block">
+            <h1 class="h4 text-white mb-4">Bienvenido!</h1>
+          </div>
+        </div>
         <div class="card-body p-0">
           <!-- Nested Row within Card Body -->
           <div class="row">
             <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
             <div class="col">
-              <div class="p-5">
-                <div class="text-center">
-                  <h1 class="h4 text-gray-900 mb-4">Bienvenido!</h1>
-                </div>
+              <div class="px-5">
+              
                 <form [formGroup]="form" class="row g-3">
 
                   
@@ -57,7 +61,7 @@
                     <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                   </a> -->
                 </form>
-                <hr />
+                <hr class="text-white" />
                 <div class="text-center">
                   <a class="small" [routerLink]="['/auth/forgot']"
                     >¿Has olvidado tu calve?</a >

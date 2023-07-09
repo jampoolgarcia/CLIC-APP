@@ -26,6 +26,8 @@ import { ListClientComponent } from './pages/client/components/list-client/list-
 import { FormClientComponent } from './pages/client/components/form-client/form-client.component';
 
 
+
+
 @NgModule({
   declarations: [
     // pages

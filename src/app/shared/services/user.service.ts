@@ -20,6 +20,8 @@ import { LoginI } from '../../modules/auth/model/login';
 import { ToastService } from '@shared/components/toast/toast.service';
 import { Router } from '@angular/router';
 
+import { UserI } from '@modules/auth/model/user';
+
 
 
 

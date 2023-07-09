@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 // pipes
 import { FilterPipe } from '../pipes/filter.pipe';
 
-
-
+// external
+import { GravatarModule } from 'ngx-gravatar';
 
 
 
@@ -22,7 +22,8 @@ import { FilterPipe } from '../pipes/filter.pipe';
   ],
   exports: [
     FilterPipe,
-    RouterModule
+    RouterModule,
+    GravatarModule
   ]
 })
 export class SharedModule { }

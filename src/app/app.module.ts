@@ -20,6 +20,8 @@ import { ToastComponent } from '@shared/components/toast/toast.component';
 
 // external librery
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { GravatarModule } from 'ngx-gravatar';
+
 
 
 
@@ -37,6 +39,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgbModule,
     ToastComponent,
     NgxSpinnerModule,
+    GravatarModule,
   ],
   exports: [
     RouterModule,

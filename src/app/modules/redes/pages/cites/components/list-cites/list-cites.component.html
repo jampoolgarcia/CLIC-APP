@@ -1,8 +1,8 @@
 <div class="row d-flex justify-content-center w-100">
   <div class="col-sm-8">
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4 bg-primary">
       <div class="card-header py-3">
-        <h3 class="m-0 font-weight-bold text-primary">Lista de citas</h3>
+        <h3 class="m-0 font-weight-bold card-title">Lista de citas</h3>
       </div>
       <div class="card-body">
 
@@ -53,7 +53,7 @@
         </ng-container>
 
         <ng-template #NoData>
-          <h1>No se encuentran registradas citas el dia de hoy...</h1>
+          <h1 class="card-text text-white">No se encuentran registradas citas el dia de hoy...</h1>
         </ng-template>
         
 
@@ -61,7 +61,7 @@
       
       </div>
   
-      <div class="card-footer">
+      <div class="card-footer" *ngIf="(cites$ | async)">
         <!--begin paginators-->
         <ngb-pagination
         class="d-flex justify-content-end"
