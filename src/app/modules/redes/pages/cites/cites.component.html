@@ -6,13 +6,23 @@
         <Strong class="text-white align-middle ml-4">Perfil de Redes</Strong>
       </a>
       <ul class="navbar-nav mr-auto">
-        <li *ngIf="$user; else logout" class="nav-item cursor-p">
-          <span class="text-white mr-2">{{ ($user | async)?.email || '' }}</span>
-          <img  class="m-2" ngxGravatar [email]="($user | async)?.email || ''" />
+
+        <li *ngIf="$user; else logout" class="nav-item dropdown">  
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="text-white mr-2">{{ ($user | async)?.email || '' }}</span>
+            <img  class="m-2" ngxGravatar [email]="($user | async)?.email || ''" />
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="nav-link text-black" (click)="singOut()">Cerrar Sesion</a>
+            </li>
+            <!-- <div class="dropdown-divider"></div> -->
+          </ul>
         </li>
+
         <ng-template #logout>
           <li class="nav-item cursor-p">
-            <a class="nav-link text-white" (click)="singOut()">Logout</a>
+            <a class="nav-link text-white" (click)="singOut()">Cerrar Sesion</a>
           </li>
         </ng-template>
        
