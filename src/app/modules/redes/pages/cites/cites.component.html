@@ -6,13 +6,16 @@
         <Strong class="text-white align-middle ml-4">Perfil de Redes</Strong>
       </a>
       <ul class="navbar-nav mr-auto">
-        <li *ngIf="$user" class="nav-item cursor-p">
+        <li *ngIf="$user; else logout" class="nav-item cursor-p">
           <span class="text-white mr-2">{{ ($user | async)?.email || '' }}</span>
           <img  class="m-2" ngxGravatar [email]="($user | async)?.email || ''" />
         </li>
-        <li class="nav-item cursor-p">
-          <a class="nav-link text-white" (click)="logout()">Logout</a>
-        </li>
+        <ng-template #logout>
+          <li class="nav-item cursor-p">
+            <a class="nav-link text-white" (click)="singOut()">Logout</a>
+          </li>
+        </ng-template>
+       
       </ul>
      
     </div>

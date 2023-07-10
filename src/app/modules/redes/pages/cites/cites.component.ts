@@ -27,7 +27,7 @@ export class CitesComponent implements OnInit {
    this.$user = this._user.currentUser;
   }
 
-  async logout() {
+  async singOut() {
     await this._service.signOut()
       .then(() => this._router.navigate(['/']))
       .catch((e) => console.log(e.message));
