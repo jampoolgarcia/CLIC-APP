@@ -1,6 +1,6 @@
 // core angular
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 // core app
 import { SupabaseDB } from '@core/supabase';
@@ -13,6 +13,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 
 // shared service
 import { UserService } from '@shared/services/user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -21,10 +22,17 @@ import { UserService } from '@shared/services/user.service';
 })
 export class CitesService {
 
+  private TABLE = 'cite'
+  private list: CiteI[] = []
   private supabase: SupabaseClient;
+  private $list: BehaviorSubject<CiteI[]> = new BehaviorSubject(this.list);
 
-  constructor(private _user: UserService) {
+  constructor(
+    private _user: UserService,
+    private _spinner: NgxSpinnerService
+    ) {
     this.supabase = SupabaseDB.getInstance();
+    this.getAll();
   }
 
   // crea una nueva cita en firebase
@@ -34,20 +42,39 @@ export class CitesService {
   }
 
   // obtiene el listado de citas
-  public getAll(){
-    return new Observable<CiteI[]>;
+  private async getAll(){
+    this._spinner.show();
+    try {
+      const { error, data, status } = await this.supabase
+      .from('cites')
+      .select(`*`)
+
+      if(error && status !== 406) throw error;
+
+      if(data) this.$list.next(data);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message)
+      }
+    } finally {
+      this._spinner.hide();
+    }
   }
 
   // obtiene el listado de citas del usuario
   public async getAllForRedes(userId: string){
 
-       return new Promise((resolve, reject) =>{
-        resolve('test')
-       });
+    return new Promise((resolve, reject) =>{
+      resolve('test')
+    });
     
   }
 
   signOut() {
     return this.supabase.auth.signOut()
+  }
+
+  get List(){
+    return this.$list.asObservable();
   }
 }
