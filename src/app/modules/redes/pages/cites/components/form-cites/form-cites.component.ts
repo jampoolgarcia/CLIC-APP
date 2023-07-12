@@ -36,12 +36,12 @@ export class FormCitesComponent extends Form implements OnInit {
   public services$!: Observable<ServiceI[]>;
 
   constructor(private fb: FormBuilder, 
-    private _service: CitesService, 
+    private _cites: CitesService, 
     //private _serviceConfirmation: ConfirmationService,
     private _client: ClientService,
     private _citeServices: CiteServicesService,
-    private _modalService: NgbModal,
-    private _toastService: ToastService) { 
+    private _modal: NgbModal,
+    private _toast: ToastService) { 
     super();
   }
 
@@ -54,7 +54,7 @@ export class FormCitesComponent extends Form implements OnInit {
   }
 
   open(content:any) {
-		this._modalService.open(content);
+		this._modal.open(content);
 	}
 
   buildingForm(): void {
@@ -82,15 +82,15 @@ export class FormCitesComponent extends Form implements OnInit {
 		const cite = this.getFormValues();
     
     try {
-      const res = await this._service.add(cite);
+      const res = await this._cites.add(cite);
       if(res){
         this.form.reset();
-        this._toastService.show("Se ha guardado exitosamente.", 'success');
+        this._toast.show("Se ha guardado exitosamente.", 'success');
       }else{
-        this._toastService.show("Obss, Ha acorrido un error en el proceso de guardar.", 'danger');
+        this._toast.show("Obss, Ha acorrido un error en el proceso de guardar.", 'danger');
       }
     } catch (err) {
-      this._toastService.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
+      this._toast.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
     }
 
 		
@@ -98,32 +98,27 @@ export class FormCitesComponent extends Form implements OnInit {
 
   private getFormValues(): CiteI {
 		const {
-			client,
-			date,
-			hour,
-      service,
-			observation
+      date,
+      hour,
+      observation,
+      user_id,
+			client_id,
+      room_id,
+      service_id,
 		} = this.form.value;
 
 		let cite: CiteI = {
-			client,
+			client: client_id,
 			date,
 			hour,
 			confirmation: '',
-      service,
+      service: service_id,
 			observation
 		}
 
 		return cite;
 
 	}
-
-  getdate(date: Date){
-
-    const res = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`;
-
-    return res;
-  }
 
 }
 

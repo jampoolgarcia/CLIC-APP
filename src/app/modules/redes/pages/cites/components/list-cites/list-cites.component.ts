@@ -30,9 +30,6 @@ export class ListCitesComponent extends List implements OnInit {
 
   ngOnInit(): void {
     this.cites$ = this._service.List;
-    this.cites$.subscribe(res => {
-      console.log('res', res);
-    })
   }
 
 

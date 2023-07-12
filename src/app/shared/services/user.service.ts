@@ -20,7 +20,8 @@ import { LoginI } from '../../modules/auth/model/login';
 import { ToastService } from '@shared/components/toast/toast.service';
 import { Router } from '@angular/router';
 
-import { UserI } from '@modules/auth/model/user';
+// external lib
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -35,6 +36,7 @@ export class UserService {
 
   constructor(
     private _toast: ToastService,
+    private _spinner: NgxSpinnerService,
     private _router: Router
     ) { 
     this.supabase = SupabaseDB.getInstance();
@@ -62,7 +64,9 @@ export class UserService {
   }
 
   private handleUserState() {
+    this._spinner.show();
     this.supabase.auth.onAuthStateChange((event, session)=> {
+      
       console.log('event', event)
       if(event === 'SIGNED_IN'){
         this.$currentUser.next(session!.user);
@@ -71,6 +75,7 @@ export class UserService {
         this.$currentUser.next(false)
         this._router.navigateByUrl('/auth/sing-in', { replaceUrl: true })
       }
+      this._spinner.hide();
     })
   }
 

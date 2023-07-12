@@ -35,7 +35,7 @@ export class CitesService {
     this.getAll();
   }
 
-  // crea una nueva cita en firebase
+  // crea una nueva cita 
   public async add(cite: CiteI) {
       return null;
     
