@@ -22,6 +22,12 @@ import { ToastComponent } from '@shared/components/toast/toast.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { GravatarModule } from 'ngx-gravatar';
 
+// shared
+import { SharedModule } from '@shared/shared.module';
+import { SpinnerInterceptor } from '@shared/interceptor/spinner-interceptor.interceptor';
+
+// interceptor
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 
@@ -43,9 +49,12 @@ import { GravatarModule } from 'ngx-gravatar';
   ],
   exports: [
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

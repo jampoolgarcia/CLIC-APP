@@ -9,7 +9,6 @@ import { REALTIME_POSTGRES_CHANGES_LISTEN_EVENT as EVENT, RealtimePostgresChange
 import { ClientI } from '../model/client';
 
 import { SupabaseDB } from '@core/supabase';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Injectable({
@@ -22,9 +21,7 @@ export class ClientService {
   private supabase: SupabaseClient;
   private TABLE = 'client';
 
-   constructor(
-    private _spinner: NgxSpinnerService
-   ) {
+   constructor() {
     this.supabase = SupabaseDB.getInstance();
     this.handleRealtimeUpdates();
     this.getAll();

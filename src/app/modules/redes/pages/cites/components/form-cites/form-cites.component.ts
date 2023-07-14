@@ -48,7 +48,6 @@ export class FormCitesComponent extends Form implements OnInit {
     private _user: UserService,
     private _client: ClientService,
     private _citeServices: CiteServicesService,
-    private _spinner: NgxSpinnerService,
     private _modal: NgbModal,
     private _toast: ToastService) { 
     super();
@@ -94,7 +93,6 @@ export class FormCitesComponent extends Form implements OnInit {
   }
 
   private async save(){
-    this._spinner.show();
     const cite = this.getFormValues();
     console.log(cite);
     try {
@@ -107,10 +105,8 @@ export class FormCitesComponent extends Form implements OnInit {
      
       this._toast.show("Se ha guardado exitosamente.", 'success');
     } catch (err) {
-      this._spinner.hide();
       this._toast.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
     } finally {
-      this._spinner.hide();
       this.form.reset();
       const nowDate = Helpers.getdate(new Date());
       this.getControl('date')?.setValue(nowDate);

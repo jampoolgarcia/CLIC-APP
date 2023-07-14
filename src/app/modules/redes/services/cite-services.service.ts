@@ -21,16 +21,13 @@ export class CiteServicesService {
   private supabase: SupabaseClient;
   private TABLE = 'cite-service';
 
-  constructor(
-    private _spinner: NgxSpinnerService
-  ) {
+  constructor() {
     this.supabase = SupabaseDB.getInstance();
     this.getAll();
   }
 
   // carga el listado
   private async getAll(){
-    this._spinner.show();
     try {
          let { data, error, status } = await this.supabase
          .from(this.TABLE)
@@ -45,8 +42,6 @@ export class CiteServicesService {
          if (error instanceof Error) {
            alert(error.message)
          }
-       } finally {
-         this._spinner.hide();
        }
   }
   

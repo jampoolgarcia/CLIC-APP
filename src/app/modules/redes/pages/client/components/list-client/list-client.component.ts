@@ -7,7 +7,6 @@ import { ClientI } from '@modules/redes/model/client';
 import { ClientService } from '@modules/redes/services/client.service';
 
 // externals
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 
 
@@ -21,7 +20,7 @@ export class ListClientComponent extends List implements OnInit {
 
   public $clients: Observable<ClientI[]>;
 
-  constructor(private _client: ClientService, private _spinner: NgxSpinnerService) { 
+  constructor(private _client: ClientService) { 
     super();
     this.$clients = _client.List;
   }

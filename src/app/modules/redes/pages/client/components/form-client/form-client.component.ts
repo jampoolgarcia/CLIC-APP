@@ -20,7 +20,7 @@ export class FormClientComponent extends Form implements OnInit {
   
   private seleted: ClientI | null = null;
 
-  constructor(private fb: FormBuilder, private _service: ClientService, private _toast: ToastService, private _spinner: NgxSpinnerService) { 
+  constructor(private fb: FormBuilder, private _service: ClientService, private _toast: ToastService) { 
     super();
   }
 
@@ -107,7 +107,6 @@ export class FormClientComponent extends Form implements OnInit {
   }
 
   private async save() {
-    this._spinner.show();
     const record: ClientI = this.getFormValues(); 
     try {
      
@@ -126,7 +125,6 @@ export class FormClientComponent extends Form implements OnInit {
         this._toast.show(`Obss, Ha acorrido un error al momento de guardar. Error: ${error.message}`, 'danger');
       }
     } finally {
-      this._spinner.hide();
       this.form.reset();
       //   
     }

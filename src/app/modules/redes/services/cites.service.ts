@@ -13,7 +13,6 @@ import { SupabaseClient } from '@supabase/supabase-js';
 
 // shared service
 import { UserService } from '@shared/services/user.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -28,8 +27,7 @@ export class CitesService {
   private $list: BehaviorSubject<CiteI[]> = new BehaviorSubject(this.list);
 
   constructor(
-    private _user: UserService,
-    private _spinner: NgxSpinnerService
+    private _user: UserService
     ) {
     this.supabase = SupabaseDB.getInstance();
     this.getAll();
@@ -45,7 +43,6 @@ export class CitesService {
 
   // obtiene el listado de citas
   private async getAll(){
-    this._spinner.show();
     try {
       const { error, data, status } = await this.supabase
       .from('cites')
@@ -58,8 +55,6 @@ export class CitesService {
       if (error instanceof Error) {
         alert(error.message)
       }
-    } finally {
-      this._spinner.hide();
     }
   }
 

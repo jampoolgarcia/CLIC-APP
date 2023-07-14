@@ -36,7 +36,6 @@ export class UserService {
 
   constructor(
     private _toast: ToastService,
-    private _spinner: NgxSpinnerService,
     private _router: Router
     ) { 
     this.supabase = SupabaseDB.getInstance();
@@ -65,23 +64,24 @@ export class UserService {
   }
 
   private handleUserState() {
-    this._spinner.show();
     try {
-      this.supabase.auth.onAuthStateChange((event, session)=> {
-      
-        console.log('event', event)
-        if(event === 'SIGNED_IN'){
+      this.supabase.auth.onAuthStateChange((event, session) => {
+
+        console.log('event', event);
+
+        if (!session) return;
+
+        console.log('session', session);
+        if (event === 'SIGNED_IN') {
           this.$currentUser.next(session!.user);
-          this._router.navigateByUrl('/', { replaceUrl: true })
+          this._router.navigateByUrl('/', { replaceUrl: true });
         } else {
-          this.$currentUser.next(false)
-          this._router.navigateByUrl('/auth/sing-in', { replaceUrl: true })
+          this.$currentUser.next(false);
+          this._router.navigateByUrl('/auth/sing-in', { replaceUrl: true });
         }
-        this._spinner.hide();
       })
     } catch (error) {
       console.log(error);
-      this._spinner.hide();
     }
    
   }
@@ -96,69 +96,5 @@ export class UserService {
 
     return { user_id: id, room_id: user_metadata.room_id };
   }
-
-  // logout() {
-  //   return signOut(this.auth);
-  // }
-
-  // async register(user: UserI) {
-
-  //   try {
-  //      // crea al usuario en firebase
-  //     const { email, password }: LoginI = user;
-  //     const userCredential: any = await createUserWithEmailAndPassword(this.auth, email, password);
-  //     const u = userCredential.user;
-
-  //     // Actualiza el perfil del usuario con el nombre
-  //     await updateProfile(u, { displayName: user.fullName });
-
-  //     // Crea un documento en Firestore para el usuario con los campos adicionales
-  //     const usuarioRef = doc(this.firestore, 'usuarios', u.uid);
-  //     await setDoc(usuarioRef, { rol: user.rol, room: user.room, status: user.status });
-
-  //     return u;
-  //   } catch (err) {
-  //     console.log('err service: ', err);
-  //   }
-
-   
-   
-
-  //   // const userDocRef = doc(this.firestore, `usuarios/${userCredential.userCredential.uid}`);
-  //   // // set(userDocRef, { role: role });
-  //   // updateDoc(userDocRef, { ...user });
-  // }
-
-  // getAll() {
-  //   return collectionData(this.userCollection, {
-  //     idField: 'id',
-  //   }) as Observable<UserI[]>;
-  // }
-
-  // get(id: string) {
-  //   const userDocumentReference = doc(this.firestore, `user/${id}`);
-  //   return docData(userDocumentReference, { idField: 'id' });
-  // }
-  
-  // private create(user: UserI) {
-  //   return addDoc(this.userCollection, user);
-  // }
-
-  // update(user: UserI) {
-  //   const userDocumentReference = doc(
-  //     this.firestore,
-  //     `user/${user?.id}`
-  //   );
-  //   return updateDoc(userDocumentReference, { ...user });
-  // }
-
-  // delete(id: string) {
-  //   const userDocumentReference = doc(this.firestore, `user/${id}`);
-  //   return deleteDoc(userDocumentReference);
-  // }
-
-  // get currentUser(){
-  //   return this.auth.currentUser;
-  // }
 
 }

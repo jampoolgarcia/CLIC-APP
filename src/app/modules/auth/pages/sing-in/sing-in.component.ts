@@ -19,7 +19,6 @@ export class SingInComponent extends Form implements OnInit {
   
   constructor(
     private _auth: UserService, 
-    private _spinner: NgxSpinnerService,
     private fb: FormBuilder, 
     private _router: Router,
     private _toast: ToastService) { 
@@ -36,7 +35,6 @@ export class SingInComponent extends Form implements OnInit {
   
   override async onSubmit(): Promise<void> {
 
-    this._spinner.show()
     const { email, password } = this.form.value;
 
     try {
@@ -55,7 +53,6 @@ export class SingInComponent extends Form implements OnInit {
       }
       console.log(error);
     } finally {
-      this._spinner.hide();
       this.form.reset();
     }
   
