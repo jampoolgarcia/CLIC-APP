@@ -12,7 +12,7 @@ export class SupabaseDB {
 
     public static getInstance(){
         if(this.supabase === null || this.supabase === undefined) 
-            this.con++;
+            this.con++,
             this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
             
         console.log(`getInstance ${this.con}`)

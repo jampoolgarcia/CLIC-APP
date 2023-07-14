@@ -1,36 +1,23 @@
 <!-- Topbar -->
-<nav class="navbar navbar-expand-lg bg-dark mb-4 static-top shadow">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="assets/img/logo-bg.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
-        <Strong class="text-white align-middle ml-4">Perfil de Redes</Strong>
-      </a>
-      <ul class="navbar-nav mr-auto">
-
-        <li *ngIf="$user; else logout" class="nav-item dropdown">  
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            <img  class="" ngxGravatar [email]="($user | async)?.email || ''" />
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="nav-link text-black" (click)="singOut()">Cerrar Sesion</a>
-            </li>
-            <!-- <div class="dropdown-divider"></div> -->
-          </ul>
+<nav class="navbar navbar-expand-lg mb-4 bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand  d-flex align-items-center" href="#">
+      <img src="assets/img/logo-bg.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+         <!-- <Strong class="text-white align-middle ml-4 sm-hide">Perfil de Redes</Strong> -->
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="Cerrar Sesion" (click)="singOut()"><i class="fa-solid fa-right-from-bracket"></i><span class="ms-2">Cerrar Sesion</span></a>
         </li>
-
-        <ng-template #logout>
-          <li class="nav-item cursor-p">
-            <a class="nav-link text-white" (click)="singOut()">Cerrar Sesion</a>
-          </li>
-        </ng-template>
-       
       </ul>
-     
     </div>
-      
-  </nav>
-  <!-- End of Topbar -->
+  </div>
+</nav>
+
   
   <section class="container">
     <app-form-cites></app-form-cites>

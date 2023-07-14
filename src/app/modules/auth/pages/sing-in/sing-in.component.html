@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container d-flex align-items-center justify-content-center vh-100">
   <!-- Outer Row -->
-  <div class="row justify-content-center">
-    <div class="col-xl-6 col-lg-6 col-md-6">
+  <div class="row d-flex justify-content-center">
+    <div class="col-lg-8">
       <div class="card o-hidden bg-dark border-0 shadow-lg my-5">
         <div class="card-hearder">
           <div class="text-center mt-4">
@@ -23,7 +23,7 @@
                     <label for="email" class="form-label">Correro</label>
                     <input
                     type="email"
-                    class="form-control"
+                    class="form-control px-3"
                     formControlName="email"
                     [ngClass]="{'is-invalid': isInvalid('email'), 'is-valid': isValid('email') }"
                     id="email"
@@ -36,7 +36,7 @@
                     <input
                     type="password"
                     formControlName="password"
-                    class="form-control form-control-user"
+                    class="form-control  px-3"
                     id="password"
                     [ngClass]="{'is-invalid': isInvalid('password'), 'is-valid': isValid('password') }"
                     placeholder="Ingrese su clave..."/>
@@ -49,7 +49,7 @@
                   </div>
                 </div>
                 
-                <button (click)="onSubmit()" [disabled]="form.invalid" class="btn btn-primary btn-user btn-block">
+                <button (click)="onSubmit()" [disabled]="form.invalid" class="btn btn-primary btn-user mb-5">
                   Iniciar
                 </button>
                   
@@ -61,15 +61,18 @@
                     <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                   </a> -->
                 </form>
-                <hr class="text-white" />
-                <div class="text-center">
+                
+
+                <!-- 
+                  <hr class="text-white" />
+                  <div class="text-center">
                   <a class="small" [routerLink]="['/auth/forgot']"
                     >¿Has olvidado tu calve?</a >
                 </div>
                 <div class="text-center">
                   <a class="small" [routerLink]="['/auth/register']"
                     >Crear una nueva cuenta.</a >
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

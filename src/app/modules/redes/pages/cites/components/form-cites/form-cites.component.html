@@ -1,6 +1,6 @@
-<div class="row d-flex justify-content-center w-100">
+<div class="row mx-auto d-flex justify-content-center w-100">
   <div class="col-sm-8">
-    <div class="card bg-primary shadow mb-4">
+    <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h3 class="m-0 font-weight-bold card-title">REGISTRA TU CITA</h3>
       </div>
@@ -21,7 +21,7 @@
               <option selected disabled value="">Seleccionar...</option>
               <option *ngFor="let c of (client$ | async)" [value]="c.id">{{ c.firstName }} {{  c.lastName }}</option>
             </select>
-              <button class="btn btn-outline-dark btn-group-style" routerLink="/redes/client" type="button" id="client">
+              <button class="btn btn-outline-secondary btn-group-style" routerLink="/redes/client" type="button" id="client">
                 <i class="fa-sharp fa-solid fa-plus"></i>
               </button>
             </div>

@@ -32,7 +32,6 @@ export class ClientService {
 
     // carga el listado
     private async getAll(){
-      this._spinner.show();
       try {
            let { data, error, status } = await this.supabase
            .from(this.TABLE)
@@ -47,8 +46,6 @@ export class ClientService {
            if (error instanceof Error) {
              alert(error.message)
            }
-         } finally {
-           this._spinner.hide();
          }
     }
  

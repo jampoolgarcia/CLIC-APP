@@ -66,18 +66,24 @@ export class UserService {
 
   private handleUserState() {
     this._spinner.show();
-    this.supabase.auth.onAuthStateChange((event, session)=> {
+    try {
+      this.supabase.auth.onAuthStateChange((event, session)=> {
       
-      console.log('event', event)
-      if(event === 'SIGNED_IN'){
-        this.$currentUser.next(session!.user);
-        this._router.navigateByUrl('/', { replaceUrl: true })
-      } else {
-        this.$currentUser.next(false)
-        this._router.navigateByUrl('/auth/sing-in', { replaceUrl: true })
-      }
+        console.log('event', event)
+        if(event === 'SIGNED_IN'){
+          this.$currentUser.next(session!.user);
+          this._router.navigateByUrl('/', { replaceUrl: true })
+        } else {
+          this.$currentUser.next(false)
+          this._router.navigateByUrl('/auth/sing-in', { replaceUrl: true })
+        }
+        this._spinner.hide();
+      })
+    } catch (error) {
+      console.log(error);
       this._spinner.hide();
-    })
+    }
+   
   }
 
   get currentUser(){
