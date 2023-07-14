@@ -93,7 +93,7 @@ export class ClientService {
     private realtimeList(payload: payload<ClientI>){
       switch(payload.eventType){
         case EVENT.INSERT:
-          console.log('update logic');
+          console.log('insert logic');
           this.$clientList.getValue().push(payload.new);
         break;
         case EVENT.UPDATE:

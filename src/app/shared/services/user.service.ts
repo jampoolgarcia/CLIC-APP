@@ -54,6 +54,7 @@ export class UserService {
     try{
       const { error, data: user }  = await this.supabase.auth.getUser();
       if (user) {
+        //console.log('user', user);
         this.$currentUser.next(user)
       } else {
         this.$currentUser.next(false)
@@ -81,6 +82,13 @@ export class UserService {
 
   get currentUser(){
     return this.$currentUser.asObservable();
+  }
+
+  getReferenData(){
+
+    const { id, user_metadata } = this.$currentUser.getValue().user;
+
+    return { user_id: id, room_id: user_metadata.room_id };
   }
 
   // logout() {

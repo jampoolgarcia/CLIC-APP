@@ -36,9 +36,11 @@ export class CitesService {
   }
 
   // crea una nueva cita 
-  public async add(cite: CiteI) {
-      return null;
-    
+  public async add(record: CiteI) {
+    return await this.supabase
+    .from(this.TABLE)
+    .insert({ ...record })
+    .single();
   }
 
   // obtiene el listado de citas

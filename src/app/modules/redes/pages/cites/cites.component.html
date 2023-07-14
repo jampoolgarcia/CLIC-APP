@@ -1,6 +1,6 @@
 <!-- Topbar -->
 <nav class="navbar navbar-expand-lg bg-dark mb-4 static-top shadow">
-    <div class="container-fluid">
+    <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="#">
         <img src="assets/img/logo-bg.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
         <Strong class="text-white align-middle ml-4">Perfil de Redes</Strong>
@@ -9,8 +9,7 @@
 
         <li *ngIf="$user; else logout" class="nav-item dropdown">  
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            <span class="text-white mr-2">{{ ($user | async)?.email || '' }}</span>
-            <img  class="m-2" ngxGravatar [email]="($user | async)?.email || ''" />
+            <img  class="" ngxGravatar [email]="($user | async)?.email || ''" />
           </a>
           <ul class="dropdown-menu">
             <li>

@@ -20,7 +20,8 @@
             "outputPath": "dist/clic-app",
             "allowedCommonJsDependencies":  [
               "cross-fetch",
-              "websocket"
+              "websocket",
+              "ts-md5"
             ],
             "index": "src/index.html",
             "main": "src/main.ts",

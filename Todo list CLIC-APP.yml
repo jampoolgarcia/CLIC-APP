@@ -1,0 +1,23 @@
+Todo list CLIC-APP
+
+
+1.-Agregar la lógica de guardado de citas, con una confirmación por defecto y actualizar la tabla según las condiciones. 
+(Si tiene menos de 10 elementos, actualizarla con realtime para que muestre el nuevo elemento, en caso contrario no hacer nada) 
+
+nota: Los campos que  sean obligatorio para registrar que sea solo nombre apellido fecha  servicio y teléfono el resto que pase normal
+
+2.- Añadir el filtro de fecha a la lista y que por defecto tenga la fecha actual. Para que las listas se muestren según la fecha. 
+3.- Crear la lógica para que se listen solo 10 citas, y cada que se página se muestren las 10 siguientes 
+(solo se listan 10 citas a la ves por performance)
+4.- Manejar la lógica de consulta de citas para que solo consulte  por páginacion de 10 y solo muestre las 
+citas del usuario de redes que se encuentra authenticado con la fecha del filtro.
+
+5.- Agregar en la tabla cite la columna confirmación con la relación a la tabla con los tipos predefinidos de confirmación.
+
+6.- Actualizar la consulta de las citas. Para que añada el campo de confirmación con su respectiva 
+relación y solo liste el nombre como confirmación.
+
+7.- Modificar la tabla de citas para que muestre el campo de confirmación.
+
+8.- Establecer un botón de acción a cada cita en la tabla, que añada la lógica de reagendar y 
+permita modificar la fecha, la hora y la observación.

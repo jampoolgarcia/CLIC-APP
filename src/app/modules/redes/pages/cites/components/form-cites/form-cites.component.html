@@ -13,8 +13,8 @@
               <select
               class="form-select"
               id="client"
-              formControlName="client"
-              [ngClass]="{'is-invalid': isInvalid('client'), 'is-valid': isValid('client') }"
+              formControlName="client_id"
+              [ngClass]="{'is-invalid': isInvalid('client_id'), 'is-valid': isValid('client_id') }"
               aria-describedby="client"
               required
             >
@@ -54,7 +54,6 @@
               formControlName="hour"
               [ngClass]="{'is-invalid': isInvalid('hour'), 'is-valid': isValid('hour') }"
               aria-describedby="hour"
-              required
             />
           </div>
   
@@ -83,8 +82,8 @@
               <select
               class="form-select"
               id="service"
-              formControlName="service"
-              [ngClass]="{'is-invalid': isInvalid('service'), 'is-valid': isValid('service') }"
+              formControlName="service_id"
+              [ngClass]="{'is-invalid': isInvalid('service_id'), 'is-valid': isValid('service_id') }"
               aria-describedby="service"
               required
             >
@@ -112,7 +111,7 @@
   
       <div class="card-footer">
         <div class="col-12 text-end">
-          <button class="btn btn-dark" (click)="onSubmit()" [disabled]="this.form.invalid" type="submit">Guardar</button>
+          <button class="btn btn-dark" [disabled]="form.invalid" (click)="onSubmit()"  type="submit">Guardar</button>
         </div>
       </div>
     </div>
