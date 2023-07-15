@@ -133,7 +133,7 @@ export class FormClientComponent extends Form implements OnInit {
       }
     } finally {
       this.form.reset();
-      //   
+      this._modal.dismissAll();
     }
 
 		

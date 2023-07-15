@@ -95,6 +95,8 @@ export class ClientService {
         break;
         case EVENT.DELETE:
           console.log('DELETE logic');
+          const arr = this.$clientList.getValue().filter(record => record.id != payload.old.id);
+          this.$clientList.next(arr);
         break;
       }
       console.log('payload: ', payload);
