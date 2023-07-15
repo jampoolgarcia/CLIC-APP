@@ -13,7 +13,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-sing-in',
-  templateUrl: './sing-in.component.html'
+  templateUrl: './sing-in.component.html',
+  styleUrls: ['./sing-in.component.scss']
 })
 export class SingInComponent extends Form implements OnInit {
   
@@ -23,10 +24,6 @@ export class SingInComponent extends Form implements OnInit {
     private _router: Router,
     private _toast: ToastService) { 
     super();
-    this._auth.currentUser.subscribe( user =>{
-       if(user) _router.navigate(['/redes/cites']); 
-       else _router.navigate(['/auth/sing-in']);
-    })
   }
 
   ngOnInit(): void {
@@ -37,27 +34,11 @@ export class SingInComponent extends Form implements OnInit {
 
     const { email, password } = this.form.value;
 
-    try {
-      const {  data: { user }, error } = await this._auth.login({email, password});
-      
-      if(error) this._toast.show(`Obss, Ha acorrido un Error: ${error.message}`, 'danger');
-
-      if(user){
-        //console.log('user', user);
-        this._toast.show('Bienvenido!!!.', 'info');
-        //this._router.navigate(['/']);
-      } 
-    } catch (error) {
-      if (error instanceof Error) {
-        this._toast.show(`Obss, Ha acorrido un Error: ${error.message}`, 'danger');
-      }
-      console.log(error);
-    } finally {
-      this.form.reset();
-    }
+    const user = await this._auth.login({email, password});
+    this.form.reset();
+    if(user) this._toast.show('Bienvenido!!!.', 'info');
   
   }
-
 
   override buildingForm(): void {
     this.form = this.fb.group({

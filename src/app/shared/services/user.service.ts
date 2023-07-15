@@ -9,7 +9,7 @@ import {
   createClient,
   Session,
   SupabaseClient,
-  User,
+  User
 } from '@supabase/supabase-js'
 
 // core app
@@ -36,50 +36,63 @@ export class UserService {
 
   constructor(
     private _toast: ToastService,
-    private _router: Router
+    private _router: Router,
+    private _spinner: NgxSpinnerService
     ) { 
     this.supabase = SupabaseDB.getInstance();
-    this.configUser();
     this.handleUserState();
   }
   
   
  
   async login({email, password}: LoginI) {
-    return this.supabase.auth.signInWithPassword({email, password});
-  }
-
-  private async configUser(){
-    try{
-      const { error, data: user }  = await this.supabase.auth.getUser();
-      if (user) {
-        //console.log('user', user);
-        this.$currentUser.next(user)
-      } else {
-        this.$currentUser.next(false)
+    try {
+      const {  data: { user }, error } = await this.supabase.auth.signInWithPassword({email, password});
+      if(error) this._toast.show(`Obss, Ha acorrido un Error: ${error.message}`, 'danger');
+      this.$currentUser.next(user);
+      this._router.navigateByUrl('/');
+      return user;
+    } catch (error){
+      if (error instanceof Error) {
+        this._toast.show(`Obss, Ha acorrido un Error: ${error.message}`, 'danger');
       }
-    }catch(error){
-      console.log(error)
-    };
+      console.log(error);
+    }
+    return null;
   }
 
   private handleUserState() {
     try {
-      this.supabase.auth.onAuthStateChange((event, session) => {
+       this.supabase.auth.onAuthStateChange((event, session) => {
 
-        console.log('event', event);
+         const user = session ? session.user : false;
 
-        if (!session) return;
+         switch(event){
+          case "SIGNED_IN":
+            this._spinner.show();
+          break;
+          case "TOKEN_REFRESHED":
+            console.log("[TOKEN_REFRESHED]", session);
+            this._spinner.show();
+          break;
+          case "INITIAL_SESSION":
+            console.log("[INITIAL_SESSION]", session);
+            if(this._router.url === '/auth/sing-in') this._router.navigateByUrl('/');
+            this.$currentUser.next(user);
+          break;
+          case "SIGNED_OUT":
+            console.log("[SIGNED_OUT]", session);
+            this.$currentUser.next(user);
+            this._router.navigateByUrl('/auth/sing-in');
+          break;
+          default:
+            console.log('event', event);
+          break;
+         }
 
-        console.log('session', session);
-        if (event === 'SIGNED_IN') {
-          this.$currentUser.next(session!.user);
-          this._router.navigateByUrl('/', { replaceUrl: true });
-        } else {
-          this.$currentUser.next(false);
-          this._router.navigateByUrl('/auth/sing-in', { replaceUrl: true });
-        }
-      })
+         this._spinner.hide();
+
+       })
     } catch (error) {
       console.log(error);
     }
@@ -92,9 +105,13 @@ export class UserService {
 
   getReferenData(){
 
-    const { id, user_metadata } = this.$currentUser.getValue().user;
+    //const { id, user_metadata } = this.$currentUser.getValue().user;
 
-    return { user_id: id, room_id: user_metadata.room_id };
+    return { user_id: '', room_id: '1' };
+  }
+
+  get user(){
+    return this.$currentUser.getValue();
   }
 
 }

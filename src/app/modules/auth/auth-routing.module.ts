@@ -8,10 +8,11 @@ import { RegisterComponent } from './pages/register/register.component';
 import { SingInComponent } from './pages/sing-in/sing-in.component';
 
 
+
 const routes: Routes = [
   { 
     path: 'sing-in',
-    component: SingInComponent,
+    component: SingInComponent
   },
   { 
     path: 'forgot',
