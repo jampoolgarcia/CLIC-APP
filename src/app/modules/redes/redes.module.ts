@@ -23,7 +23,7 @@ import { FormCitesComponent } from './pages/cites/components/form-cites/form-cit
 import { ListCitesComponent } from './pages/cites/components/list-cites/list-cites.component';
 
 import { ListClientComponent } from './pages/cites/components/list-client/list-client.component';
-import { FormClientComponent } from './pages/client/components/form-client/form-client.component';
+import { FormClientComponent } from './pages/cites/components/form-client/form-client.component';
 
 
 

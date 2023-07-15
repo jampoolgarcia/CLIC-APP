@@ -6,10 +6,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Form } from '@core/form';
 import { ClientI } from '@modules/redes/model/client';
 import { ClientService } from '@modules/redes/services/client.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '@shared/components/toast/toast.service';
 
-// external
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-form-client',
@@ -20,13 +19,21 @@ export class FormClientComponent extends Form implements OnInit {
   
   private seleted: ClientI | null = null;
 
-  constructor(private fb: FormBuilder, private _service: ClientService, private _toast: ToastService) { 
+  constructor(
+    private fb: FormBuilder,
+    private _modal: NgbModal, 
+    private _service: ClientService, 
+    private _toast: ToastService) { 
     super();
   }
 
   ngOnInit(): void {
     this.buildingForm();
   }
+
+  public open(content:any) {
+		this._modal.open(content);
+	}
     
   override onSubmit(): void {
     if(this.seleted === null){
