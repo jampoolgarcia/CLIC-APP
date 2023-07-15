@@ -16,12 +16,10 @@ import { SharedModule } from '@shared/shared.module';
 
 // pages
 import { CitesComponent } from './pages/cites/cites.component';
-import { ClientComponent } from './pages/client/client.component';
 
 // components
 import { FormCitesComponent } from './pages/cites/components/form-cites/form-cites.component';
 import { ListCitesComponent } from './pages/cites/components/list-cites/list-cites.component';
-
 import { ListClientComponent } from './pages/cites/components/list-client/list-client.component';
 import { FormClientComponent } from './pages/cites/components/form-client/form-client.component';
 
@@ -32,7 +30,6 @@ import { FormClientComponent } from './pages/cites/components/form-client/form-c
   declarations: [
     // pages
     CitesComponent,
-    ClientComponent,
 
     // components
     FormCitesComponent,
