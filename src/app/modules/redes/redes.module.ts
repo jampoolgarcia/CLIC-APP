@@ -22,7 +22,7 @@ import { ClientComponent } from './pages/client/client.component';
 import { FormCitesComponent } from './pages/cites/components/form-cites/form-cites.component';
 import { ListCitesComponent } from './pages/cites/components/list-cites/list-cites.component';
 
-import { ListClientComponent } from './pages/client/components/list-client/list-client.component';
+import { ListClientComponent } from './pages/cites/components/list-client/list-client.component';
 import { FormClientComponent } from './pages/client/components/form-client/form-client.component';
 
 
@@ -47,7 +47,7 @@ import { FormClientComponent } from './pages/client/components/form-client/form-
     RedesRoutingModule,
     ReactiveFormsModule,
      // bootstarp
-     NgbPaginationModule,
+    NgbPaginationModule,
     // shared
     SharedModule,
     ConfirmationComponent,

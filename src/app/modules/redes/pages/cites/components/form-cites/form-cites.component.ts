@@ -1,5 +1,5 @@
 // core
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 // app
@@ -9,7 +9,7 @@ import { Form } from '@core/form';
 
 // service
 import { CitesService } from '@modules/redes/services/cites.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // rxjs
 import { Observable, Subscription } from 'rxjs';
@@ -20,18 +20,9 @@ import { CiteServicesService } from '@modules/redes/services/cite-services.servi
 import { ClientService } from '@modules/redes/services/client.service';
 import { UserService } from '@shared/services/user.service';
 
-
 // shared model
 import { ServiceI } from '@shared/components/service/service';
 import { ClientI } from '@modules/redes/model/client';
-
-// external 
-import { NgxSpinnerService } from 'ngx-spinner';
-
-
-
-
-
 
 @Component({
   selector: 'app-form-cites',
@@ -41,43 +32,37 @@ export class FormCitesComponent extends Form implements OnInit {
 
   public client$!: Observable<ClientI[]>;
   public services$!: Observable<ServiceI[]>;
+  @Input() client!: ClientI;
   //public user$!: Observable<UserI>;
 
-  constructor(private fb: FormBuilder, 
+  constructor(
+    public _amodal: NgbActiveModal,
+    private fb: FormBuilder, 
     private _cites: CitesService, 
+    private _modalService: NgbModal,
     private _user: UserService,
     private _client: ClientService,
     private _citeServices: CiteServicesService,
-    private _modal: NgbModal,
     private _toast: ToastService) { 
     super();
   }
   
   ngOnInit(): void {
     this.client$ = this._client.List;
-    //this.subscription.push(this.client$.subscribe());
-
     this.services$ = this._citeServices.List;
-    //this.subscription.push(this.services$.subscribe());
-   
-    //this.subscription.push(this.user$.subscribe());
-    
     this.buildingForm();
-
   }
 
 
-  open(content:any) {
-		this._modal.open(content);
-	}
 
   buildingForm(): void {
-
-    const nowDate = Helpers.getdate(new Date());
+    
+    const d = new Date();
+    console.log(`hora ${d.getHours()}, minutos ${d.getMinutes()}`)
 
     this.form = this.fb.group({
-      client_id: ['', Validators.required],
-      date: [nowDate, Validators.required],
+     // client_id: ['', Validators.required],
+      date: [this.date, [Validators.required]],
 			hour: '00:00:00',
       service_id: ['', Validators.required],
 			observation: ''
@@ -85,10 +70,10 @@ export class FormCitesComponent extends Form implements OnInit {
 
   }
 
-
   async onSubmit(): Promise<void> {
-
-		this.save();
+    
+    console.log('client:', this.client);
+		// this.save();
 		
   }
 
@@ -107,13 +92,19 @@ export class FormCitesComponent extends Form implements OnInit {
     } catch (err) {
       this._toast.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
     } finally {
-      this.form.reset();
-      const nowDate = Helpers.getdate(new Date());
-      this.getControl('date')?.setValue(nowDate);
-      this.getControl('hour')?.setValue('00:00:00');
-      //   
+      this.resetForm();
     }
 
+  }
+
+  private resetForm(){
+    this.form.reset();
+    this.getControl('date')?.setValue(this.date);
+    this.getControl('hour')?.setValue('00:00:00');
+  }
+
+  get date(){
+    return Helpers.getdate(new Date());
   }
 
   private getFormValues(): CiteSaveI {

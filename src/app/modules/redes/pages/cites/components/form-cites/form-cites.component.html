@@ -1,4 +1,91 @@
-<div class="row mx-auto d-flex justify-content-center w-100">
+<!-- <button type="button" class="btn btn-dark" (click)="open(content)">
+  <i class="fa-solid fa-file-pen"></i>
+</button> -->
+
+  <div class="modal-header py-3">
+    <h3 class="modal-title m-0 font-weight-bold">REGISTRA CITA <strong *ngIf="client">- {{ client.firstName }}</strong></h3>
+    <button type="button" class="btn-close" aria-label="Close" (click)="_amodal.dismiss('Cross click')"></button>
+  </div>
+
+  <!-- start body -->
+  <div class="modal-body">
+    <form [formGroup]="form" class="row g-3">
+
+      <div class="col-md-12">
+        <label for="date" class="form-label">Fecha</label>
+        <input
+          type="date"
+          class="form-control"
+          [min]="date"
+          placeholder="Fecha"
+          id="date"
+          formControlName="date"
+          [ngClass]="{'is-invalid': isInvalid('date'), 'is-valid': isValid('date') }"
+          required
+        />
+      </div>
+
+      <div class="col-md-12">
+        <label for="hour" class="form-label">Hora</label
+        >
+        <input
+          type="time"
+          class="form-control"
+          id="hour"
+          placeholder="Hora"
+          formControlName="hour"
+          [ngClass]="{'is-invalid': isInvalid('hour'), 'is-valid': isValid('hour') }"
+          aria-describedby="hour"
+        />
+      </div>
+
+      <div class="col-md-12">
+        <label for="confirmation" class="form-label">Servicios</label>
+        <div class="input-group mb-3">
+          <select
+          class="form-select"
+          id="service"
+          formControlName="service_id"
+          [ngClass]="{'is-invalid': isInvalid('service_id'), 'is-valid': isValid('service_id') }"
+          aria-describedby="service"
+          required
+        >
+          <option selected disabled value="">Seleccionar...</option>
+          <option *ngFor="let s of (services$ | async)" [value]="s.id">{{ s.name }}</option>
+        </select>
+          <!-- <app-services></app-services> -->
+        </div>
+      </div> 
+
+      <div class="col-md-12">
+        <label for="observation" class="form-label">Observacion</label>
+        <textarea 
+        class="form-control" 
+        placeholder="Observacion"
+        formControlName="observation"
+        [ngClass]="{'is-invalid': isInvalid('observation'), 'is-valid': isValid('observation') }" 
+        id="observation" 
+        rows="2">
+       </textarea>
+      </div>
+
+    </form>
+  </div>
+  <!-- end body -->
+
+  <!-- begin footer -->
+  <div class="modal-footer">
+    <div class="col-12 text-end">
+      <button class="btn btn-dark" [disabled]="form.invalid" (click)="onSubmit()"  type="submit">Guardar</button>
+    </div>
+  </div>
+  <!-- end footer -->
+
+
+
+
+
+<!-- <div class="row mx-auto d-flex justify-content-center w-100">
   <div class="col-sm-8">
     <div class="card shadow mb-4">
       <div class="card-header py-3">
@@ -57,7 +144,7 @@
             />
           </div>
   
-          <!-- <div class="col-md-6">
+          <div class="col-md-6">
             <label for="confirmation" class="form-label">Confirmacion</label>
             <div class="input-group mb-3">
               <select
@@ -74,7 +161,7 @@
               <app-confirmation></app-confirmation>
             </div>
             
-          </div>  -->
+          </div> 
 
           <div class="col-md-6">
             <label for="confirmation" class="form-label">Servicios</label>
@@ -90,7 +177,7 @@
               <option selected disabled value="">Seleccionar...</option>
               <option *ngFor="let s of (services$ | async)" [value]="s.id">{{ s.name }}</option>
             </select>
-              <!-- <app-services></app-services> -->
+               <app-services></app-services> 
             </div>
           </div> 
   
@@ -116,7 +203,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>  -->
 
 
 <!-- <div class="col-md-6">

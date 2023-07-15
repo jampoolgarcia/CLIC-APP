@@ -1,6 +1,7 @@
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <h3 class="m-0 font-weight-bold">Lista de Clientes</h3>
+    <button type="button" class="btn btn-primary">Primary</button>
   </div>
   <div class="card-body">
     <!-- begin buscar -->
@@ -15,14 +16,14 @@
     <!-- end buscar -->
     <!-- begin table  -->
     <div class="table-responsive-xl">
-      <table class="table table-hover">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre y Apellido</th>
             <th scope="col">Telefono</th>
             <th scope="col">Correo</th>
-            <!-- <th scope="col">Acciones</th> -->
+            <th scope="col">Acciones</th> 
           </tr>
         </thead>
         <tbody>
@@ -33,9 +34,11 @@
             </td>
             <td>{{ client.phone }}</td>
             <td>{{ client.email }}</td>
-            <!-- <td>
-              
-            </td> -->
+            <td>
+              <button type="button" class="btn btn-dark" (click)="openFormCite(client)">
+                <i class="fa-solid fa-file-pen"></i>
+              </button> 
+            </td>
           </tr>
         </tbody>
       </table>
@@ -53,3 +56,5 @@
     <!--end paginators -->
   </div>
 </div>
+
+<!-- <app-form-cites></app-form-cites> -->
