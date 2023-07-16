@@ -1,6 +1,6 @@
 // core
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 // app
 import { Helpers } from '@core/helpers';
@@ -23,6 +23,9 @@ import { UserService } from '@shared/services/user.service';
 // shared model
 import { ServiceI } from '@shared/components/service/service';
 import { ClientI } from '@modules/redes/model/client';
+
+// validators
+import { todayHours } from '@validators/todayHours.validator';
 
 @Component({
   selector: 'app-form-cites',
@@ -57,13 +60,13 @@ export class FormCitesComponent extends Form implements OnInit {
 
   buildingForm(): void {
     
-    const d = new Date();
-    console.log(`hora ${d.getHours()}, minutos ${d.getMinutes()}`)
-
     this.form = this.fb.group({
      // client_id: ['', Validators.required],
-      date: [this.date, [Validators.required]],
-			hour: '00:00:00',
+     dateGroup: 
+     this.fb.group({
+      date: [this.date, Validators.required],
+			hour: [Helpers.hoursMinutesNow(), Validators.required],
+     }, { validator: todayHours }),
       service_id: ['', Validators.required],
 			observation: ''
     });
@@ -100,12 +103,9 @@ export class FormCitesComponent extends Form implements OnInit {
   private resetForm(){
     this.form.reset();
     this.getControl('date')?.setValue(this.date);
-    this.getControl('hour')?.setValue('00:00:00');
+    this.getControl('hour')?.setValue(Helpers.hoursMinutesNow);
   }
 
-  get date(){
-    return Helpers.getdate(new Date());
-  }
 
   private getFormValues(): CiteSaveI {
 
@@ -122,6 +122,11 @@ export class FormCitesComponent extends Form implements OnInit {
 		return cite;
 
 	}
+
+
+  get date(){
+    return Helpers.dateNow();
+  }
 
 }
 

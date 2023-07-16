@@ -52,7 +52,7 @@
     class="d-flex justify-content-end"
     [(page)]="page"
     [pageSize]="pageSize"
-    [collectionSize]="($clients | async)!.length || 0"></ngb-pagination>
+    [collectionSize]="(($clients | async) | filter:search.value :['firstName','lastName'])!.length  || 0"></ngb-pagination>
     <!--end paginators -->
   </div>
 </div>

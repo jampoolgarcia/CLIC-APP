@@ -11,34 +11,37 @@
   <div class="modal-body">
     <form [formGroup]="form" class="row g-3">
 
-      <div class="col-md-12">
-        <label for="date" class="form-label">Fecha</label>
-        <input
-          type="date"
-          class="form-control"
-          [min]="date"
-          placeholder="Fecha"
-          id="date"
-          formControlName="date"
-          [ngClass]="{'is-invalid': isInvalid('date'), 'is-valid': isValid('date') }"
-          required
-        />
-      </div>
-
-      <div class="col-md-12">
-        <label for="hour" class="form-label">Hora</label
-        >
-        <input
-          type="time"
-          class="form-control"
-          id="hour"
-          placeholder="Hora"
-          formControlName="hour"
-          [ngClass]="{'is-invalid': isInvalid('hour'), 'is-valid': isValid('hour') }"
-          aria-describedby="hour"
-        />
-      </div>
-
+      <ng-container formGroupName="dateGroup">
+        <div class="col-md-12">
+          <label for="date" class="form-label">Fecha</label>
+          <input
+            type="date"
+            class="form-control"
+            [min]="date"
+            placeholder="Fecha"
+            id="date"
+            formControlName="date"
+            [ngClass]="{'is-invalid': isInvalid('dateGroup.date'), 'is-valid': isValid('dateGroup.date') }"
+            required
+          />
+        </div>
+  
+        <div class="col-md-12">
+          <label for="hour" class="form-label">Hora</label
+          >
+          <input
+            type="time"
+            class="form-control"
+            id="hour"
+            placeholder="Hora"
+            formControlName="hour"
+            [ngClass]="{'is-invalid': isInvalid('dateGroup.hour'), 'is-valid': isValid('dateGroup.hour') }"
+            aria-describedby="hour"
+          />
+        </div>
+      </ng-container>
+      
+      
       <div class="col-md-12">
         <label for="confirmation" class="form-label">Servicios</label>
         <div class="input-group mb-3">
