@@ -9,6 +9,7 @@ import { REALTIME_POSTGRES_CHANGES_LISTEN_EVENT as EVENT, RealtimePostgresChange
 import { ClientI } from '../model/client';
 
 import { SupabaseDB } from '@core/supabase';
+import { UserService } from '@shared/services/user.service';
 
 
 @Injectable({
@@ -21,10 +22,10 @@ export class ClientService {
   private supabase: SupabaseClient;
   private TABLE = 'client';
 
-   constructor() {
+   constructor(private _user: UserService) {
     this.supabase = SupabaseDB.getInstance();
     this.handleRealtimeUpdates();
-    this.getAll();
+    this.getAllForUser();
    }
 
     // carga el listado
@@ -46,7 +47,26 @@ export class ClientService {
          }
     }
  
-   
+    private async getAllForUser(){
+
+      try {
+      const { id  } = this._user.user || '';
+
+      let { data, error, status } = await this.supabase
+           .from(this.TABLE)
+           .select(`*`)
+           .eq('user_id', id);
+
+      if (error && status !== 406) throw error;
+      console.log('data', data);
+      if (data) this.$clientList.next(data);
+
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message)
+        }
+      }
+    }
    
     // crea una nueva cita
    public async add(record: ClientI) {
@@ -88,7 +108,9 @@ export class ClientService {
       switch(payload.eventType){
         case EVENT.INSERT:
           console.log('insert logic');
-          this.$clientList.getValue().push(payload.new);
+          const { user_id } = this._user.referenData;
+          if(payload.new.user_id === user_id) 
+            this.$clientList.getValue().push(payload.new);
         break;
         case EVENT.UPDATE:
           console.log('update logic');

@@ -111,7 +111,7 @@ export class FormCitesComponent extends Form implements OnInit {
 
 		const citeform  = this.form.value as CiteSaveI;
 
-    const { user_id, room_id } = this._user.getReferenData();
+    const { user_id, room_id } = this._user.referenData;
 
 		let cite: CiteSaveI = {
 			...citeform,

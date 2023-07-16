@@ -8,6 +8,7 @@ import { ClientI } from '@modules/redes/model/client';
 import { ClientService } from '@modules/redes/services/client.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '@shared/components/toast/toast.service';
+import { UserService } from '@shared/services/user.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class FormClientComponent extends Form implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _modal: NgbModal, 
-    private _service: ClientService, 
+    private _user: UserService,
+    private _client: ClientService, 
     private _toast: ToastService) { 
     super();
   }
@@ -79,21 +81,14 @@ export class FormClientComponent extends Form implements OnInit {
   }
 
   private getFormValues(): ClientI {
-		const {
-			firstName,
-			lastName,
-			email,
-			phone
-		} = this.form.value;
+		const clientForm = this.form.value as ClientI;
+
+    const { user_id, room_id } = this._user.referenData;
 
 		let cite: ClientI = {
-      created_at: new Date(),
-			firstName,
-			lastName,
-			email,
-			phone,
-      room_id: '1',
-      user_id: '53245f08-616a-4e63-aef2-7982e7df559c'
+      ...clientForm,
+      room_id,
+      user_id
 		}
 
 		return cite;
@@ -103,7 +98,7 @@ export class FormClientComponent extends Form implements OnInit {
   private async update(){
     this.seleted! = this.getFormValues();
     try {
-      const res = await this._service.update(this.seleted!);
+      const res = await this._client.update(this.seleted!);
       this.seleted = null;
       this.form.reset();
       this._toast.show("Se ha actualizado exitosamente.", 'success');
@@ -114,10 +109,11 @@ export class FormClientComponent extends Form implements OnInit {
   }
 
   private async save() {
+
     const record: ClientI = this.getFormValues(); 
     try {
      
-      const{ error } = await this._service.add(record);
+      const{ error } = await this._client.add(record);
 
       if (error) {
         this._toast.show(`Obss, Ha acorrido un error al momento de guardar. Error: ${error.message}`, 'danger');

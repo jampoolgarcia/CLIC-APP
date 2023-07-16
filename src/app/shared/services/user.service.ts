@@ -103,11 +103,11 @@ export class UserService {
     return this.$currentUser.asObservable();
   }
 
-  getReferenData(){
+  get referenData(){
 
-    //const { id, user_metadata } = this.$currentUser.getValue().user;
+    const { id, user_metadata } = this.user;
 
-    return { user_id: '', room_id: '1' };
+    return { user_id: id, room_id: user_metadata.room_id };
   }
 
   get user(){
