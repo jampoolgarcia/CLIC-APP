@@ -7,7 +7,7 @@ export interface CiteViewI extends CiteI {
 }
 
 export interface CiteSaveI extends CiteI {
-  client_id: string;
+  client_id?: string;
   service_id: string;
   //confirmation_id?: string;
   room_id: string;

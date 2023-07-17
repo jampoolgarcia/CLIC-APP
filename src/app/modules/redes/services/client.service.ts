@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-// external lib
+// supabase
 import { REALTIME_POSTGRES_CHANGES_LISTEN_EVENT as EVENT, RealtimePostgresChangesPayload as payload, SupabaseClient, createClient } from '@supabase/supabase-js';
 
 // app
@@ -58,7 +58,7 @@ export class ClientService {
            .eq('user_id', id);
 
       if (error && status !== 406) throw error;
-      console.log('data', data);
+
       if (data) this.$clientList.next(data);
 
       } catch (error) {
@@ -88,14 +88,14 @@ export class ClientService {
     }
 
     private handleRealtimeUpdates(){
-      
-      this.supabase
-      .channel(this.TABLE)
+        
+      this.supabase.channel(`RealTime ${this.TABLE}`)
       .on(
         'postgres_changes', 
         {
           event: '*',
           schema: 'public',
+          table: this.TABLE
         },
         (payload: payload<ClientI>) => {
           this.realtimeList(payload);

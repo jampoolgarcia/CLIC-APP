@@ -18,7 +18,6 @@ import { Observable, Subscription } from 'rxjs';
 import { ToastService } from '@shared/components/toast/toast.service';
 import { CiteServicesService } from '@modules/redes/services/cite-services.service';
 import { ClientService } from '@modules/redes/services/client.service';
-import { UserService } from '@shared/services/user.service';
 
 // shared model
 import { ServiceI } from '@shared/components/service/service';
@@ -43,7 +42,6 @@ export class FormCitesComponent extends Form implements OnInit {
     private fb: FormBuilder, 
     private _cites: CitesService, 
     private _modalService: NgbModal,
-    private _user: UserService,
     private _client: ClientService,
     private _citeServices: CiteServicesService,
     private _toast: ToastService) { 
@@ -55,8 +53,6 @@ export class FormCitesComponent extends Form implements OnInit {
     this.services$ = this._citeServices.List;
     this.buildingForm();
   }
-
-
 
   buildingForm(): void {
     
@@ -74,10 +70,7 @@ export class FormCitesComponent extends Form implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
-    
-    console.log('client:', this.client);
-		// this.save();
-		
+		this.save();	
   }
 
   private async save(){
@@ -96,6 +89,7 @@ export class FormCitesComponent extends Form implements OnInit {
       this._toast.show("Obss, Ha acorrido un error al momento de guardar.", 'danger');
     } finally {
       this.resetForm();
+      this._amodal.close();
     }
 
   }
@@ -109,12 +103,16 @@ export class FormCitesComponent extends Form implements OnInit {
 
   private getFormValues(): CiteSaveI {
 
-		const citeform  = this.form.value as CiteSaveI;
+		const { dateGroup: {date, hour}, observation, service_id }  = this.form.value;
 
-    const { user_id, room_id } = this._user.referenData;
+    const { id, user_id, room_id } = this.client;
 
 		let cite: CiteSaveI = {
-			...citeform,
+			date,
+      hour,
+      observation,
+      service_id,
+      client_id: id,
       user_id,
       room_id
 		}

@@ -82,8 +82,8 @@ export class UserService {
           break;
           case "SIGNED_OUT":
             console.log("[SIGNED_OUT]", session);
-            this.$currentUser.next(user);
             this._router.navigateByUrl('/auth/sing-in');
+            this.$currentUser.next(user);
           break;
           default:
             console.log('event', event);
