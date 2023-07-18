@@ -62,7 +62,7 @@ export class CitesService {
   }
 
    // obtiene el listado de citas
-   private async getAllForUserAndDate(date: string = Helpers.dateNow()){
+   public async getAllForUserAndDate(date: string = Helpers.dateNow()){
     try {
       const { id  } = this._user.user || '';
 
@@ -81,14 +81,6 @@ export class CitesService {
     }
   }
 
-  // obtiene el listado de citas del usuario
-  public async getAllForRedes(userId: string){
-
-    return new Promise((resolve, reject) =>{
-      resolve('test')
-    });
-    
-  }
 
   private handleRealtimeUpdates(){
       

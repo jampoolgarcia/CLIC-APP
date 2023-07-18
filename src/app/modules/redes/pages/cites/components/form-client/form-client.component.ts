@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // core app
 import { Form } from '@core/form';
+import { Helpers } from '@core/helpers';
 import { ClientI } from '@modules/redes/model/client';
 import { ClientService } from '@modules/redes/services/client.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -53,7 +54,7 @@ export class FormClientComponent extends Form implements OnInit {
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(30),
-          Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/),
+          Validators.pattern(Helpers.letters),
         ],
       ],
       lastName: [
@@ -62,20 +63,20 @@ export class FormClientComponent extends Form implements OnInit {
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(30),
-          Validators.pattern(/^[A-Za-z\s\xF1\xD1]+$/),
+          Validators.pattern(Helpers.letters),
         ],
       ],
       email: [
         '',
         [
           Validators.required,
-          Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/),
+          Validators.pattern(Helpers.email),
         ],
       ],
       phone: [
         '',
         [Validators.required, Validators.minLength(3),
-        Validators.pattern(/^[0-9]{7,11}$/),],
+        Validators.pattern(Helpers.phone)],
       ],
     });
   }

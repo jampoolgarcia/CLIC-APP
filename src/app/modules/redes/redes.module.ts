@@ -1,7 +1,7 @@
 // angular core
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // router
 import { RedesRoutingModule } from './redes-routing.module';
@@ -43,6 +43,7 @@ import { FormClientComponent } from './pages/cites/components/form-client/form-c
     CommonModule,
     RedesRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
      // bootstarp
     NgbPaginationModule,
     // shared

@@ -10,6 +10,7 @@ import { CitesService } from '@modules/redes/services/cites.service';
 
 // rxjs
 import { Observable } from 'rxjs';
+import { Helpers } from '@core/helpers';
 
 
 @Component({
@@ -22,14 +23,23 @@ import { Observable } from 'rxjs';
 })
 export class ListCitesComponent extends List implements OnInit {
 
+  public date = Helpers.dateNow();
   public cites$!: Observable<CiteI[]>;
 
-  constructor(private _service: CitesService) {
+  constructor(private _cites: CitesService) {
     super();
   }
 
   ngOnInit(): void {
-    this.cites$ = this._service.List;
+    this.cites$ = this._cites.List;
+  }
+
+  get minDate(){
+    return Helpers.getMinDateCite();
+  }
+
+  dateFilter() {
+    this._cites.getAllForUserAndDate(this.date);
   }
 
 

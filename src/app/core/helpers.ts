@@ -2,7 +2,11 @@
 
 export class Helpers {
 
-    static getdate(date: Date){
+    public static letters = /^[A-Za-záéíóú\s\xF1\xD1]+$/;
+    public static email = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+    public static phone = /^[0-9]{7,11}$/;
+
+    static getDate(date: Date){
         const year = date.getFullYear();
         const month = ('0' + (date.getMonth() + 1)).slice(-2);
         const day = ('0' + date.getDate()).slice(-2);
@@ -10,8 +14,15 @@ export class Helpers {
         return res;
     }
 
+    static getMinDateCite(){
+        const date = new Date();
+        const months = 1000 * 60 * 60 * 24 * 60;
+        const dateMonth = date.getTime() - months;
+        return this.getDate(new Date(dateMonth));
+    }
+
     static dateNow = () => {
-        return Helpers.getdate(new Date());
+        return Helpers.getDate(new Date());
     }
 
     static hoursNow= () => {
